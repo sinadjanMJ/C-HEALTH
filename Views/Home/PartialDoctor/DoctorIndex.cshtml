@@ -1,0 +1,303 @@
+<h1>Equipment Index</h1>
+
+<button type="button" title="Create Equipment" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
+    data-bs-target="#modalEquipmentCreate">
+    <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
+</button>
+
+@Html.Partial("PartialEquipment/CreateEquipment")
+@Html.Partial("PartialEquipment/EquipmentTable")
+@Html.Partial("PartialEquipment/EquipmentUpdate")
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    var selectedEquipment;
+    var selectedEquipmentId;
+    var EquipmentList = {};
+    var equipname;
+
+    $(document).ready(function () {
+
+        getEquipment();
+        displayEquipmentData();
+
+        function getEquipment() {
+            $.ajax("../api/adminapi/getEquipment")
+                .done(function (result) {
+                    EquipmentList = result;
+                    result.forEach(function (item) {
+                        // console.log(item);
+                        equipname = item.equipmentName;
+                    });
+
+                });
+        }
+
+        $("#createEquipment").click((e) => {
+
+            console.log("yehey na click jyud ko");
+            // console.log(equipname);
+
+            var arrData = {}; //ayaw ni tan dug kani dre nga line
+            var formelements = $("#createEquipmentForm .form-group");
+
+            //getting the data from the form
+            var formInputs = $("#createEquipmentForm").serializeArray();
+            formInputs.forEach(function (item) {
+                arrData[item.name] = item.value;
+            });
+
+            //if (formInputs.length === formelements.length && formInputs[0].value !== '') 
+            if (formInputs[0].value !== '') {
+
+                if (formInputs[0].value != equipname) {
+                    //AJAX ADD Equipment
+                    $.ajax
+                        ({
+                            url: "../api/adminapi/AddEquipment",
+                            type: "POST",
+                            data:
+                            {
+                                addequip: arrData
+                            },
+                        })
+                        .done(function () {
+
+                            $("#createEquipmentForm")[0].reset();
+                            $("#modalEquipmentCreate").modal("toggle");
+                            getEquipment();
+                            displaySavedProgress();
+                            displayEquipmentData();
+
+                        });
+                } else {
+                    vol1();
+                }
+
+
+            }
+            else {
+                alertError();
+            }
+        });
+
+        function displayEquipmentData() {
+            $('#EquipmentData').DataTable().destroy();
+            if (!$.fn.DataTable.isDataTable('#EquipmentData')) {
+                $('#EquipmentData').DataTable({
+                    ajax: {
+                        url: '../api/adminapi/getEquipment', // API endpoint to retrieve department
+                        dataSrc: ''
+                    },
+                    columns:
+                        [
+                            { data: 'equipmentId' },
+                            { data: 'equipmentName' },
+                            { data: 'equipmentStock' },
+                            { data: 'status' },
+                            {
+                                data: 'equipmentId',
+                                render: function (data, type, row) {
+                                    return btnAddEquipment(data);
+                                }
+                            },
+                        ]
+                });
+            }
+            getEquipment();
+        }
+
+        function btnAddEquipment(equipmentId) {
+            return "<center><a class='btn btn-success EquipmentUpdate' data-equipmentId=" + equipmentId + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger EquipmentDelete' data-equipmentId=" + equipmentId + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
+        }
+        
+         $("tbody").delegate(".EquipmentUpdate", "click", function (e) {
+      console.log("I was clicked");
+      var i = e.target.closest("a").getAttribute("data-equipmentId");
+      if (i != null) {
+        $("#createEquipmentForm")[0].reset();
+        $("#modalEquipmentUpdate").modal("toggle");
+
+        selectedEquipmentId = i;
+        selectedEquipment = EquipmentList.find(element => element.equipmentId == i);
+
+        oFormObject = document.forms["updateEquipmentForm"];
+        initForm(oFormObject, selectedEquipment);
+      }
+    });
+
+function initForm(form, data) {
+
+      Object.getOwnPropertyNames(data).forEach(function (item) {
+        var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
+
+        if (currentElem == null) { return; }
+        form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
+         if (data.status == "Active") {
+                    $('.stat').prop('checked', true);
+                }
+
+                else {
+                    $('.stat').prop('checked', false);
+                }
+      });
+    }
+
+     $("#updateEquipments").click(function () {
+      alertSaveChanges();
+    });
+
+    function alertSaveChanges() {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        confirmButtonText: 'Save',
+        showCancelButton: true,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          updateEquipmentHolder();
+        }
+      })
+    }
+
+     function updateEquipmentHolder() {
+        console.log(arrData);
+      var arrData = {};
+      var formelements = $("#updateEquipmentForm .form-group");
+
+      //getting the data from the form
+      var formInputs = $("#updateEquipmentForm").serializeArray();
+      formInputs.forEach(function (item) {
+        arrData[item.name] = item.value;
+      });
+      arrData.equipmentId = selectedEquipmentId; //check this area kay kung masayop kas id mo duplicate siya
+
+      if (formInputs[0].value !== '') {
+        proceedUpdate(arrData);
+        console.log("gi click lagi ko " + arrData);
+      } else {
+        alertError();
+      }
+    }
+ function proceedUpdate(arrData) {
+      //AJAX UPDATE DEPARTMENT
+      $.ajax
+        ({
+          url: "../api/adminapi/updateEquipment",
+          type: "POST",
+          data:
+          {
+            upequip: arrData,
+          },
+        })
+        .done(function () {
+          $("#updateEquipmentForm")[0].reset();
+          $("#modalEquipmentUpdate").modal("toggle");
+          displayEquipmentData();
+          displaySavedProgress();
+        });
+    }
+
+
+
+        $("tbody").delegate(".EquipmentDelete", "click", function (e) {
+            var i = e.target.closest("a").getAttribute("data-equipmentId");
+            if (i != null) {
+                //Insert code here for the delete
+                selectedEquipmentId = i;
+                console.log(selectedEquipmentId + "mao ni siya");
+                alertDeleteConfirmation();
+            }
+        });
+
+        function alertDeleteConfirmation() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to Delete this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    proceedDelete();
+                }
+            })
+        }
+
+        function proceedDelete() {
+            console.log(selectedEquipmentId + "proceed");
+            //AJAX DELETE DEPARTMENT
+            $.ajax
+                ({
+                    url: "../api/adminapi/deleteEquipment",
+                    type: "POST",
+                    data:
+                    {
+                        id: selectedEquipmentId
+                    },
+                })
+                .done(function () {
+                    displayEquipmentData();
+                    alertDeleteInfo();
+                });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function alertDeleteInfo() {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+
+
+        function vol1() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Inputted name is already in the data',
+            })
+        }
+        function alertError() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Input the necessary elements!',
+            })
+        }
+
+        function displaySavedProgress() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+        }
+
+    }); //dont touch this
+</script>

@@ -1,0 +1,199 @@
+<!-- Section: Design Block -->
+
+
+ <link rel="stylesheet" href="~/lib/FontAwesome/all.min.css">
+ <script src="~/lib/FontAwesome/all.min.js"></script>
+
+  <!-- Jumbotron -->
+  <div class=" text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            The best offer <br />
+            <span class="text-primary">for your business</span>
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+            quibusdam tempora at cupiditate quis eum maiores libero
+            veritatis? Dicta facilis sint aliquid ipsum atque?
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0"></div>
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+              <form id="inform"> 
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">
+                 
+                    <div class="form-outline mb-4">
+                      <input type="text" name="Fullname" id="form3Example1" class="form-control fname" />
+                      <label class="form-label" for="form3Example1">Full name</label>
+                    </div>
+                  
+                  
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="email" name="Email" id="form3Example3" class="form-control email" />
+                  <label class="form-label" for="form3Example3">Email address</label>
+                </div>
+                  <div class="form-outline mb-4">
+                  <input type="email" name="Address"  id="form3Example35" class="form-control address" />
+                  <label class="form-label" for="form3Example3">Address</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password" name="Password"   id="form3Example4" class="form-control password" />
+                  <label class="form-label" for="form3Example4">Password</label>
+                </div>
+                 <div class="form-outline mb-4">
+                  <input type="password" id="form3Example45" class="form-control cfpassword" />
+                  <label class="form-label" for="form3Example4">Confirm Password</label>
+                </div>
+
+                <!-- Checkbox -->
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                  <label class="form-check-label" for="form2Example33">
+                    Subscribe to our newsletter
+                  </label>
+                </div>
+
+                <!-- Submit button -->
+                <button  id="adminfo"  class="btn btn-primary btn-block mb-4">
+                  Sign up
+                </button>
+
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>or sign up with:</p>
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-facebook-f"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-google"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-twitter"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-github"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+    getAllOrderList();
+    margin();
+   
+
+
+
+
+function margin(){
+
+ $(".page-content").removeClass();
+  $(".container-fluid").removeClass();
+}
+function getAllOrderList()
+{
+  $('#signup').DataTable().destroy();
+  if (!$.fn.DataTable.isDataTable('#signup')) {
+    // Initialize DataTable
+    $('#signup').DataTable({
+      ajax: {
+        url: '../api/newapi/getAllsignup', // API endpoint to retrieve orders
+        dataSrc: ''
+      },
+      columns:
+      [
+        { data: 'id'},
+        { data: "fullname"},
+        { data: "email"},
+        { data: "address"},
+        { data: "password"},
+       
+        { 
+          data: 'id',
+        
+        },
+      ]
+  });
+  }
+}
+
+     $("#adminfo").click((e) =>
+    {
+      
+
+       var arrData = {};
+
+      var formInputs = $("#inform").serializeArray(); //convert 
+      formInputs.forEach(function(item)
+      {
+        arrData[item.name] = item.value;
+      });
+      
+      //save using ajax
+      $.ajax
+      ({
+        url: "../api/newapi/adminInfo",
+        type: "POST",
+        data:
+        {
+          s : arrData
+        },
+        
+      })
+
+      .done(function()
+      {
+        alert("goods");
+      });
+
+
+
+     
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>
+<style>
+  .sidebar-wrapper{
+    display: none;
+  }
+  @* .container-fluid{
+     margin: 0 ;
+  padding:0 ;
+  } *@
+</style>
