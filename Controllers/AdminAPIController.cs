@@ -18,6 +18,12 @@ namespace SEPHMS.Controllers
             _context = context;
         }
 
+
+
+
+
+
+
         public IActionResult AdminAddAccount(Adminaccount adac)
         {
           _context.Adminaccounts.Add(adac);
@@ -55,6 +61,12 @@ namespace SEPHMS.Controllers
             return Ok();
         }
 
+
+
+
+
+
+
         public ActionResult<List<Category>> getCategory(){
             return _context.Categories.ToList();
         }
@@ -91,12 +103,15 @@ namespace SEPHMS.Controllers
             return Ok();
         }
 
+
+
+
+
+
             public ActionResult<List<Doctor>> getDoctor(){
              return _context.Doctors.ToList();
             //   return _context.Doctors.Where(c => c.Status =="Active").ToList();
             }
-
-          
 
              public IActionResult AddDoctor(Doctor adddoc)
         {
@@ -110,7 +125,6 @@ namespace SEPHMS.Controllers
 
             return Ok();
         }
-
 
       public IActionResult updateDoctor(Doctor updoc)
         {
@@ -135,8 +149,7 @@ namespace SEPHMS.Controllers
             
             return Ok();
         }
-        
-
+    
            public IActionResult deleteDoctor(int id)
         {
             Console.WriteLine(id);
@@ -149,6 +162,10 @@ namespace SEPHMS.Controllers
             public ActionResult<List<Equipment>> getEquipment(){
             return _context.Equipment.ToList();
             }
+
+
+
+
 
 
         public IActionResult AddEquipment(Equipment addequip)
@@ -198,11 +215,14 @@ namespace SEPHMS.Controllers
         }
 
 
+
+
+ 
+
+
         public ActionResult<List<Category>> getAllCategories(){
             return _context.Categories.ToList();
         }
-        
-        
 
          public ActionResult<List<MedicineViewModel>> getAllMedicine()
         {
@@ -233,6 +253,116 @@ namespace SEPHMS.Controllers
             ).ToList();
             return Ok(result);
         }
+
+
+
+
+
+
+        public ActionResult<List<Employeepersonalinformation>> getEmployee(){
+            return _context.Employeepersonalinformations.ToList();
+        }
+
+        public IActionResult addEmployee(Employeepersonalinformation addEmployee ,int randompass ,int age)
+        {
+             addEmployee.Age = age;
+             addEmployee.EpiCode = randompass;
+
+
+            _context.Employeepersonalinformations.Add(addEmployee);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+             public IActionResult updateEmployee(Employeepersonalinformation upemp, int age)
+        {
+            try
+            {
+                
+            upemp.Age = age;
+
+
+            _context.Employeepersonalinformations.Update(upemp);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+
+
+            public IActionResult deleteEmployee(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Employeepersonalinformations.Where(element => element.EpiId == id).FirstOrDefault();
+            _context.Employeepersonalinformations.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
+
+
+
+
+        public ActionResult<List<Studentpersonalinformation>> getStudent(){
+            return _context.Studentpersonalinformations.ToList();
+        }
+
+        public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age)
+        {
+             addStudent.Age = age;
+             addStudent.SpiCode = randompass;
+
+
+            _context.Studentpersonalinformations.Add(addStudent);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+             public IActionResult updateStudent(Studentpersonalinformation upst, int age)
+        {
+            try
+            {
+                
+            upst.Age = age;
+
+
+            _context.Studentpersonalinformations.Update(upst);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+  
+            public IActionResult deleteStudent(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Studentpersonalinformations.Where(element => element.SpiId == id).FirstOrDefault();
+            _context.Studentpersonalinformations.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
+
+
+
+
+
         
         public IActionResult AddMedicine(Medicine addmedic)
         {
@@ -314,6 +444,13 @@ namespace SEPHMS.Controllers
 
             return Ok(res);
         } 
+
+
+
+
+
+
+
 
 
       

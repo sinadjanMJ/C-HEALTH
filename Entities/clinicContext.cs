@@ -19,11 +19,13 @@ namespace SEPHMS.Entities
         public virtual DbSet<Adminaccount> Adminaccounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
+        public virtual DbSet<Employeepersonalinformation> Employeepersonalinformations { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<Medicinestockhistory> Medicinestockhistories { get; set; }
         public virtual DbSet<Nurse> Nurses { get; set; }
         public virtual DbSet<Signup> Signups { get; set; }
+        public virtual DbSet<Studentpersonalinformation> Studentpersonalinformations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -119,6 +121,61 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("status");
+            });
+
+            modelBuilder.Entity<Employeepersonalinformation>(entity =>
+            {
+                entity.HasKey(e => e.EpiId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("employeepersonalinformation");
+
+                entity.Property(e => e.EpiId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("EPI_ID");
+
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("address");
+
+                entity.Property(e => e.Age)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("age");
+
+                entity.Property(e => e.Birthdate)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("birthdate");
+
+                entity.Property(e => e.EpiCode)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("EPI_CODE");
+
+                entity.Property(e => e.Firstname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("firstname");
+
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("gender");
+
+                entity.Property(e => e.Gmailaddress)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("gmailaddress");
+
+                entity.Property(e => e.Lastname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("lastname");
+
+                entity.Property(e => e.Middlename)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("middlename");
             });
 
             modelBuilder.Entity<Equipment>(entity =>
@@ -278,6 +335,61 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("password");
+            });
+
+            modelBuilder.Entity<Studentpersonalinformation>(entity =>
+            {
+                entity.HasKey(e => e.SpiId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("studentpersonalinformation");
+
+                entity.Property(e => e.SpiId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("SPI_ID");
+
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("address");
+
+                entity.Property(e => e.Age)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("age");
+
+                entity.Property(e => e.Birthdate)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("birthdate");
+
+                entity.Property(e => e.Firstname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("firstname");
+
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("gender");
+
+                entity.Property(e => e.Gmailaddress)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("gmailaddress");
+
+                entity.Property(e => e.Lastname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("lastname");
+
+                entity.Property(e => e.Middlename)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("middlename");
+
+                entity.Property(e => e.SpiCode)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("SPI_CODE");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,0 +1,91 @@
+
+<template id="categoryOptionTemplate">
+  <option value=""></option>
+</template>
+
+
+
+<div class="modal fade" id="modalMedicineCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                  <div class="modal-body d-flex justify-content-center">
+                <h5 class="modal-title" id="exampleModalLabel">Create Medicine</h5>
+                </div>
+                <button type="button" id="modalMedicineCreateClose" class="btn-close btn-light" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body MedicineCreate d-flex justify-content-center">
+                <div>
+                    
+
+
+                        <form id="createMedicineForm">
+
+                            <div class="form-group">
+                                <label name="" class="control-label">Medicine Name</label>
+                                <input type="text" name="MedicineName" id="inputMedicineName"
+                                    placeholder="Enter Medicine Name" class="form-control" required />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label name="" class="control-label">Category Name</label>
+                                <select id="catSelect" name="Category" class="form-select"></select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label name="" class="control-label">Unit</label>
+                                <input type="text" name="Units" id="inputUnit" placeholder="Enter Unit"
+                                    class="form-control" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label name="" class="control-label">Stock</label>
+                                <input type="number" value="1" name="MedicineStock" id="inputMedicineStock"
+                                    placeholder="Enter Stock" class="form-control" min="0" required />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label name="" class="control-label">Purchased Date</label>
+                                <input type="date" name="Datepurchased" id="inputDatepurchased" class="form-control"
+                                    required />
+                            </div>
+
+                            <div class="form-group">
+                                <label name="" class="control-label">Expiry Date</label>
+                                <input type="date" name="Expirydate" id="inputExpirydate" class="form-control"
+                                    required />
+                            </div>
+                               <label name="" class="control-label">Description</label>
+                               <div class="form-group">
+                             
+                                <textarea name="Description" id="inputDescription" cols="30" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label name="Status" class="control-label">Status</label>
+                            
+                                <center>
+                                    <input name="Status" class="form-check-input stat" type="checkbox" value="Active"
+                                        id="flexCheckChecked" />
+                                    <label class="form-check-label" for="flexCheckChecked">Active</label>
+                                </center>
+                            </div>
+
+                        </form>
+
+                
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+            <div class="modal-body d-flex justify-content-center">
+                <button type="button" class="btn btn-primary" id="createMedicine">Confirm</button>
+            </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SEPHMS.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/Fontawesome/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/lib/Fontawesome/all.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -40,7 +40,7 @@
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a asp-area="" asp-controller="Home" asp-action="Index">CRMC CLINIC</a>
+        <a asp-area="" asp-controller="Home" asp-action="Index">FRVMFI CLINIC</a>
         <div id="close-sidebar">
           <i class="fas fa-times"></i>
         </div>
@@ -48,7 +48,7 @@
       <div class="sidebar-header">
         <div class="picture-container">
             <div class="circle">
-              <img class="img-responsive" src="https://i.pinimg.com/474x/3b/5e/6c/3b5e6c7caaeeba45303704e74f7f92b5.jpg" alt="User picture">
+              <img class="img-responsive" src="~/image/CRMC_LOGO.png" alt="User picture">
             </div>
           </div>
         <div class="user-info">
@@ -86,10 +86,10 @@
                   <a asp-area="" asp-controller="Admin" asp-action="AdminCategory" >Category Medicine</a>
                 </li>
                 <li>
-                  <a href="#">Expired Medicine</a>
+                  <a asp-area="" asp-controller="Admin" asp-action="AdminExpiredMedicine">Expired Medicine</a>
                 </li>
                  <li>
-                  <a href="#">Low Stock Medicine</a>
+                  <a asp-area="" asp-controller="Admin" asp-action="AdminLowStockMedicine">Low Stock Medicine</a>
                 </li>
               </ul>
             </div>
@@ -117,20 +117,43 @@
           <li class="sidebar-dropdown">
             <a href="#">
                <i class="fas fa-users"></i>
-              <span>Profile</span>
+              <span>Student Profile</span>
             </a>
             <div class="sidebar-submenu">
                 <ul>
                   <li>
-                    <a asp-area="" asp-controller="Admin" asp-action="AdminEquipment">Add Student And Employee Profile
+                    <a asp-area="" asp-controller="Admin" asp-action="AdminStudent"> Student Profile
+                    </a>
+                  </li>
+                   <li>
+                    <a asp-area="" asp-controller="Admin" asp-action="AdminEquipment"> Student Health Profile
                     </a>
                   </li>
                 
                  
                 </ul>
               </div>
-            
-         
+            </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+               <i class="fas fa-users"></i>
+              <span>Employee Profile</span>
+            </a>
+            <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                    <a asp-area="" asp-controller="Admin" asp-action="AdminEmployee">Employee Profile
+                    </a>
+                  </li>
+                   <li>
+                    <a asp-area="" asp-controller="Admin" asp-action="">Employee Health Profile
+                    </a>
+                  </li>
+                
+                 
+                </ul>
+              </div>
+            </li>
           <li class="header-menu">
             <span>Appointment</span>
           </li>
@@ -184,7 +207,9 @@
         <span class="badge-sonar"></span>
       </a>
       <a href="#">
+
         <i class="fa fa-power-off"></i>
+        
       </a>
     </div>
   </nav>
@@ -217,3 +242,12 @@
 </body>
 
 </html>
+
+<style>
+   .modal{
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(15px);
+
+    }
+</style>

@@ -16,23 +16,16 @@
 
 
 <div>
-    <h6 id="active"></h6>
-</div>
-<div>
-    <h6 id="total"></h6>
-</div>
-<div>
     <h6 id="expiredna"></h6>
 </div>
 
 
-@Html.Partial("PartialMedicine/CreateMedicine")
-@Html.Partial("PartialMedicine/MedicineCard")
-@Html.Partial("PartialMedicine/MedicineCardInactive")
-@Html.Partial("PartialMedicine/MedicineUpdate")
-@Html.Partial("PartialMedicine/MedicineAddStock")
-@Html.Partial("PartialMedicine/MedicineDetails")
-@Html.Partial("PartialMedicine/MedicineStockHistory")
+@Html.Partial("PartialExpiredMedicine/CreateMedicine")
+@Html.Partial("PartialExpiredMedicine/MedicineCardExpired")
+@Html.Partial("PartialExpiredMedicine/MedicineUpdate")
+@Html.Partial("PartialExpiredMedicine/MedicineAddStock")
+@Html.Partial("PartialExpiredMedicine/MedicineDetails")
+@Html.Partial("PartialExpiredMedicine/MedicineStockHistory")
 
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -54,7 +47,7 @@
     $(document).ready(function () {
 
         populateIndexInactive();
-        populateIndex();
+        
 
 
         getMedicine();
@@ -63,56 +56,7 @@
 
 
 
-        function populateIndex() {
-
-            $.ajax("../api/adminapi/getAllMedicine")
-                .done(function (result) {
-
-                    document.querySelector(".parentstab").innerHTML = "";
-                    //list of active medicine
-
-
-
-                    var activeMedicines = [];
-                    activeMedicines = result.filter(function (item) {
-                        return item.status === "Active";
-                    });
-                    AcMedicineList = [];
-                    AcMedicineList = activeMedicines;
-                    activeMedicines.forEach(function (item) {
-
-                        var template = document.querySelector("template#cardo-container");
-                        var parent = document.querySelector(".parentstab");
-                        var cloned = template.content.cloneNode(true);
-
-
-
-                        cloned.querySelector(".card .card-title").innerHTML = item.medicineName;
-                        cloned.querySelector(".card .card-subtitle").innerHTML = "Category Name : " + item.categoryName;
-                        cloned.querySelector(".card .card-units").innerHTML = "Units: " + item.units;
-                        cloned.querySelector(".card .card-stock").innerHTML = "Stock : " + item.stock;
-                        cloned.querySelector(".card .card-status").innerHTML = "Status : " + item.status;
-                        cloned.querySelector(".card .card-datepurchased").innerHTML = "Datepurchased : " + item.purchaseDate;
-                        cloned.querySelector(".card .card-expirydate").innerHTML = "ExpiryDate : " + item.expiryDate;
-                        // cloned.querySelector(".card .card-description").innerHTML = "Description : " + item.description;
-
-
-
-                        cloned.querySelector(".updateMed").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".updateMed").setAttribute("data-medicineName", item.medicineName);
-
-                        cloned.querySelector(".deleteMed").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".infoMed").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".addStock").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".stockHistory").setAttribute("data-medicineId", item.medicineId);
-                        // cloned.querySelector(".addCart").setAttribute("data-medicineId", item.medicineId);
-
-                        parent.prepend(cloned);
-                    });
-                });
-
-           // getMedicine();
-        }
+        
 
         function populateIndexInactive() {
 
@@ -122,8 +66,15 @@
                     document.querySelector(".parents").innerHTML = "";
                     //list of active medicine
                     var InactiveMedicines = [];
-                    InactiveMedicines = result.filter(function (item) {
+
+                   /* InactiveMedicines = result.filter(function (item) {
                         return item.status === "Inactive";
+                    });*/
+
+                    var formattedDate = new Date().toISOString().slice(0, 10);
+
+                    InactiveMedicines = result.filter(function (item) {
+                        return item.expiryDate <= formattedDate;
                     });
 
 
@@ -232,7 +183,7 @@
 
 
                     $("#expired").html(expiremedicine.length);
-                    $("#expiredna").html("Inactive Medicines: (" + expiremedicine.length + ")");
+                    $("#expiredna").html("Expired Medicines: (" + expiremedicine.length + ")");
 
 
 
@@ -320,11 +271,11 @@
             }
         });
 
-        $(".updateMed, .updateMeds").click(function () {
+        $(".updateMeds").click(function () {
             $("#modalMedicineUpdate").modal("toggle");
         });
 
-        $(".parentstab, .parents").delegate(".updateMed ,.updateMeds", "click", function (e) {
+        $(".parents").delegate(".updateMeds", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-medicineId");
             console.log("The value is " + i);
 
@@ -460,7 +411,7 @@
         });
 
 
-        $(".parentstab, .parents").delegate(".deleteMed ,.deleteMeds", "click", function (e) {
+        $(" .parents").delegate(".deleteMeds", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-medicineId");
             console.log("salamat sa pag click");
 
@@ -508,7 +459,7 @@
                 });
         }
 
-        $(".parentstab, .parents").delegate(".addStock ,.addStocks", "click", function (e) {
+        $(".parents").delegate(".addStocks", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-medicineId");
             console.log(i);
 
@@ -583,7 +534,7 @@
                                 })
                                 .done(function () {
                                     // document.querySelector(".parent").innerHTML ="";
-                                    populateIndex();
+                                
                                     populateIndexInactive();
                                    
                                     getMedicine();
@@ -604,7 +555,7 @@
 
 
         //PRODUCT INFORMATION MODAL
-        $(".parentstab, .parents").delegate(".infoMed, .infoMeds", "click", function (e) {
+        $(" .parents").delegate(" .infoMeds", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-medicineId");
             console.log(i);
 
@@ -622,7 +573,7 @@
 
         //history display data
 
-        $(".parentstab, .parentst").delegate(".stockHistory ,.stockHistorys", "click", function (e) {
+        $(".parents").delegate(".stockHistorys", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-medicineId");
 
             if (i != null) {
@@ -718,47 +669,7 @@
         });
 
 
-        $('#AsearchText').on("input", function () {
-            var searchedItem = $(this).val();
-
-            //console.log(searchedItem);
-
-            var search = AcMedicineList.filter(element => element.medicineName.toLowerCase().includes(searchedItem.toLowerCase()) || element.medicineName.toUpperCase().includes(searchedItem.toUpperCase())&&
-            element.categoryName.toLowerCase().includes(searchedItem.toLowerCase()) || element.categoryName.toUpperCase().includes(searchedItem.toUpperCase())
-            );
-            //console.log(sear);
-         
-                document.querySelector(".parentstab").innerHTML = "";
-                search.forEach(function (item) {
-                    var template = document.querySelector("template#cardo-container");
-                    var parent = document.querySelector(".parentstab");
-                    var cloned = template.content.cloneNode(true);
-
-                    cloned.querySelector(".card .card-title").innerHTML = item.medicineName;
-                    cloned.querySelector(".card .card-subtitle").innerHTML = "Category Name : " + item.categoryName;
-                    cloned.querySelector(".card .card-units").innerHTML = "Units: " + item.units;
-                    cloned.querySelector(".card .card-stock").innerHTML = "Stock : " + item.stock;
-                    cloned.querySelector(".card .card-status").innerHTML = "Status : " + item.status;
-                    cloned.querySelector(".card .card-datepurchased").innerHTML = "Datepurchased : " + item.purchaseDate;
-                    cloned.querySelector(".card .card-expirydate").innerHTML = "ExpiryDate : " + item.expiryDate;
-                    // cloned.querySelector(".card .card-description").innerHTML = "Description : " + item.description;
-
-
-
-                    cloned.querySelector(".updateMed").setAttribute("data-medicineId", item.medicineId);
-                    cloned.querySelector(".updateMed").setAttribute("data-medicineName", item.medicineName);
-
-                    cloned.querySelector(".deleteMed").setAttribute("data-medicineId", item.medicineId);
-                    cloned.querySelector(".infoMed").setAttribute("data-medicineId", item.medicineId);
-                    cloned.querySelector(".addStock").setAttribute("data-medicineId", item.medicineId);
-                    cloned.querySelector(".stockHistory").setAttribute("data-medicineId", item.medicineId);
-
-
-                    parent.prepend(cloned);
-                });
-           
-
-        });
+      
 
 
 

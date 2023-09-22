@@ -206,8 +206,7 @@
                 });
         }
 
-
-        $("tbody").delegate(".CategoryDelete", "click", function (e) {
+    $("tbody").delegate(".CategoryDelete", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-id");
             if (i != null) {
                 //Insert code here for the delete
@@ -241,7 +240,8 @@
                     url: "../api/adminapi/deleteCategory",
                     type: "POST",
                     data:
-                    {
+                
+        {
                         id: selectedCategoryId
                     },
                 })

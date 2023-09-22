@@ -348,6 +348,18 @@
     height: 100%;
     animation: sonar 1.5s infinite;
   }
+ span .badge .badge-pill .badge-danger:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid #000000;
+    opacity: 0;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    animation: sonar 1.5s infinite;
+  }
   
   /*--------------------------page-content-----------------------------*/
   
@@ -491,11 +503,11 @@
   }
   
   .circle {
-    width: 50px; /* Adjust the circle size as needed */
-    height: 50px; /* Should be equal to the width for a perfect circle */
+    width: 70px; /* Adjust the circle size as needed */
+    height: 70px; /* Should be equal to the width for a perfect circle */
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for styling */
+    box-shadow: 0 0 10px rgba(158, 154, 154, 0.2); /* Optional: Add a shadow for styling */
   }
   
   .circle img {
