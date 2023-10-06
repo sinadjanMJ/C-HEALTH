@@ -16,5 +16,13 @@ namespace SEPHMS.Controllers
         }
 
 
+        public ActionResult SIGN(){
+            return View();
+        }
+
+         public ActionResult SUP(){
+            return View();
+        }
+
     }
 }

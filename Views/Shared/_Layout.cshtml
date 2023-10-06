@@ -73,13 +73,13 @@
             <a href="#">
             <i class="fas fa-capsules"></i>
               <span>Medicine</span>
-              <span class="badge badge-pill badge-warning">New</span>
+              @* <span class="badge badge-pill badge-warning">New</span> *@
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
                   <a asp-area="" asp-controller="Admin" asp-action="AdminMedicine">Create Medicine
-                    <span class="badge badge-pill badge-success">Pro</span>
+                    @* <span class="badge badge-pill badge-success">Pro</span> *@
                   </a>
                 </li>
                 <li>
@@ -98,7 +98,7 @@
             <a href="#">
               <i class="fas fa-users"></i>
               <span>Personel</span>
-              <span class="badge badge-pill badge-danger">3</span>
+              @* <span class="badge badge-pill badge-danger">3</span> *@
             </a>
             <div class="sidebar-submenu">
               <ul>
@@ -161,7 +161,7 @@
             <a href="#">
               <i class="fa fa-book"></i>
               <span>Booked</span>
-              <span class="badge badge-pill badge-primary">Beta</span>
+              @* <span class="badge badge-pill badge-primary">Beta</span> *@
             </a>
           </li>
           <li>
@@ -206,13 +206,15 @@
         <i class="fa fa-cog"></i>
         <span class="badge-sonar"></span>
       </a>
-      <a href="#">
+      <a >
 
-        <i class="fa fa-power-off"></i>
+        <i id="logout" class="fa fa-power-off"></i>
         
       </a>
     </div>
   </nav>
+
+
 
   
 <main class="page-content">
@@ -251,3 +253,42 @@
 
     }
 </style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+   $(document).ready(function () {
+
+      $("#logout").click((e) => {
+
+        logoutConfirmation();
+
+      });
+
+     function logoutConfirmation() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be logout this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Logout it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                  
+            Swal.fire(
+                'Logout!',
+                'You Have Logout your Account.',
+                'success'
+            )
+                
+        
+                }
+            })
+        }
+
+   });
+</script>
