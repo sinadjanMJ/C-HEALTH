@@ -67,6 +67,13 @@ namespace SEPHMS.Controllers
 
 
 
+        
+
+
+
+
+
+
 
 
         public ActionResult<List<Date>> getDate(){
@@ -139,9 +146,33 @@ namespace SEPHMS.Controllers
            
         }
 
+        public ActionResult<List<DateTimeViewModel>> getDateTime()
+        {
+          
+            var result = (
+                from t in _context.Times
+                join d in _context.Dates
+                on t.DateId equals d.DateId // naka base siya table if int ba or sting kung int mag tostring ka
+
+                select new DateTimeViewModel
+                {
+
+                     TimeId = t.TimeId,     
+                     DateId = d.DateId,      
+                     Avadate = d.Avadate,    
+                     Avatime = t.Avatime      
+    
+                }
 
 
 
+            ).ToList();
+            return Ok(result);
+
+        }
+
+ 
+                 
 
 
 
@@ -244,15 +275,20 @@ namespace SEPHMS.Controllers
             return Ok();
         }
 
+
+
+
+
+
+
+
+
+
+
+
             public ActionResult<List<Equipment>> getEquipment(){
             return _context.Equipment.ToList();
             }
-
-
-
-
-
-
         public IActionResult AddEquipment(Equipment addequip)
         {
               if(string.IsNullOrEmpty(addequip.Status) || addequip.Status == "false")
