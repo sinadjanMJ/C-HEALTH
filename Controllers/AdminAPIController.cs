@@ -67,6 +67,91 @@ namespace SEPHMS.Controllers
 
 
 
+
+
+        public ActionResult<List<Date>> getDate(){
+            return _context.Dates.ToList();
+        }
+
+         public IActionResult AddDate(Date adddate)
+        {
+            
+        try
+        {
+
+             _context.Dates.Add(adddate);
+            _context.SaveChanges();
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+
+       return Ok();
+           
+        }
+             public IActionResult updateDate(Date updat)
+        {
+            try
+            {
+            _context.Dates.Update(updat);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+            public IActionResult deleteDate(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Dates.Where(element => element.DateId == id).FirstOrDefault();
+            _context.Dates.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
+
+
+
+         public IActionResult AddDateTime(Time adddatetime)
+        {
+            
+        try
+        {
+
+             _context.Times.Add(adddatetime);
+            _context.SaveChanges();
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+
+       return Ok();
+           
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult<List<Category>> getCategory(){
             return _context.Categories.ToList();
         }

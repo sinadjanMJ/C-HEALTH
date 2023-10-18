@@ -18,16 +18,18 @@
 
 
 <script>
-   // var selectedDoctor;
-   // var selectedDoctorId;
+    var selectedDoctor;
+    var selectedDoctorId;
     var DoctorList = {};
     var docfname;
      var doclname;
 
     $(document).ready(function () {
-
-        getDoctor();
+        
+        
         displayDoctorData();
+        getDoctor();
+       
 
         function getDoctor() {
             $.ajax("../api/adminapi/getDoctor")

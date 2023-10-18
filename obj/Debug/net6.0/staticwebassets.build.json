@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tukF8SB9mJ9FfHHP87K6yTW0eLlz1DOUqQIYuuTQe4M=",
+  "Hash": "0xCONBdUPWvEeQ+xi9XyfDtY6E3cZLbDgwoEttp8bfI=",
   "Source": "SEPHMS",
   "BasePath": "_content/SEPHMS",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\SEPHMS.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\bootstrap.min.css",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "css/bootstrap.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\sidebar.css",
@@ -102,6 +119,23 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\studentform.css",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "css/studentform.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\studentform.css"
+    },
+    {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\style.css",
       "SourceId": "SEPHMS",
       "SourceType": "Discovered",
@@ -134,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css.map"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\usernavbar.css",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "css/usernavbar.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\usernavbar.css"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\favicon.ico",
@@ -1632,6 +1683,23 @@
       "OriginalItemSpec": "wwwroot\\fonts\\poppins\\roboto-condensed-v16-latin-regular.woff2"
     },
     {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\background.jpg",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "image/background.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\background.jpg"
+    },
+    {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\CRMC_LOGO.png",
       "SourceId": "SEPHMS",
       "SourceType": "Discovered",
@@ -1647,6 +1715,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\CRMC_LOGO.png"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\frvmfi.png",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "image/frvmfi.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\frvmfi.png"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\school.jpg",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "image/school.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\school.jpg"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\signin-image.jpg",
@@ -1698,6 +1800,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\js\\usernavbar.js",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "js/usernavbar.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\usernavbar.js"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",

@@ -18,6 +18,7 @@ namespace SEPHMS.Entities
 
         public virtual DbSet<Adminaccount> Adminaccounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Date> Dates { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
         public virtual DbSet<Employeepersonalinformation> Employeepersonalinformations { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
@@ -26,6 +27,7 @@ namespace SEPHMS.Entities
         public virtual DbSet<Nurse> Nurses { get; set; }
         public virtual DbSet<Signup> Signups { get; set; }
         public virtual DbSet<Studentpersonalinformation> Studentpersonalinformations { get; set; }
+        public virtual DbSet<Time> Times { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -87,6 +89,20 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("categoryname");
+            });
+
+            modelBuilder.Entity<Date>(entity =>
+            {
+                entity.ToTable("date");
+
+                entity.Property(e => e.DateId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("dateID");
+
+                entity.Property(e => e.Avadate)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("avadate");
             });
 
             modelBuilder.Entity<Doctor>(entity =>
@@ -390,6 +406,24 @@ namespace SEPHMS.Entities
                 entity.Property(e => e.SpiCode)
                     .HasColumnType("int(11)")
                     .HasColumnName("SPI_CODE");
+            });
+
+            modelBuilder.Entity<Time>(entity =>
+            {
+                entity.ToTable("time");
+
+                entity.Property(e => e.TimeId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("timeID");
+
+                entity.Property(e => e.Avatime)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("avatime");
+
+                entity.Property(e => e.DateId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("dateId");
             });
 
             OnModelCreatingPartial(modelBuilder);
