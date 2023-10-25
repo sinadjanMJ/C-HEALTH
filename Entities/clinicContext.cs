@@ -240,6 +240,11 @@ namespace SEPHMS.Entities
                     .HasMaxLength(250)
                     .HasColumnName("description");
 
+                entity.Property(e => e.Dosage)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("dosage");
+
                 entity.Property(e => e.Expirydate)
                     .IsRequired()
                     .HasMaxLength(250)

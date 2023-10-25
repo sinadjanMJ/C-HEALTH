@@ -171,6 +171,21 @@ namespace SEPHMS.Controllers
 
         }
 
+          public IActionResult updateDateTime(Time updatime)
+        {
+            try
+            {
+            _context.Times.Update(updatime);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
  
                  
 
@@ -366,7 +381,8 @@ namespace SEPHMS.Controllers
                     PurchaseDate = m.Datepurchased,
                     ExpiryDate = m.Expirydate,
                     Status = m.Status,
-                    Description = m.Description
+                    Description = m.Description,
+                    Dosage = m.Dosage
                 }
 
 
@@ -374,6 +390,97 @@ namespace SEPHMS.Controllers
             ).ToList();
             return Ok(result);
         }
+         public IActionResult AddMedicine(Medicine addmedic, string Status)
+        {
+            //   if(string.IsNullOrEmpty(addmedic.Status) || addmedic.Status == "false")
+            // {
+            //   addmedic.Status = "Expired";
+             
+            // }
+            
+             addmedic.Status = Status;
+
+
+
+            _context.Medicines.Add(addmedic);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+        public IActionResult updateMedicine(Medicine upmedic)
+        {
+            try
+            {
+            //  if(string.IsNullOrEmpty(upmedic.Status) || upmedic.Status == "false")
+            // {
+            //      upmedic.Status = "Expired";
+            // }
+            // else
+            // {
+            //      upmedic.Status = "Active";
+            // }
+            _context.Medicines.Update(upmedic);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+        public IActionResult UpdateExpireMed(Medicine upmedic ,string stats)
+        {
+         upmedic.Status = stats;
+
+             _context.Medicines.Update(upmedic);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+           public IActionResult deleteMedicine(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Medicines.Where(element => element.MedicineId == id).FirstOrDefault();
+            _context.Medicines.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+          public IActionResult addStockMedicine(Medicine selmed, int iStock ,string date)
+        {
+            //selmed stands for sected medicine
+
+            Medicinestockhistory MSH = new Medicinestockhistory();
+
+             selmed.MedicineStock += iStock;
+            _context.Medicines.Update(selmed);
+
+            MSH.AddedStock = iStock;
+            MSH.MedicineId = selmed.MedicineId;
+            MSH.Date = date;
+
+            _context.Medicinestockhistories.Add(MSH);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+         public ActionResult<List<Medicine>> viewStockHistory(int id){
+            
+            //return _context.Products.ToList();
+            var res = _context.Medicinestockhistories.ToList().Where(p => p.MedicineId == id);
+
+            return Ok(res);
+        } 
+
+
+
+
+
+
 
 
 
@@ -485,86 +592,7 @@ namespace SEPHMS.Controllers
 
 
         
-        public IActionResult AddMedicine(Medicine addmedic)
-        {
-              if(string.IsNullOrEmpty(addmedic.Status) || addmedic.Status == "false")
-            {
-              addmedic.Status = "Inactive";
-             
-            }
-            _context.Medicines.Add(addmedic);
-            _context.SaveChanges();
-
-            return Ok();
-        }
-
-        public IActionResult updateMedicine(Medicine upmedic)
-        {
-            try
-            {
-             if(string.IsNullOrEmpty(upmedic.Status) || upmedic.Status == "false")
-            {
-                 upmedic.Status = "Inactive";
-            }
-            else
-            {
-                 upmedic.Status = "Active";
-            }
-            _context.Medicines.Update(upmedic);
-            _context.SaveChanges();
-            }
-            catch (System.Exception)
-            {
-                
-                throw;
-            }
-            
-            return Ok();
-        }
-        public IActionResult UpdateExpireMed(Medicine upmedic ,string stats)
-        {
-         upmedic.Status = stats;
-
-             _context.Medicines.Update(upmedic);
-            _context.SaveChanges();
-            return Ok();
-        }
-
-           public IActionResult deleteMedicine(int id)
-        {
-            Console.WriteLine(id);
-            var res = _context.Medicines.Where(element => element.MedicineId == id).FirstOrDefault();
-            _context.Medicines.Remove(res);
-            _context.SaveChanges();
-            return Ok();
-        }
-
-          public IActionResult addStockMedicine(Medicine selmed, int iStock ,string date)
-        {
-            //selmed stands for sected medicine
-
-            Medicinestockhistory MSH = new Medicinestockhistory();
-
-             selmed.MedicineStock += iStock;
-            _context.Medicines.Update(selmed);
-
-            MSH.AddedStock = iStock;
-            MSH.MedicineId = selmed.MedicineId;
-            MSH.Date = date;
-
-            _context.Medicinestockhistories.Add(MSH);
-            _context.SaveChanges();
-            return Ok();
-        }
-
-
-         public ActionResult<List<Medicine>> viewStockHistory(int id){
-            
-            //return _context.Products.ToList();
-            var res = _context.Medicinestockhistories.ToList().Where(p => p.MedicineId == id);
-
-            return Ok(res);
-        } 
+       
 
 
 

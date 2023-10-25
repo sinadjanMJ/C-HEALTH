@@ -11,5 +11,6 @@ namespace SEPHMS.ViewModel
         public string PurchaseDate { get; set; }
          public string ExpiryDate { get; set; }
           public string Description { get; set; }
+          public string Dosage { get; set; }
     }
 }

@@ -3,6 +3,7 @@
 <button type="button" title="Create Date" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalDateCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
+    Add Date
 </button>
 
 
@@ -17,10 +18,12 @@
 <button type="button" title="Create Time" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalDateTimeCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
+    Add Time
 </button>
 
 @Html.Partial("PartialAvailable/PartialTime/CreateAvailableDateTime")
 @Html.Partial("PartialAvailable/PartialTime/AvailableTimeTable")
+@Html.Partial("PartialAvailable/PartialTime/AvailableDateTimeUpdate")
 
 
 
@@ -37,12 +40,13 @@
 
      var selectedDateTime;
     var selectedDateTimeId;
-    var DateList = {};
+    var DateTimeList = {};
 
 
     $(document).ready(function () {
 
         getDate();
+         getDateTime();
         displayDateData();
         displayDateTimeData();
         
@@ -54,6 +58,17 @@
                     result.forEach(function (item) {
                         console.log(item);
                         datesame = item.avadate;
+                    });
+
+                });
+        }
+          function getDateTime() {
+            $.ajax("../api/adminapi/getDateTime")
+                .done(function (result) {
+                    DateTimeList = result;
+                    result.forEach(function (item) {
+                        console.log(item);
+                       
                     });
 
                 });
@@ -231,7 +246,7 @@
                     $("#modalDateUpdate").modal("toggle");
                     displayDateData();
                     displaySavedProgress();
-                     getDates();
+                    getDates();
                 });
         }
 
@@ -261,7 +276,8 @@
             })
         }
 
-        function proceedDelete() {
+
+function proceedDelete() {
             console.log(selectedDateId + "proceed");
             //AJAX DELETE DEPARTMENT
             $.ajax
@@ -398,7 +414,119 @@
         function btnAddDateTime(timeId) {
             return "<center><a class='btn btn-success DateTimeUpdate' data-timeId=" + timeId + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger DateTimeDelete' data-timeId=" + timeId + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
         }
+
+         $("tbody").delegate(".DateTimeUpdate", "click", function (e) {
+            console.log("I was clicked");
+            var i = e.target.closest("a").getAttribute("data-timeId");
+            if (i != null) {
+                $("#createDateTimeForm")[0].reset();
+                $("#modalDateTimeUpdate").modal("toggle");
+
+                selectedDateTimeId = i;
+                selectedDateTime = DateTimeList.find(element => element.timeId == i);
+
+                console.log(selectedDateTime);
+
+                oFormObject = document.forms["updateDateTimeForm"];
+                initForm(oFormObject, selectedDateTime);
+            }
+        });
          
+
+          function initForm(form, data) {
+
+            Object.getOwnPropertyNames(data).forEach(function (item) {
+
+                var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
+
+                if (currentElem == null) { return; }
+
+                if (currentElem.tagName == "SELECT") {
+                    var selectChildren = Array.from(currentElem.children);
+                    var matchedOpt = selectChildren.find(opt => opt.value == selectedDateTime.dateId);
+                    console.log(selectedDateTime.dateId);
+                    if (matchedOpt) {
+                        matchedOpt.selected = true;
+                    }
+                } else {
+                    form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
+                }
+
+              
+            });
+
+
+        }
+
+
+        $("#updateDateTime").click(function () {
+            alertSaveChanges();
+        });
+
+        function alertSaveChanges() {
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                confirmButtonText: 'Save',
+                showCancelButton: true,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    updateDateTimeHolder();
+                }
+            })
+        }
+
+        function updateDateTimeHolder() {
+            var arrData = {};
+
+            var formelements = $("#updateDateTimeForm .form-group");
+
+            var formInputs = $("#updateDateTimeForm").serializeArray();
+            console.log(formInputs);
+            formInputs.forEach(function (item) {
+                arrData[item.name] = item.value;
+            });
+
+            //attempts to give value to the data
+            arrData.timeId = selectedDateTimeId;
+            console.log(arrData);
+
+      
+            
+            if (formInputs[0].value !== '') {
+
+                $.ajax
+                    ({
+                        url: "../api/adminapi/updateDateTime",
+                        type: "POST",
+                        data:
+                        {
+                            updatime: arrData
+                        },
+                    })
+                    .done(function () {
+                        // document.querySelector(".parent").innerHTML ="";
+                        $("#modalDateTimeUpdate").modal("toggle");
+                        $("#updateDateTimeForm")[0].reset();
+
+
+                    displayDateTimeData();
+                    displaySavedProgress();
+                    getDates();
+                       
+                    });
+
+
+            } else {
+                alertError();
+            }
+
+
+           
+        }
+
+
+        
 
         
 
@@ -409,7 +537,7 @@
 
 
 
-        function alertDeleteInfo() {
+      function alertDeleteInfo() {
             Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',

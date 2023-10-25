@@ -1,7 +1,8 @@
+<div class="table">
 <div class="card">
     <div class="card-body">
         <div class="card-title">
-         <h6><span>List</span><small class="px-1">of Categories</small></h6>
+            <h6><span>List</span><small class="px-1">of Categories</small></h6>
             <table id="CategoryData" class="display table table-bordered table-hover" width="100%">
                 <thead>
                     <tr>
@@ -16,60 +17,66 @@
         </div>
     </div>
 </div>
+</div>
 
 
+<style>
+    /* Add some basic styling */
+    .table{
+        padding-top: 30px;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
- <style>
-        /* Add some basic styling */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    
 
-        .card {
-            background-color: #fff;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 1000px;
-            max-width: 2000px;
-            padding: 20px;
-        }
+    .card {
+        background-color: #fff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 1000px;
+        max-width: 2000px;
+        padding: 20px;
 
-        .card-title h6 {
-            font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 10px;
-        }
+    }
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+    .card-title h6 {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
 
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
 
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
+    th,
+    td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
 
-        tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
 
-        tbody tr:hover {
-            background-color: #ddd;
-        }
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-    </style>
+    tbody tr:hover {
+        background-color: #ddd;
+    }
+</style>

@@ -3,12 +3,19 @@
 
  <script src="~/lib/jquery/dist/jquery.js"></script> *@
 
-<h1>ACTIVE MEDICINE</h1>
+<h1>Active Medicine List</h1>
 
-    <span>
+<div class="input-group rounded">
+  <input type="search" name="Asearchbar"   id="AsearchText" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <span class="input-group-text border-0" id="search-addon">
+    <i class="fas fa-search"></i>
+  </span>
+</div>
+
+    @* <span>
         <input style="width:500px;" type="text" name="Asearchbar" class="form-control" id="AsearchText"
-            placeholder="Input Active item name" />
-    </span>
+            placeholder="Search item name" />
+    </span> *@
 
 
 <span id="no"></span>
@@ -55,7 +62,7 @@
         
 </div>
 <style>
-    .parent{
+    .parentstab{
         padding-top: 20px;
     }
     .card-body{

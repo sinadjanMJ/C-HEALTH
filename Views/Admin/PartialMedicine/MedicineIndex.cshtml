@@ -1,34 +1,61 @@
-<h1>Medicine Index</h1>
+
+
+
+    <div class="row ">
+       
+            <div class="card l-bg-cherry">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i style="font-size:110px" class="fa">&#xf274;</i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Active Medicine</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0" id="active">
+                               
+                            </h2>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+            
+        </div>
+        <div class="col-xl-4 col-lg-4">
+            <div class="card l-bg-blue-dark">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-capsules"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Total Medicine</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0" id="total">
+                               
+                            </h2>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+       
+       
+    </div>
+
 
 <button type="button" title="Create Equipment" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalMedicineCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
+    Add Medicine
 </button>
 
 
-
-<button type="button" title="View Expired Medicine" class="btn btn-success" style="color: #ffffff;"
-    data-bs-toggle="modal" data-bs-target="#modal">
-    <i class="fa-solid fa-bell" style="color: #ffffff;"></i><span id="expired"></span>
-</button>
-
-
-
-
-<div>
-    <h6 id="active"></h6>
-</div>
-<div>
-    <h6 id="total"></h6>
-</div>
-<div>
-    <h6 id="expiredna"></h6>
-</div>
 
 
 @Html.Partial("PartialMedicine/CreateMedicine")
 @Html.Partial("PartialMedicine/MedicineCard")
-@Html.Partial("PartialMedicine/MedicineCardInactive")
 @Html.Partial("PartialMedicine/MedicineUpdate")
 @Html.Partial("PartialMedicine/MedicineAddStock")
 @Html.Partial("PartialMedicine/MedicineDetails")
@@ -53,7 +80,7 @@
 
     $(document).ready(function () {
 
-        populateIndexInactive();
+        
         populateIndex();
 
 
@@ -89,7 +116,7 @@
 
                         cloned.querySelector(".card .card-title").innerHTML = item.medicineName;
                         cloned.querySelector(".card .card-subtitle").innerHTML = "Category Name : " + item.categoryName;
-                        cloned.querySelector(".card .card-units").innerHTML = "Units: " + item.units;
+                        cloned.querySelector(".card .card-units").innerHTML = "Dosage: " + item.units + item.dosage ;
                         cloned.querySelector(".card .card-stock").innerHTML = "Stock : " + item.stock;
                         cloned.querySelector(".card .card-status").innerHTML = "Status : " + item.status;
                         cloned.querySelector(".card .card-datepurchased").innerHTML = "Datepurchased : " + item.purchaseDate;
@@ -114,56 +141,7 @@
            // getMedicine();
         }
 
-        function populateIndexInactive() {
-
-            $.ajax("../api/adminapi/getAllMedicine")
-                .done(function (result) {
-
-                    document.querySelector(".parents").innerHTML = "";
-                    //list of active medicine
-                    var InactiveMedicines = [];
-                    InactiveMedicines = result.filter(function (item) {
-                        return item.status === "Inactive";
-                    });
-
-
-
-                    InMedicineList = [];
-                    InMedicineList = InactiveMedicines;
-                    InactiveMedicines.forEach(function (item) {
-
-                        var template = document.querySelector("template#cards-container");
-                        var parent = document.querySelector(".parents");
-                        var cloned = template.content.cloneNode(true);
-
-
-
-                        cloned.querySelector(".card .card-title").innerHTML = item.medicineName;
-                        cloned.querySelector(".card .card-subtitle").innerHTML = "Category Name : " + item.categoryName;
-                        cloned.querySelector(".card .card-units").innerHTML = "Units: " + item.units;
-                        cloned.querySelector(".card .card-stock").innerHTML = "Stock : " + item.stock;
-                        cloned.querySelector(".card .card-status").innerHTML = "Status : " + item.status;
-                        cloned.querySelector(".card .card-datepurchased").innerHTML = "Datepurchased : " + item.purchaseDate;
-                        cloned.querySelector(".card .card-expirydate").innerHTML = "ExpiryDate : " + item.expiryDate;
-                        // cloned.querySelector(".card .card-description").innerHTML = "Description : " + item.description;
-
-
-
-                        cloned.querySelector(".updateMeds").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".updateMeds").setAttribute("data-medicineName", item.medicineName);
-
-                        cloned.querySelector(".deleteMeds").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".infoMeds").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".addStocks").setAttribute("data-medicineId", item.medicineId);
-                        cloned.querySelector(".stockHistorys").setAttribute("data-medicineId", item.medicineId);
-                        // cloned.querySelector(".addCart").setAttribute("data-medicineId", item.medicineId);
-
-                        parent.prepend(cloned);
-                    });
-                });
-
-          //  getMedicine();
-        }
+       
 
 
         function getMedicine() {
@@ -172,29 +150,35 @@
 
                     //total medicine
                     TotalArr = result;
-                    $("#total").html("Total Medicine :(" + TotalArr.length + ")");
-
+                   // $("#total").html("Total Medicine :(" + TotalArr.length + ")");
+                   $("#total").html(TotalArr.length);
                     //list of active medicine
                     var activeMedicines = [];
                     activeMedicines = result.filter(function (item) {
                         return item.status === "Active";
                     });
-                    $("#active").html(" Active Medicines: (" + activeMedicines.length + ")");
+                   // $("#active").html(" Active Medicines: (" + activeMedicines.length + ")");
+                    $("#active").html(activeMedicines.length);
 
                     //list of expired
                     var formattedDate = new Date().toISOString().slice(0, 10);
-                    console.log("date only" + formattedDate);
+                    console.log("date now" + formattedDate);
 
                     var expiremedicine = {};
 
                     expiremedicine = result.filter(function (item) {
                         return item.expiryDate <= formattedDate;
                     });
+                 
+                   
 
+                    var statusInactive = expiremedicine.length > 0 ? "Expired"  : "Active";
+                    
+                    
 
-                    var statusInactive = expiremedicine.length > 0 ? "Inactive" : "Active";
+                    
 
-                    console.log(statusInactive);
+                   // console.log(statusInactive);
 
                     expiremedicine.forEach(function (item) {
                         arr = item;
@@ -211,7 +195,8 @@
                         Status: arr.status,
                         Datepurchased: arr.purchaseDate,
                         Expirydate: arr.expiryDate,
-                        Description: arr.description
+                        Description: arr.description,
+                        Dosage: arr.dosage
 
                     }
 
@@ -231,8 +216,8 @@
                         });
 
 
-                    $("#expired").html(expiremedicine.length);
-                    $("#expiredna").html("Inactive Medicines: (" + expiremedicine.length + ")");
+                 //   $("#expired").html(expiremedicine.length);
+                 //   $("#expiredna").html("Inactive Medicines: (" + expiremedicine.length + ")");
 
 
 
@@ -296,7 +281,8 @@
                             type: "POST",
                             data:
                             {
-                                addmedic: arrData
+                                addmedic: arrData,
+                                Status: "Active"
                             },
                         })
                         .done(function () {
@@ -324,6 +310,8 @@
             $("#modalMedicineUpdate").modal("toggle");
         });
 
+          
+
         $(".parentstab, .parents").delegate(".updateMed ,.updateMeds", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-medicineId");
             console.log("The value is " + i);
@@ -338,7 +326,17 @@
                 console.log(MedicineList);
 
                 console.log(selectedMedicine.description);
-                $("textarea").html(selectedMedicine.description);
+                $("textarea").html(selectedMedicine.description); //magamit rani siya sa text area , h1 and etc og sa labels
+
+
+                console.log(selectedMedicine.dosage);
+                  $("#dosg").val(selectedMedicine.dosage); //gamiton ni basta input field og select option
+                
+
+
+              
+
+
             }
         });
 
@@ -362,13 +360,16 @@
                     form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
                 }
 
-                if (data.status == "Active") {
-                    $('.stat').prop('checked', true);
-                }
+                //if (data.status == "Active") {
+               //     $('.stat').prop('checked', true);
+               // }
 
-                else {
-                    $('.stat').prop('checked', false);
-                }
+               // else {
+               //     $('.stat').prop('checked', false);
+               // }
+
+              
+                
             });
 
 
@@ -410,6 +411,14 @@
             arrData.medicineId = selectedMedicineId;
             console.log(arrData);
 
+             var formattedDate = new Date().toISOString().slice(0, 10);
+
+            if(arrData.ExpiryDate >= formattedDate){
+             arrData.Status = "Active";
+            }else{
+              arrData.Status = "Expired";
+            }
+
 
             var updatemed =
             {
@@ -421,7 +430,9 @@
                 Status: arrData.Status,
                 Datepurchased: arrData.PurchaseDate,
                 Expirydate: arrData.ExpiryDate,
-                Description: arrData.Description
+                Description: arrData.Description,
+                Dosage: arrData.Dosage
+
 
             }
 
@@ -678,45 +689,6 @@
 
 
 
-        $('#searchText').on("input", function () {
-            var searchedItem = $(this).val();
-
-            //console.log(searchedItem);
-
-            var search = InMedicineList.filter(element => element.medicineName.toLowerCase().includes(searchedItem.toLowerCase()) || element.medicineName.toUpperCase().includes(searchedItem.toUpperCase()));
-            //console.log(sear);
-
-            document.querySelector(".parents").innerHTML = "";
-            search.forEach(function (item) {
-                var template = document.querySelector("template#cards-container");
-                var parent = document.querySelector(".parents");
-                var cloned = template.content.cloneNode(true);
-
-                cloned.querySelector(".card .card-title").innerHTML = item.medicineName;
-                cloned.querySelector(".card .card-subtitle").innerHTML = "Category Name : " + item.categoryName;
-                cloned.querySelector(".card .card-units").innerHTML = "Units: " + item.units;
-                cloned.querySelector(".card .card-stock").innerHTML = "Stock : " + item.stock;
-                cloned.querySelector(".card .card-status").innerHTML = "Status : " + item.status;
-                cloned.querySelector(".card .card-datepurchased").innerHTML = "Datepurchased : " + item.purchaseDate;
-                cloned.querySelector(".card .card-expirydate").innerHTML = "ExpiryDate : " + item.expiryDate;
-                // cloned.querySelector(".card .card-description").innerHTML = "Description : " + item.description;
-
-
-
-                cloned.querySelector(".updateMeds").setAttribute("data-medicineId", item.medicineId);
-                cloned.querySelector(".updateMeds").setAttribute("data-medicineName", item.medicineName);
-
-                cloned.querySelector(".deleteMeds").setAttribute("data-medicineId", item.medicineId);
-                cloned.querySelector(".infoMeds").setAttribute("data-medicineId", item.medicineId);
-                cloned.querySelector(".addStocks").setAttribute("data-medicineId", item.medicineId);
-                cloned.querySelector(".stockHistorys").setAttribute("data-medicineId", item.medicineId);
-
-
-                parent.prepend(cloned);
-            });
-
-        });
-
 
         $('#AsearchText').on("input", function () {
             var searchedItem = $(this).val();
@@ -809,3 +781,69 @@
 
     });// ayaw ni hilabte mga mother fucker
 </script>
+
+<style>
+
+    .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.l-bg-cherry {
+    background: linear-gradient(to right, #493240, #f09) !important;
+    color: #fff;
+}
+
+.l-bg-blue-dark {
+    background: linear-gradient(to right, #373b44, #4286f4) !important;
+    color: #fff;
+}
+
+.l-bg-green-dark {
+    background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+    color: #fff;
+}
+
+.l-bg-orange-dark {
+    background: linear-gradient(to right, #a86008, #ffba56) !important;
+    color: #fff;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+}
+
+.card .card-statistic-3 .card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+
+.l-bg-green {
+    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+    color: #fff;
+}
+
+.l-bg-orange {
+    background: linear-gradient(to right, #f9900e, #ffba56) !important;
+    color: #fff;
+}
+
+.l-bg-cyan {
+    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+    color: #fff;
+}
+</style>

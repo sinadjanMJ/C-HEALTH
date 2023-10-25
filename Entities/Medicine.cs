@@ -14,5 +14,6 @@ namespace SEPHMS.Entities
         public string Datepurchased { get; set; }
         public string Expirydate { get; set; }
         public string Description { get; set; }
+        public string Dosage { get; set; }
     }
 }
