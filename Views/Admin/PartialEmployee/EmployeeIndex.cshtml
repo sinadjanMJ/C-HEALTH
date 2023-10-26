@@ -1,15 +1,16 @@
-<h1>Employee Index</h1>
 
-<button type="button" title="Create Employee" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
+
+<button type="button" title="" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalEmployeeCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
+    Add Employee
 </button>
 
 @Html.Partial("PartialEmployee/CreateEmployee")
 @Html.Partial("PartialEmployee/EmployeeUpdate")
 @Html.Partial("PartialEmployee/EmployeeTable")
 
-
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -188,6 +189,10 @@
 
                 oFormObject = document.forms["updateEmployeeForm"];
                 initForm(oFormObject, selectedEmployee);
+
+                console.log(selectedEmployee.gender);
+                $("#gends").val(selectedEmployee.gender); 
+
             }
         });
 

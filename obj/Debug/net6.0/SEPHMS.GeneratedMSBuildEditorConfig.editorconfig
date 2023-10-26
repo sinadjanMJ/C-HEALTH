@@ -63,6 +63,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEF2YWlsYWJsZVxQYXJ0aWFsVGltZVxDcmVhdGVBdmFpbGFibGVEYXRlVGltZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialCategory/CategoryCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbENhdGVnb3J5XENhdGVnb3J5Q2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialCategory/CategoryIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbENhdGVnb3J5XENhdGVnb3J5SW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
