@@ -1,5 +1,3 @@
-
-
 <button type="button" title="Create Student" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalStudentCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
@@ -12,7 +10,7 @@
 
 
 @* gamit kaayu ni siya para maka pa display og value sa select option *@
-<script src="~/lib/jquery/dist/jquery.js"></script> 
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 
 
@@ -23,7 +21,7 @@
     var selectedStudent;
     var selectedStudentId;
     var StudentList = {};
-     var arr = {};
+    var arr = {};
     var gmailaddress;
 
     $(document).ready(function () {
@@ -31,13 +29,16 @@
 
         getStudent();
         displayStudentData();
+        baranggay();
+        Municipality();
+         Province();
 
         function getStudent() {
             $.ajax("../api/adminapi/getStudent")
                 .done(function (result) {
                     StudentList = result;
-          
-          
+
+
 
                     result.forEach(function (item) {
                         gmailaddress = item.gmailaddress;
@@ -46,42 +47,42 @@
                         console.log(arr.age);
 
                     });
-            
 
-          
-             var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
-             if (dateRegex.test(arr.age)) {
-                var yearsDifference = new Date().getFullYear() - parseInt(arr.age.slice(0, 4));
-                console.log(yearsDifference);
-                return yearsDifference;
-            } else {
-                return "Invalid date format. Please enter a date in the format YYYY-MM-DD.";
-            }
 
-                 
-                 $.ajax
-                ({
-                    url: "../api/adminapi/updateStudent",
-                    type: "POST",
-                    data:
-                    {
-                        upst: arr,
-                        age: arr.age,
-                    },
-                })
-                .done(function () {
-                   
-                   // displayStudentData();
-                   
-                });
+                    var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+                    if (dateRegex.test(arr.age)) {
+                        var yearsDifference = new Date().getFullYear() - parseInt(arr.age.slice(0, 4));
+                        console.log(yearsDifference);
+                        return yearsDifference;
+                    } else {
+                        return "Invalid date format. Please enter a date in the format YYYY-MM-DD.";
+                    }
+
+
+                    $.ajax
+                        ({
+                            url: "../api/adminapi/updateStudent",
+                            type: "POST",
+                            data:
+                            {
+                                upst: arr,
+                                age: arr.age,
+                            },
+                        })
+                        .done(function () {
+
+                            // displayStudentData();
+
+                        });
 
 
                 });
         }
 
 
-   //////calculate number of years 
+        //////calculate number of years 
         function calculateYearsDifference(userDateInput) {
             var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -124,7 +125,7 @@
 
 
 
-            if (formInputs.length === formelements.length && formInputs[0].value !== ''){
+            if (formInputs.length === formelements.length && formInputs[0].value !== '') {
                 // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
 
                 if (formInputs[0].value != gmailaddress) {
@@ -156,7 +157,7 @@
                 }
 
 
-        }
+            }
             else {
                 alertError();
             }
@@ -199,7 +200,7 @@
         }
 
 
-         $("tbody").delegate(".StudentUpdate", "click", function (e) {
+        $("tbody").delegate(".StudentUpdate", "click", function (e) {
             console.log("I was clicked");
             var i = e.target.closest("a").getAttribute("data-spiId");
             if (i != null) {
@@ -215,7 +216,7 @@
                 initForm(oFormObject, selectedStudent);
 
                 console.log(selectedStudent.gender);
-                $("#gend").val(selectedStudent.gender); 
+                $("#gend").val(selectedStudent.gender);
             }
         });
 
@@ -224,7 +225,7 @@
             Object.getOwnPropertyNames(data).forEach(function (item) {
                 var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
 
-                if(currentElem == null) { return; }
+                if (currentElem == null) { return; }
                 form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
 
             });
@@ -300,7 +301,7 @@
         }
 
 
-$("tbody").delegate(".StudentDelete", "click", function (e) {
+        $("tbody").delegate(".StudentDelete", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-spiId");
             if (i != null) {
                 //Insert code here for the delete
@@ -334,8 +335,8 @@ $("tbody").delegate(".StudentDelete", "click", function (e) {
                     url: "../api/adminapi/deleteStudent",
                     type: "POST",
                     data:
-                
-        {
+
+                    {
                         id: selectedStudentId
                     },
                 })
@@ -346,9 +347,178 @@ $("tbody").delegate(".StudentDelete", "click", function (e) {
         }
 
 
+        /////////////
+        ///populating baranggay
+        function baranggay() 
+        {
+            const baranggayInput = document.getElementById("Barangay");
+            const suggestions = document.getElementById("suggestionsBar");
+
+            const data = [];
+
+            fetch("../../js/baranggay.js")
+                .then(response => response.json())
+                .then(data => {
+                    data = data;
+
+                    baranggayInput.addEventListener("input", function () {
+                        const inputText = baranggayInput.value;
+                        updateSuggestions(inputText, data);
+                    });
+
+                    document.addEventListener("click", function (event) {
+                        if (!suggestions.contains(event.target)) {
+                            suggestions.innerHTML = "";
+                        }
+                    });
+                });
 
 
-        
+            function updateSuggestions(inputText, data) {
+                const filteredData = data.filter(function (item) {
+                    return item.name.toLowerCase().includes(inputText.toLowerCase());
+                });
+
+                renderSuggestions(filteredData);
+            }
+
+            function renderSuggestions(filteredData) {
+                suggestions.innerHTML = "";
+
+                filteredData.forEach(function (item) {
+                    const suggestionItem = document.createElement("li");
+                    suggestionItem.textContent = item.name;
+                    suggestionItem.addEventListener("click", function () {
+                        baranggayInput.value = item.name;
+                        suggestions.innerHTML = "";
+                    });
+                    suggestions.appendChild(suggestionItem);
+                });
+
+                if (filteredData.length > 0) {
+                    suggestions.style.display = "block";
+                } else {
+                    suggestions.style.display = "none";
+                }
+            }
+        }
+
+
+        /////////////
+        ///populating municipality
+        function Municipality()
+         {
+            const municipalityInput = document.getElementById("Municipality");
+            const suggestions = document.getElementById("suggestionsMuni");
+
+            const data = [];
+
+            fetch("../../js/municipality.js")
+                .then(response => response.json())
+                .then(data => {
+                    data = data;
+
+                    municipalityInput.addEventListener("input", function () {
+                        const inputText = municipalityInput.value;
+                        updateSuggestions(inputText, data);
+                    });
+
+                    document.addEventListener("click", function (event) {
+                        if (!suggestions.contains(event.target)) {
+                            suggestions.innerHTML = "";
+                        }
+                    });
+                });
+
+
+            function updateSuggestions(inputText, data) {
+                const filteredData = data.filter(function (item) {
+                    return item.name.toLowerCase().includes(inputText.toLowerCase());
+                });
+
+                renderSuggestions(filteredData);
+            }
+
+            function renderSuggestions(filteredData) {
+                suggestions.innerHTML = "";
+
+                filteredData.forEach(function (item) {
+                    const suggestionItem = document.createElement("li");
+                    suggestionItem.textContent = item.name;
+                    suggestionItem.addEventListener("click", function () {
+                        municipalityInput.value = item.name;
+                        suggestions.innerHTML = "";
+                    });
+                    suggestions.appendChild(suggestionItem);
+                });
+
+                if (filteredData.length > 0) {
+                    suggestions.style.display = "block";
+                } else {
+                    suggestions.style.display = "none";
+                }
+            }
+        }
+
+
+
+        /////////////
+        ///populating municipality
+        function Province() {
+            const provinceInput = document.getElementById("Province");
+            const suggestions = document.getElementById("suggestionsProv");
+
+            const data = [];
+
+            fetch("../../js/province.js")
+                .then(response => response.json())
+                .then(data => {
+                    data = data;
+
+                    provinceInput.addEventListener("input", function () {
+                        const inputText = provinceInput.value;
+                        updateSuggestions(inputText, data);
+                    });
+
+                    document.addEventListener("click", function (event) {
+                        if (!suggestions.contains(event.target)) {
+                            suggestions.innerHTML = "";
+                        }
+                    });
+                });
+
+
+            function updateSuggestions(inputText, data) {
+                const filteredData = data.filter(function (item) {
+                    return item.name.toLowerCase().includes(inputText.toLowerCase());
+                });
+
+                renderSuggestions(filteredData);
+            }
+
+            function renderSuggestions(filteredData) {
+                suggestions.innerHTML = "";
+
+                filteredData.forEach(function (item) {
+                    const suggestionItem = document.createElement("li");
+                    suggestionItem.textContent = item.name;
+                    suggestionItem.addEventListener("click", function () {
+                        provinceInput.value = item.name;
+                        suggestions.innerHTML = "";
+                    });
+                    suggestions.appendChild(suggestionItem);
+                });
+
+                if (filteredData.length > 0) {
+                    suggestions.style.display = "block";
+                } else {
+                    suggestions.style.display = "none";
+                }
+            }
+        }
+
+
+   
 
 
 
@@ -366,40 +536,39 @@ $("tbody").delegate(".StudentDelete", "click", function (e) {
 
 
 
+        function alertDeleteInfo() {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
 
-    function alertDeleteInfo() {
-        Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-        )
-    }
 
+        function vol1() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Inputted name is already in the data',
+            })
+        }
+        function alertError() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Input the necessary elements!',
+            })
+        }
 
-    function vol1() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Inputted name is already in the data',
-        })
-    }
-    function alertError() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Input the necessary elements!',
-        })
-    }
+        function displaySavedProgress() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
 
-    function displaySavedProgress() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500
-        })
-
-    }
+        }
 
 
 

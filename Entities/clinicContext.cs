@@ -19,6 +19,7 @@ namespace SEPHMS.Entities
         public virtual DbSet<Adminaccount> Adminaccounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Date> Dates { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
         public virtual DbSet<Employeepersonalinformation> Employeepersonalinformations { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
@@ -103,6 +104,20 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("avadate");
+            });
+
+            modelBuilder.Entity<Department>(entity =>
+            {
+                entity.ToTable("department");
+
+                entity.Property(e => e.DepartmentId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("departmentId");
+
+                entity.Property(e => e.DepartmentName)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("departmentName");
             });
 
             modelBuilder.Entity<Doctor>(entity =>

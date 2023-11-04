@@ -59,6 +59,10 @@ namespace SEPHMS.Controllers
           public ActionResult AdminAvailabilty(){
             return View("PartialAvailable/PartialDate/AvailableDateTime");
         }
+
+           public ActionResult AdminDepartment(){
+            return View("PartialDepartment/DepartmentIndex");
+        }
         
         
         

@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using SEPHMS.ViewModel;
 using SEPHMS.Entities;
+using Microsoft.AspNetCore.Cors;
 
 namespace SEPHMS.Controllers
 {
     
+   
     [Route("/api/[controller]/[action]")]
     public class AdminAPIController : ControllerBase
     {
@@ -19,8 +21,7 @@ namespace SEPHMS.Controllers
         }
 
 
-
-
+     
 
 
 
@@ -63,6 +64,56 @@ namespace SEPHMS.Controllers
 
 
 
+        
+
+
+
+
+         public ActionResult<List<Department>> getDepartment(){
+            return _context.Departments.ToList();
+        }
+
+         public IActionResult AddDepartment(Department adddep)
+        {
+            
+        try
+        {
+
+             _context.Departments.Add(adddep);
+            _context.SaveChanges();
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+
+       return Ok();
+           
+        }
+            public IActionResult updateDepartment(Department updep)
+        {
+            try
+            {
+            _context.Departments.Update(updep);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+            public IActionResult deleteDepartment(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Departments.Where(element => element.DepartmentId == id).FirstOrDefault();
+            _context.Departments.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
 
 
 
@@ -186,7 +237,16 @@ namespace SEPHMS.Controllers
             
             return Ok();
         }
- 
+   
+
+             public IActionResult deleteDateTime(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Times.Where(element => element.TimeId == id).FirstOrDefault();
+            _context.Times.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
                  
 
 

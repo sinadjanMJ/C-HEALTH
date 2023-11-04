@@ -27,7 +27,9 @@
 
         displayEmployeeData();
         getEmployee();
-       
+        baranggay();
+        Municipality();
+         Province();
 
 
 
@@ -321,6 +323,178 @@
                     displayEmployeeData();
                     alertDeleteInfo();
                 });
+        }
+
+
+
+        /////////////
+        ///populating baranggay
+        function baranggay() 
+        {
+            const baranggayInput = document.getElementById("Barangay");
+            const suggestions = document.getElementById("suggestionsBar");
+
+            const data = [];
+
+            fetch("../../js/baranggay.js")
+                .then(response => response.json())
+                .then(data => {
+                    data = data;
+
+                    baranggayInput.addEventListener("input", function () {
+                        const inputText = baranggayInput.value;
+                        updateSuggestions(inputText, data);
+                    });
+
+                    document.addEventListener("click", function (event) {
+                        if (!suggestions.contains(event.target)) {
+                            suggestions.innerHTML = "";
+                        }
+                    });
+                });
+
+
+            function updateSuggestions(inputText, data) {
+                const filteredData = data.filter(function (item) {
+                    return item.name.toLowerCase().includes(inputText.toLowerCase());
+                });
+
+                renderSuggestions(filteredData);
+            }
+
+            function renderSuggestions(filteredData) {
+                suggestions.innerHTML = "";
+
+                filteredData.forEach(function (item) {
+                    const suggestionItem = document.createElement("li");
+                    suggestionItem.textContent = item.name;
+                    suggestionItem.addEventListener("click", function () {
+                        baranggayInput.value = item.name;
+                        suggestions.innerHTML = "";
+                    });
+                    suggestions.appendChild(suggestionItem);
+                });
+
+                if (filteredData.length > 0) {
+                    suggestions.style.display = "block";
+                } else {
+                    suggestions.style.display = "none";
+                }
+            }
+        }
+
+
+
+        /////////////
+        ///populating municipality
+        function Municipality()
+         {
+            const municipalityInput = document.getElementById("Municipality");
+            const suggestions = document.getElementById("suggestionsMuni");
+
+            const data = [];
+
+            fetch("../../js/municipality.js")
+                .then(response => response.json())
+                .then(data => {
+                    data = data;
+
+                    municipalityInput.addEventListener("input", function () {
+                        const inputText = municipalityInput.value;
+                        updateSuggestions(inputText, data);
+                    });
+
+                    document.addEventListener("click", function (event) {
+                        if (!suggestions.contains(event.target)) {
+                            suggestions.innerHTML = "";
+                        }
+                    });
+                });
+
+
+            function updateSuggestions(inputText, data) {
+                const filteredData = data.filter(function (item) {
+                    return item.name.toLowerCase().includes(inputText.toLowerCase());
+                });
+
+                renderSuggestions(filteredData);
+            }
+
+            function renderSuggestions(filteredData) {
+                suggestions.innerHTML = "";
+
+                filteredData.forEach(function (item) {
+                    const suggestionItem = document.createElement("li");
+                    suggestionItem.textContent = item.name;
+                    suggestionItem.addEventListener("click", function () {
+                        municipalityInput.value = item.name;
+                        suggestions.innerHTML = "";
+                    });
+                    suggestions.appendChild(suggestionItem);
+                });
+
+                if (filteredData.length > 0) {
+                    suggestions.style.display = "block";
+                } else {
+                    suggestions.style.display = "none";
+                }
+            }
+        }
+
+
+        /////////////
+        ///populating municipality
+        function Province() {
+            const provinceInput = document.getElementById("Province");
+            const suggestions = document.getElementById("suggestionsProv");
+
+            const data = [];
+
+            fetch("../../js/province.js")
+                .then(response => response.json())
+                .then(data => {
+                    data = data;
+
+                    provinceInput.addEventListener("input", function () {
+                        const inputText = provinceInput.value;
+                        updateSuggestions(inputText, data);
+                    });
+
+                    document.addEventListener("click", function (event) {
+                        if (!suggestions.contains(event.target)) {
+                            suggestions.innerHTML = "";
+                        }
+                    });
+                });
+
+
+            function updateSuggestions(inputText, data) {
+                const filteredData = data.filter(function (item) {
+                    return item.name.toLowerCase().includes(inputText.toLowerCase());
+                });
+
+                renderSuggestions(filteredData);
+            }
+
+            function renderSuggestions(filteredData) {
+                suggestions.innerHTML = "";
+
+                filteredData.forEach(function (item) {
+                    const suggestionItem = document.createElement("li");
+                    suggestionItem.textContent = item.name;
+                    suggestionItem.addEventListener("click", function () {
+                        provinceInput.value = item.name;
+                        suggestions.innerHTML = "";
+                    });
+                    suggestions.appendChild(suggestionItem);
+                });
+
+                if (filteredData.length > 0) {
+                    suggestions.style.display = "block";
+                } else {
+                    suggestions.style.display = "none";
+                }
+            }
         }
 
 

@@ -1,9 +1,26 @@
 using SEPHMS.Entities;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<clinicContext>();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+    });
+
+});
+
+
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -20,6 +37,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// put add userCors function to activate it
+app.UseCors();
 
 app.UseAuthorization();
 

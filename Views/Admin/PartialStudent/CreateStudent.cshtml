@@ -1,6 +1,5 @@
-
 <template id="studentOptionTemplate">
-  <option value=""></option>
+    <option value=""></option>
 </template>
 
 
@@ -9,72 +8,214 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                  <div class="modal-body d-flex justify-content-center">
-                <h5 class="modal-title" id="exampleModalLabel">Create Student</h5>
+                <div class="modal-body d-flex justify-content-center">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Student</h5>
                 </div>
                 <button type="button" id="modalStudentCreateClose" class="btn-close btn-light" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
             <div class="modal-body StudentCreate d-flex justify-content-center">
                 <div>
-                    
 
 
-                        <form id="createStudentForm">
 
-                            <div class="form-group">
-                                <label name="" class="control-label">First Name</label>
-                                <input type="text" name="Firstname" id="inputMedicineName"
-                                    placeholder="Enter First Name" class="form-control" required />
+                    <form id="createStudentForm">
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label name="" class="control-label">First Name</label>
+                                    <input type="text" name="Firstname" id="inputMedicineName"
+                                        placeholder="Enter First Name" class="form-control" required />
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label name="" class="control-label">Last Name</label>
-                                <input type="text" name="Lastname" id="inputMedicineName"
-                                    placeholder="Enter Last Name" class="form-control" required />
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label name="" class="control-label">Last Name</label>
+                                    <input type="text" name="Lastname" id="inputMedicineName"
+                                        placeholder="Enter Last Name" class="form-control" required />
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label name="" class="control-label">Middle Name</label>
-                                <input type="text" name="Middlename" id="inputMedicineName"
-                                    placeholder="Enter Middle Name" class="form-control" required />
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label name="" class="control-label">Middle Name</label>
+                                    <input type="text" name="Middlename" id="inputMedicineName"
+                                        placeholder="Enter Middle Name" class="form-control" required />
+                                </div>
                             </div>
-                              <div class="form-group">
-                                <label name="" class="control-label">Birthdate</label>
-                                <input type="date" name="Birthdate" id="inputMedicineName"
-                                    placeholder="Enter Birthdate" class="form-control" required />
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label name="" class="control-label">Birthdate</label>
+                                    <input type="date" name="Birthdate" id="inputMedicineName"
+                                        placeholder="Enter Birthdate" class="form-control" required />
+                                </div>
                             </div>
-                             <div class="form-group">
-                                <label name="" class="control-label">Gmail address</label>
-                                <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter GmailAddress"
-                                    class="form-control" required />
-                            </div>
-                             <div class="form-group">
-                                <label name="" class="control-label">Address</label>
-                                <input type="text" name="Address" id="inputUnit" placeholder="Enter GmailAddress"
-                                    class="form-control" required />
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label name="" class="control-label">Gmail address</label>
+                                    <input type="text" name="Gmailaddress" id="inputUnit"
+                                        placeholder="Enter GmailAddress" class="form-control" required />
+                                </div>
                             </div>
 
 
-                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <span class="form-label">Select Gender </span>
-                                    <select  name="Gender" class="form-select">
-                                         <option>Male</option>
-                                         <option>Fenale</option>
+                                    <select name="Gender" class="form-select">
+                                        <option>Male</option>
+                                        <option>Fenale</option>
                                     </select>
                                 </div>
-                            
+                            </div>
 
-                        </form>
+                            <div class="col-sm-6">
+                                <div class="autocomplete">
+                                    <div class="form-group">
+                                        <label name="" class="control-label">Province</label>
+                                        <input type="text" name="Province" id="Province" placeholder="Enter  Province"
+                                            class="form-control" required />
+                                        <ul id="suggestionsProv"></ul>
+                                    </div>
+                                </div>
+                            </div>
 
-                
+                            <div class="col-sm-6">
+                                <div class="autocomplete">
+                                    <div class="form-group">
+                                        <label name="" class="control-label">Municipality</label>
+                                        <input type="text" name="Municipality" id="Municipality"
+                                            placeholder="Enter Municipality" class="form-control" required />
+                                        <ul id="suggestionsMuni"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="autocomplete">
+                                    <div class="form-group">
+                                        <label name="" class="control-label">Barangay</label>
+                                        <input type="text" name="Barangay" id="Barangay" placeholder="Enter Barangay"
+                                            class="form-control" required />
+                                        <ul id="suggestionsBar"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="autocomplete">
+                                    <div class="form-group">
+                                        <label name="" class="control-label">Purok</label>
+                                        <input type="text" name="Purok" id="Purok" placeholder="Enter Purok"
+                                            class="form-control" required />
+                                        <ul id="suggestionsPor"></ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+
                 </div>
-                
+
             </div>
             <div class="modal-footer">
-            <div class="modal-body d-flex justify-content-center">
-                <button type="button" class="btn btn-primary" id="createStudent">Confirm</button>
-            </div>
+                <div class="modal-body d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary" id="createStudent">Confirm</button>
+                </div>
             </div>
         </div>
-        
+
     </div>
 </div>
+
+<style>
+
+.autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+
+
+#suggestionsBar {
+    position: absolute;
+    width: 220px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    display: none;
+}
+
+
+#suggestionsBar li {
+   
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#suggestionsBar li:hover {
+    background-color: #918d8d;
+}
+
+#suggestionsProv {
+    position: absolute;
+    width: 220px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    display: none;
+}
+
+
+#suggestionsProv li {
+   
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+#suggestionsProv li:hover {
+    background-color: #918d8d;
+}
+
+
+#suggestionsMuni {
+    position: absolute;
+    width: 220px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    display: none;
+}
+
+
+#suggestionsMuni li {
+   
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#suggestionsMuni li:hover {
+    background-color: #918d8d;
+}
+</style>
