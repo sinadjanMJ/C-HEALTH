@@ -63,6 +63,10 @@ namespace SEPHMS.Controllers
            public ActionResult AdminDepartment(){
             return View("PartialDepartment/DepartmentIndex");
         }
+
+          public ActionResult AdminCourse(){
+            return View("PartialCourse/CourseIndex");
+        }
         
         
         

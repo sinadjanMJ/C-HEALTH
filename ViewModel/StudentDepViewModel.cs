@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SEPHMS.Entities
+namespace SEPHMS.ViewModel
 {
-    public partial class Studentpersonalinformation
+    public class StudentDepViewModel
     {
         public int SpiId { get; set; }
         public string Firstname { get; set; }
@@ -18,8 +15,12 @@ namespace SEPHMS.Entities
         public string AddressMunicipality { get; set; }
         public string AddressBarangay { get; set; }
         public string AddressPurok { get; set; }
-        public int DepartmentId { get; set; }
-        public int CourseStrandYearId { get; set; }
         public string Address { get; set; }
+
+        public string DepartmentName { get; set; }
+        public int DepartmentId { get; set; }
+
+        public int CourseStrandYearId { get; set; }
+        public string CourseStrandYearName { get; set; }
     }
 }

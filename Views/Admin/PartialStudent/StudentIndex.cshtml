@@ -31,7 +31,155 @@
         displayStudentData();
         baranggay();
         Municipality();
-         Province();
+        Province();
+
+        AddSelectDepartment();
+        UpdateSelectDepartments();
+
+
+
+
+
+
+
+
+
+
+        function AddSelectDepartment() {
+
+            $.ajax("../api/adminapi/getDepartment")
+                .done(function (result) {
+
+
+
+                    var template = document.querySelector("template#departmentOptionTemplate");
+                    var parent = document.querySelectorAll("#Department");
+
+
+                    for (i = 0; i < parent.length; i++) {
+                        result.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.departmentId;
+                            cloned.querySelector("option").innerText = item.departmentName;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+                });
+        }
+
+        function UpdateSelectDepartments() {
+
+            $.ajax("../api/adminapi/getDepartment")
+                .done(function (result) {
+
+
+
+                    var template = document.querySelector("template#departmentOptionTemplate");
+                    var parent = document.querySelectorAll("#DepartmentUpdate");
+
+
+                    for (i = 0; i < parent.length; i++) {
+                        result.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.departmentId;
+                            cloned.querySelector("option").innerText = item.departmentName;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+                });
+        }
+
+
+
+
+
+
+
+
+        ////
+
+
+        /* this line represent for fetching data to select box and showing to other select equal to selected value*/
+
+        ///
+
+        const depSelect = document.querySelector("#Department");
+        const courseSelect = document.querySelector("#Course");
+
+        // Function to populate the result select with data
+        function populateResultSelect(selectedValue) {
+
+
+            $.ajax("../api/adminapi/getCourse")
+                .done(function (data) {
+
+
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.departmentId == selectedValue);
+
+                    // Clear the existing options in the result select
+                    courseSelect.innerHTML = "";
+
+                    // Populate the result select with the filtered data
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.courseStrandYearId;
+                        option.innerText = item.courseStrandYearName;
+                        courseSelect.appendChild(option);
+                    });
+
+
+                });
+        }
+
+        // Initial population of the result select based on the default selected value
+        populateResultSelect(depSelect.value);
+
+        // Event listener to update the result select when the category select changes
+        depSelect.addEventListener("change", function () {
+            const selectedValue = this.value;
+            populateResultSelect(selectedValue);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         function getStudent() {
             $.ajax("../api/adminapi/getStudent")
@@ -45,6 +193,7 @@
 
                         arr = item;
                         console.log(arr.age);
+                        console.log(arr.spiCode);
 
                     });
 
@@ -69,6 +218,9 @@
                             {
                                 upst: arr,
                                 age: arr.age,
+                              //  randompass: arr.spiCode,
+                                addrs: `Purok ${arr.AddressPurok}, ${arr.AddressBarangay}, ${arr.AddressMunicipality}, ${arr.AddressProvince}`
+
                             },
                         })
                         .done(function () {
@@ -105,16 +257,27 @@
             var arrData = {}; //ayaw ni tan dug kani dre nga line
             var formelements = $("#createStudentForm .form-group");
 
+
+
             //getting the data from the form
             var formInputs = $("#createStudentForm").serializeArray();
             formInputs.forEach(function (item) {
                 arrData[item.name] = item.value;
+
+
             });
+
+
+
+
+
+
+
 
 
             //////// function random number
             var random8DigitNumber = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
-            //console.log(random8DigitNumber);
+            console.log(random8DigitNumber);
 
 
             // Example usage:
@@ -129,8 +292,12 @@
                 // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
 
                 if (formInputs[0].value != gmailaddress) {
+
+                    // console.log(`${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`);
+
+
                     //AJAX ADD Student
-                    console.log(formInputs);
+
                     $.ajax
                         ({
                             url: "../api/adminapi/AddStudent",
@@ -139,7 +306,11 @@
                             {
                                 addStudent: arrData,
                                 randompass: random8DigitNumber,
-                                age: result
+                                age: result,
+                                addrs: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`
+
+
+
                             },
                         })
                         .done(function () {
@@ -168,7 +339,7 @@
             if (!$.fn.DataTable.isDataTable('#StudentData')) {
                 $('#StudentData').DataTable({
                     ajax: {
-                        url: '../api/adminapi/getStudent', // API endpoint to retrieve department
+                        url: '../api/adminapi/getStudents', // API endpoint to retrieve department
                         dataSrc: ''
                     },
                     columns:
@@ -180,8 +351,10 @@
                             { data: 'birthdate' },
                             { data: 'gender' },
                             { data: 'age' },
-                            { data: 'address' },
                             { data: 'gmailaddress' },
+                            { data: 'address' },
+                            { data: 'departmentName' },
+                            { data: 'courseStrandYearName' },
 
                             {
                                 data: 'spiId',
@@ -210,26 +383,112 @@
                 selectedStudentId = i;
                 selectedStudent = StudentList.find(element => element.spiId == i);
 
+                //var selectIdToSet = $("#Course");
                 console.log(selectedStudent);
 
                 oFormObject = document.forms["updateStudentForm"];
+
+
+
                 initForm(oFormObject, selectedStudent);
+                //initFormC(oFormObject, selectedStudent, selectIdToSet);
+                populateResultSelects(selectedStudent.departmentId);
 
                 console.log(selectedStudent.gender);
                 $("#gend").val(selectedStudent.gender);
             }
         });
 
+
+
+
+
+        
+        const deSelct = document.querySelector("#DepartmentUpdate");
+        const courseSelects = document.querySelector("#CourseUpdate");
+
+
+        // Function to populate the result select with data
+        function populateResultSelects(depSelects) {
+
+
+            $.ajax("../api/adminapi/getCourse")
+                .done(function (data) {
+
+
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.departmentId == depSelects);
+
+
+                    // Clear the existing options in the result select
+                    courseSelects.innerHTML = "";
+
+                    // Populate the result select with the filtered data
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.courseStrandYearId;
+                        option.innerText = item.courseStrandYearName;
+                        courseSelects.appendChild(option);
+                    });
+
+
+                });
+
+        }
+
+
+         // Initial population of the result select based on the default selected value
+        populateResultSelects(deSelct.value);
+
+        // Event listener to update the result select when the category select changes
+        deSelct.addEventListener("change", function () {
+            const depSelects = this.value;
+            populateResultSelects(depSelects);
+        });
+
+
+
+
+
+
+
+
+
+
         function initForm(form, data) {
 
             Object.getOwnPropertyNames(data).forEach(function (item) {
+
                 var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
 
-                if (currentElem == null) { return; }
-                form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
+                //  console.log(currentElem);
 
+                if (currentElem == null) { return; }
+
+                if (currentElem.tagName == "SELECT") {
+                    var selectChildren = Array.from(currentElem.children);
+                    var matchedOpt = selectChildren.find(opt => opt.value == selectedStudent.departmentId);
+                    console.log("i selected" + selectedStudent.departmentId);
+                    if (matchedOpt) {
+                        matchedOpt.selected = true;
+                    }
+                } else {
+                    form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
+                }
             });
         }
+
+
+
+        
+
+
+
+
+
+
+
+
 
 
         $("#updateStudent").click(function () {
@@ -260,6 +519,8 @@
                 arrData[item.name] = item.value;
             });
             arrData.spiId = selectedStudentId;
+            console.log("update",arrData.spiCode);
+          
 
 
             //function of years
@@ -270,7 +531,7 @@
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
                 if (formInputs[0].value != gmailaddress) {
                     proceedUpdate(arrData, result);
-                    console.log("gi click lagi ko " + arrData);
+                   
                 } else {
                     vol1();
                 }
@@ -281,6 +542,8 @@
         }
 
         function proceedUpdate(arrData, result) {
+           
+          
             //AJAX UPDATE DEPARTMENT
             $.ajax
                 ({
@@ -290,6 +553,9 @@
                     {
                         upst: arrData,
                         age: result,
+                      //  randompass: arrData.spiCode,
+                        addrs: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`
+
                     },
                 })
                 .done(function () {
@@ -349,8 +615,7 @@
 
         /////////////
         ///populating baranggay
-        function baranggay() 
-        {
+        function baranggay() {
             const baranggayInput = document.getElementById("Barangay");
             const suggestions = document.getElementById("suggestionsBar");
 
@@ -406,8 +671,7 @@
 
         /////////////
         ///populating municipality
-        function Municipality()
-         {
+        function Municipality() {
             const municipalityInput = document.getElementById("Municipality");
             const suggestions = document.getElementById("suggestionsMuni");
 
@@ -518,7 +782,7 @@
         }
 
 
-   
+
 
 
 

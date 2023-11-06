@@ -1,23 +1,15 @@
-<div class="card d-flex">
-    <div class="card-body d-flex">
+<div class="card">
+    <div class="card-body">
         <div class="card-title">
-
-
-            <table id="StudentData" class="display table table-bordered table-hover" width="100%">
+         <h6><span>List</span><small class="px-1">of Available Date</small></h6>
+        
+            <table id="CourseData" class="display table table-bordered table-hover" width="100%">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
-                        <th>Birthdate</th>
-                        <th>Gender</th>
-                        <th>Age</th>
-                        <th>Gmail</th>
-                        <th>Address</th>
                         <th>Department</th>
-                        <th>Course</th>
-                        <th>Action&nbsp;&nbsp;&nbsp;&nbsp;Result</th>
+                        <th>Course/Year/Strand</th>
+                        <th>Action Result</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -26,6 +18,8 @@
         </div>
     </div>
 </div>
+
+
 
  <style>
         /* Add some basic styling */
@@ -39,13 +33,13 @@
             align-items: center;
             height: 100vh;
         }
-        
 
         .card {
             background-color: #fff;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            display: flex;
+            width: 1000px;
+            max-width: 2000px;
             padding: 20px;
         }
 
@@ -53,7 +47,6 @@
             font-size: 1.2rem;
             color: #333;
             margin-bottom: 10px;
-            display: flex;
         }
 
         .table {
@@ -82,6 +75,3 @@
         }
 
     </style>
-
-
-

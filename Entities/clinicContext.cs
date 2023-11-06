@@ -18,6 +18,7 @@ namespace SEPHMS.Entities
 
         public virtual DbSet<Adminaccount> Adminaccounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Coursestrandyear> Coursestrandyears { get; set; }
         public virtual DbSet<Date> Dates { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
@@ -90,6 +91,21 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("categoryname");
+            });
+
+            modelBuilder.Entity<Coursestrandyear>(entity =>
+            {
+                entity.ToTable("coursestrandyear");
+
+                entity.Property(e => e.CourseStrandYearId).HasColumnType("int(11)");
+
+                entity.Property(e => e.CourseStrandYearName)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.Property(e => e.DepartmentId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("departmentId");
             });
 
             modelBuilder.Entity<Date>(entity =>
@@ -389,6 +405,26 @@ namespace SEPHMS.Entities
                     .HasMaxLength(250)
                     .HasColumnName("address");
 
+                entity.Property(e => e.AddressBarangay)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("addressBarangay");
+
+                entity.Property(e => e.AddressMunicipality)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("addressMunicipality");
+
+                entity.Property(e => e.AddressProvince)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("addressProvince");
+
+                entity.Property(e => e.AddressPurok)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("addressPurok");
+
                 entity.Property(e => e.Age)
                     .HasColumnType("int(11)")
                     .HasColumnName("age");
@@ -397,6 +433,14 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("birthdate");
+
+                entity.Property(e => e.CourseStrandYearId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("courseStrandYearId");
+
+                entity.Property(e => e.DepartmentId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("departmentId");
 
                 entity.Property(e => e.Firstname)
                     .IsRequired()

@@ -69,6 +69,80 @@ namespace SEPHMS.Controllers
 
 
 
+         public ActionResult<List<DepCourseViewModel>> getCourse()
+        {
+          
+            var result = (
+                from d in _context.Departments
+                join c in _context.Coursestrandyears
+                on d.DepartmentId equals c.DepartmentId // naka base siya table if int ba or sting kung int mag tostring ka
+
+                select new DepCourseViewModel
+                {
+
+                     DepartmentId = d.DepartmentId,     
+                     CourseStrandYearId = c.CourseStrandYearId,      
+                     DepartmentName = d.DepartmentName,    
+                     CourseStrandYearName = c.CourseStrandYearName      
+    
+                }
+
+
+
+            ).ToList();
+            return Ok(result);
+
+        }
+
+         public IActionResult AddCourse(Coursestrandyear addCor)
+        {
+            
+        try
+        {
+
+             _context.Coursestrandyears.Add(addCor);
+            _context.SaveChanges();
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+
+       return Ok();
+           
+        }
+            public IActionResult updateCourse(Coursestrandyear upCor)
+        {
+            try
+            {
+            _context.Coursestrandyears.Update(upCor);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+            public IActionResult deleteCourse(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Coursestrandyears.Where(element => element.CourseStrandYearId == id).FirstOrDefault();
+            _context.Coursestrandyears.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
+
+
+
+
+
          public ActionResult<List<Department>> getDepartment(){
             return _context.Departments.ToList();
         }
@@ -114,6 +188,7 @@ namespace SEPHMS.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
 
 
 
@@ -602,11 +677,56 @@ namespace SEPHMS.Controllers
         public ActionResult<List<Studentpersonalinformation>> getStudent(){
             return _context.Studentpersonalinformations.ToList();
         }
+        public ActionResult<List<Studentpersonalinformation>> getStudents(){
 
-        public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age)
+             var result = (
+                from s in _context.Studentpersonalinformations
+                join d in _context.Departments
+                on s.DepartmentId equals d.DepartmentId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+                join c in _context.Coursestrandyears
+                on s.CourseStrandYearId equals c.CourseStrandYearId
+
+
+                select new StudentDepViewModel
+                {
+
+                   DepartmentId = d.DepartmentId,
+                   DepartmentName = d.DepartmentName,
+                 
+                   
+                   SpiId = s.SpiId,
+                   Firstname = s.Firstname,
+                   Lastname = s.Lastname,
+                   Middlename = s.Middlename,
+                   Birthdate = s.Birthdate,
+                   Gmailaddress = s.Gmailaddress,
+                   Age = s.Age,
+                   SpiCode = s.SpiCode,
+                   Gender = s.Gender,
+                   Address = s.Address,
+                   AddressProvince = s.AddressProvince,
+                   AddressMunicipality = s.AddressMunicipality,
+                   AddressBarangay = s.AddressBarangay,
+                   AddressPurok = s.AddressPurok,
+
+                   CourseStrandYearId = c.CourseStrandYearId,
+                   CourseStrandYearName = c.CourseStrandYearName
+                  
+                }
+
+
+
+            ).ToList();
+            return Ok(result);
+           
+        }
+
+        public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age , string addrs)
         {
              addStudent.Age = age;
              addStudent.SpiCode = randompass;
+             addStudent.Address = addrs;
 
 
             _context.Studentpersonalinformations.Add(addStudent);
@@ -615,12 +735,13 @@ namespace SEPHMS.Controllers
             return Ok();
         }
 
-             public IActionResult updateStudent(Studentpersonalinformation upst, int age)
+             public IActionResult updateStudent(Studentpersonalinformation upst, int age , string addrs)
         {
             try
             {
                 
             upst.Age = age;
+            upst.Address = addrs;
 
 
             _context.Studentpersonalinformations.Update(upst);
