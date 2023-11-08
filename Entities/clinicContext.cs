@@ -26,10 +26,12 @@ namespace SEPHMS.Entities
         public virtual DbSet<Equipment> Equipment { get; set; }
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<Medicinestockhistory> Medicinestockhistories { get; set; }
+        public virtual DbSet<Normalrange> Normalranges { get; set; }
         public virtual DbSet<Nurse> Nurses { get; set; }
         public virtual DbSet<Signup> Signups { get; set; }
         public virtual DbSet<Studentpersonalinformation> Studentpersonalinformations { get; set; }
         public virtual DbSet<Time> Times { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -326,6 +328,30 @@ namespace SEPHMS.Entities
                     .HasColumnName("medicineId");
             });
 
+            modelBuilder.Entity<Normalrange>(entity =>
+            {
+                entity.ToTable("normalrange");
+
+                entity.Property(e => e.NormalrangeId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("normalrangeId");
+
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.Property(e => e.MaxAge).HasColumnType("int(11)");
+
+                entity.Property(e => e.MinAge).HasColumnType("int(11)");
+
+                entity.Property(e => e.Test)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("test");
+
+                entity.Property(e => e.UnitId).HasColumnType("int(11)");
+            });
+
             modelBuilder.Entity<Nurse>(entity =>
             {
                 entity.ToTable("nurse");
@@ -488,6 +514,20 @@ namespace SEPHMS.Entities
                 entity.Property(e => e.DateId)
                     .HasColumnType("int(11)")
                     .HasColumnName("dateId");
+            });
+
+            modelBuilder.Entity<Unit>(entity =>
+            {
+                entity.ToTable("unit");
+
+                entity.Property(e => e.UnitId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("unitId");
+
+                entity.Property(e => e.Unitname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("unitname");
             });
 
             OnModelCreatingPartial(modelBuilder);

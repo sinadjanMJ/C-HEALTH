@@ -329,6 +329,49 @@ namespace SEPHMS.Controllers
 
 
 
+         public ActionResult<List<Unit>> getUnit(){
+            return _context.Units.ToList();
+        }
+        public IActionResult AddUnit(Unit addun)
+        {
+          _context.Units.Add(addun);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+            public IActionResult updateUnit(Unit upun)
+        {
+            try
+            {
+            _context.Units.Update(upun);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+        
+          public IActionResult deleteUnit(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Units.Where(element => element.UnitId == id).FirstOrDefault();
+            _context.Units.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
+        
+
+
+
+
 
 
 
@@ -667,6 +710,90 @@ namespace SEPHMS.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
+
+
+
+
+    
+
+
+         public ActionResult<List<Normalrange>> getNR(){
+
+             var result = (
+                from n in _context.Normalranges
+                join u in _context.Units
+                on n.UnitId equals u.UnitId // naka base siya table if int ba or sting kung int mag tostring ka
+        
+
+
+                select new NormalRangeViewModel
+                {
+
+                   UnitId = u.UnitId,
+                   Unitname = u.Unitname,
+                 
+                   NormalrangeId = n.NormalrangeId,
+                   Test = n.Test,
+                   MinRange = n.MinRange,
+                   MaxRange = n.MaxRange,
+                   MinAge = n.MinAge,
+                   MaxAge = n.MaxAge,
+                   Gender = n.Gender
+                  
+                }
+
+
+
+            ).ToList();
+            return Ok(result);
+           
+        }
+
+         public IActionResult AddNR(Normalrange addNR)
+        {
+            
+        try
+        {
+
+             _context.Normalranges.Add(addNR);
+            _context.SaveChanges();
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+
+       return Ok();
+           
+        }
+            public IActionResult updateNR(Normalrange upNR)
+        {
+            try
+            {
+            _context.Normalranges.Update(upNR);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+            public IActionResult deleteNR(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Normalranges.Where(element => element.NormalrangeId == id).FirstOrDefault();
+            _context.Normalranges.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
 
 
 

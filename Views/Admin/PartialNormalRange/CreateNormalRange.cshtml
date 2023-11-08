@@ -1,0 +1,81 @@
+<template id="NROptionTemplate">
+  <option value=""></option>
+</template>
+
+
+<div class="modal fade" id="modalNRCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-body d-flex justify-content-center">
+          <h5 class="modal-title" id="exampleModalLabel">Add Normal Range</h5>
+        </div>
+        <button type="button" id="modalNRCreateClose" class="btn-close btn-light" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body NRCreate d-flex justify-content-center">
+        <div>
+
+
+
+          <form id="createNRForm">
+
+            <div class="form-group">
+              <label name="" class="control-label">Test Name</label>
+              <input type="text" name="Test" id="inputDate" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label name="" class="control-label">Min Range</label>
+              <input type="text" name="MinRange" id="inputDate" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+              <label name="" class="control-label">Max Range</label>
+              <input type="text" name="MaxRange" id="inputDate" class="form-control" required />
+            </div>
+
+
+            <div class="form-group">
+              <label name="" class="control-label">Select Gender</label>
+              <select name="Gender" class="form-select">
+                <option>Null</option>
+                <option>Male</option>
+                <option>Fenale</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label name="" class="control-label">Min Age</label>
+              <input type="number" name="MinAge" id="inputDate"  class="form-control" required />
+            </div>
+
+            <div class="form-group">
+              <label name="" class="control-label">Max Age</label>
+              <input type="number" name="MaxAge" id="inputDate"  class="form-control" required />
+            </div>
+
+            <div class="form-group">
+              <label name="" class="control-label">Select Unit</label>
+              <select id="catSelect" name="UnitId" class="form-select"></select>
+            </div>
+
+
+
+
+          </form>
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-body d-flex justify-content-center">
+          <button type="button" class="btn btn-primary" id="createNR">Confirm</button>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

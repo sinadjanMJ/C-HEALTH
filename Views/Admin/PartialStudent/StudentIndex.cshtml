@@ -1,4 +1,4 @@
-<button type="button" title="Create Student" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
+<button type="button" title="Add Student" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalStudentCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
     Add Student
@@ -7,6 +7,7 @@
 @Html.Partial("PartialStudent/CreateStudent")
 @Html.Partial("PartialStudent/StudentTable")
 @Html.Partial("PartialStudent/StudentUpdate")
+@Html.Partial("PartialStudent/AddStudentHealthInfo")
 
 
 @* gamit kaayu ni siya para maka pa display og value sa select option *@
@@ -369,7 +370,7 @@
         }
 
         function btnAddStudentData(id) {
-            return "<center><a class='btn btn-success StudentUpdate' data-spiId=" + id + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger StudentDelete' data-spiId=" + id + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
+            return "<center><a style='color : #ffffff;' class='btn btn-success StudentUpdate' data-spiId=" + id + "><i title='Update Student Information' class='fa-solid fa-pen-to-square'></i> Update</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentDelete' data-spiId=" + id + "><i title='Delete Student Information' class='fa-solid fa-trash' ></i>  Delete</a> <br> <br>  <a  style='color : #ffffff;'   class='btn btn-info StudentInfo' data-spiId=" + id + "> <i  class='fa fa-medkit'  title='Add Student Health Information'></i> Health </a> </center>"
         }
 
 
@@ -565,6 +566,34 @@
                     displaySavedProgress();
                 });
         }
+
+
+
+
+
+        $("tbody").delegate(".StudentInfo", "click", function (e) {
+            console.log("I was clicked");
+            var i = e.target.closest("a").getAttribute("data-spiId");
+            if (i != null) {
+                $("#addStudentHealthInfoForm")[0].reset();
+                $("#modalStudentHealthInfo").modal("toggle");
+
+                selectedStudentId = i;
+               
+
+              
+            }
+        });
+
+
+
+
+
+
+
+
+
+
 
 
         $("tbody").delegate(".StudentDelete", "click", function (e) {

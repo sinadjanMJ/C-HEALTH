@@ -67,6 +67,12 @@ namespace SEPHMS.Controllers
           public ActionResult AdminCourse(){
             return View("PartialCourse/CourseIndex");
         }
+           public ActionResult AdminUnit(){
+            return View("PartialUnit/UnitIndex");
+        }
+           public ActionResult AdminNormalRange(){
+            return View("PartialNormalRange/NormalRangeIndex");
+        }
         
         
         
