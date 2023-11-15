@@ -9,7 +9,7 @@ namespace SEPHMS.ViewModel
         public string Test { get; set; } 
         public float MinRange { get; set; }
         public float MaxRange { get; set; } 
-        public string Gender { get; set; } 
+        public string? Gender { get; set; } 
         public int? MinAge { get; set; } 
         public int? MaxAge { get; set; } 
     }

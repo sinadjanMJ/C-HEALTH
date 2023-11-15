@@ -39,6 +39,316 @@
 
 
 
+        getUnits();
+
+
+        function getUnits() {
+            $.ajax("../api/adminapi/getNR")
+                .done(function (result) {
+
+
+                    var a = [];
+                    a = result.filter(function (item) {
+                        return item.test === "WBC";
+                    });
+
+                    var b = [];
+                    b = result.filter(function (item) {
+                        return item.test === "Neutrophils";
+                    });
+
+                    var c = [];
+                    c = result.filter(function (item) {
+                        return item.test === "Lymphocyte";
+                    });
+
+                    var d = [];
+                    d = result.filter(function (item) {
+                        return item.test === "Monocyte";
+                    });
+
+                    var e = [];
+                    e = result.filter(function (item) {
+                        return item.test === "Eosinophil";
+                    });
+
+                    var f = [];
+                    f = result.filter(function (item) {
+                        return item.test === "Basophil";
+                    });
+
+                    var g = [];
+                    g = result.filter(function (item) {
+                        return item.test === "Hemoglobin";
+                    });
+
+                    var h = [];
+                    h = result.filter(function (item) {
+                        return item.test === "Hematocrit";
+                    });
+
+                    var ii = [];
+                    ii = result.filter(function (item) {
+                        return item.test === "RBC";
+                    });
+
+                    console.log(ii);
+
+                    var j = [];
+                    j = result.filter(function (item) {
+                        return item.test === "MCV";
+                    });
+
+
+                    var k = [];
+                    k = result.filter(function (item) {
+                        return item.test === "MCH";
+                    });
+
+
+                    var l = [];
+                    l = result.filter(function (item) {
+                        return item.test === "MCHC";
+                    });
+
+                    var m = [];
+                    m = result.filter(function (item) {
+                        return item.test === "RCDW";
+                    });
+
+
+                    var n = [];
+                    n = result.filter(function (item) {
+                        return item.test === "Platelet Count";
+                    });
+
+                    var o = [];
+                    o = result.filter(function (item) {
+                        return item.test === "MPV";
+                    });
+
+
+
+                    var template = document.querySelector("template#unitsOptionTemplate");
+
+
+                    var parent = document.querySelectorAll("#wbc");
+                    for (i = 0; i < parent.length; i++) {
+                        a.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+                    var parent = document.querySelectorAll("#Neutrophils");
+                    for (i = 0; i < parent.length; i++) {
+                        b.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                           cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+                    var parent = document.querySelectorAll("#Lymphocyte");
+                    for (i = 0; i < parent.length; i++) {
+                        c.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+
+
+                    var parent = document.querySelectorAll("#Monocyte");
+                    for (i = 0; i < parent.length; i++) {
+                        d.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+
+                    var parent = document.querySelectorAll("#Eosinophil");
+                    for (i = 0; i < parent.length; i++) {
+                        e.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+                    var parent = document.querySelectorAll("#Basophil");
+                    for (i = 0; i < parent.length; i++) {
+                        f.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+
+                    var parent = document.querySelectorAll("#Hemoglobin");
+                    for (i = 0; i < parent.length; i++) {
+                        g.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+
+                    var parent = document.querySelectorAll("#Hematocrit");
+                    for (i = 0; i < parent.length; i++) {
+                        h.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+
+                    var parent = document.querySelectorAll("#RBC");
+                    for (i = 0; i < parent.length; i++) {
+                        ii.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+
+                    var parent = document.querySelectorAll("#MCV");
+                    for (i = 0; i < parent.length; i++) {
+                        j.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                         cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+
+                    var parent = document.querySelectorAll("#MCH");
+                    for (i = 0; i < parent.length; i++) {
+                        k.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                             cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+
+                    var parent = document.querySelectorAll("#MCHC");
+                    for (i = 0; i < parent.length; i++) {
+                        l.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+                    var parent = document.querySelectorAll("#RCDW");
+                    for (i = 0; i < parent.length; i++) {
+                        m.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+                    var parent = document.querySelectorAll("#PlateletCount");
+                    for (i = 0; i < parent.length; i++) {
+                        n.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+
+                    var parent = document.querySelectorAll("#MPV");
+                    for (i = 0; i < parent.length; i++) {
+                        o.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").innerText = item.unitname;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+
+                });
+
+        }
+
+
+
 
 
 
@@ -219,7 +529,7 @@
                             {
                                 upst: arr,
                                 age: arr.age,
-                              //  randompass: arr.spiCode,
+                                //  randompass: arr.spiCode,
                                 addrs: `Purok ${arr.AddressPurok}, ${arr.AddressBarangay}, ${arr.AddressMunicipality}, ${arr.AddressProvince}`
 
                             },
@@ -404,7 +714,7 @@
 
 
 
-        
+
         const deSelct = document.querySelector("#DepartmentUpdate");
         const courseSelects = document.querySelector("#CourseUpdate");
 
@@ -438,7 +748,7 @@
         }
 
 
-         // Initial population of the result select based on the default selected value
+        // Initial population of the result select based on the default selected value
         populateResultSelects(deSelct.value);
 
         // Event listener to update the result select when the category select changes
@@ -481,7 +791,7 @@
 
 
 
-        
+
 
 
 
@@ -520,8 +830,8 @@
                 arrData[item.name] = item.value;
             });
             arrData.spiId = selectedStudentId;
-            console.log("update",arrData.spiCode);
-          
+            console.log("update", arrData.spiCode);
+
 
 
             //function of years
@@ -532,7 +842,7 @@
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
                 if (formInputs[0].value != gmailaddress) {
                     proceedUpdate(arrData, result);
-                   
+
                 } else {
                     vol1();
                 }
@@ -543,8 +853,8 @@
         }
 
         function proceedUpdate(arrData, result) {
-           
-          
+
+
             //AJAX UPDATE DEPARTMENT
             $.ajax
                 ({
@@ -554,7 +864,7 @@
                     {
                         upst: arrData,
                         age: result,
-                      //  randompass: arrData.spiCode,
+                        //  randompass: arrData.spiCode,
                         addrs: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`
 
                     },
@@ -566,34 +876,6 @@
                     displaySavedProgress();
                 });
         }
-
-
-
-
-
-        $("tbody").delegate(".StudentInfo", "click", function (e) {
-            console.log("I was clicked");
-            var i = e.target.closest("a").getAttribute("data-spiId");
-            if (i != null) {
-                $("#addStudentHealthInfoForm")[0].reset();
-                $("#modalStudentHealthInfo").modal("toggle");
-
-                selectedStudentId = i;
-               
-
-              
-            }
-        });
-
-
-
-
-
-
-
-
-
-
 
 
         $("tbody").delegate(".StudentDelete", "click", function (e) {
@@ -640,6 +922,118 @@
                     alertDeleteInfo();
                 });
         }
+
+
+        ///////////////////
+
+        $("tbody").delegate(".StudentInfo", "click", function (e) {
+            console.log("I was clicked");
+            var i = e.target.closest("a").getAttribute("data-spiId");
+            if (i != null) {
+                $("#addStudentHealthInfoForm")[0].reset();
+                $("#modalStudentHealthInfo").modal("toggle");
+
+                selectedStudentId = i;
+            }
+        });
+
+
+
+
+
+
+        //create health
+        $("#createStudentHealth").click((e) => {
+
+            console.log("yehey na click jyud ko");
+            //     console.log(catname);
+
+            var arrData = {}; //ayaw ni tan dug kani dre nga line
+            var formelements = $("#addStudentHealthInfoForm .form-group");
+
+            //getting the data from the form
+            var formInputs = $("#addStudentHealthInfoForm").serializeArray();
+            formInputs.forEach(function (item) {
+                arrData[item.name] = item.value;
+               // console.log(arrData);
+            });
+
+
+          
+
+
+              var now = new Date(), year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate(), hours = now.getHours(), minutes = now.getMinutes(), seconds = now.getSeconds();
+
+                var formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+               var formattedDate = `${year}-${month}-${day} `;
+               
+               
+              
+
+
+
+
+
+            if (formInputs.length === formelements.length ) {
+
+              
+                //AJAX ADD DEPARTMENT
+                $.ajax
+                    ({
+                        url: "../api/adminapi/AddStudentHealth",
+                        type: "POST",
+                        data:
+                        {
+                            shi: arrData,
+                            Datet: formattedDate,
+                            Cbcdrawdatetime: formattedDateTime,
+                            Cbcdatetimerequested: formattedDateTime,
+                            Cbcphysician: "Dr Mj",
+                            Hospitalnumber: "09701530736",
+                            SpiId: selectedStudentId
+                        },
+                    })
+                    .done(function () {
+
+                        $("#addStudentHealthInfoForm")[0].reset();
+                        $("#modalStudentHealthInfo").modal("toggle");
+                        // getNR();
+                        displaySavedProgress();
+                        //  displayNRData();
+
+                    });
+
+
+            }
+            else {
+                alertError();
+            }
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /////////////
@@ -808,7 +1202,12 @@
                     suggestions.style.display = "none";
                 }
             }
-        }
+        }///end point personal information
+
+
+
+
+
 
 
 

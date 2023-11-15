@@ -29,6 +29,7 @@ namespace SEPHMS.Entities
         public virtual DbSet<Normalrange> Normalranges { get; set; }
         public virtual DbSet<Nurse> Nurses { get; set; }
         public virtual DbSet<Signup> Signups { get; set; }
+        public virtual DbSet<Studenthealthinformation> Studenthealthinformations { get; set; }
         public virtual DbSet<Studentpersonalinformation> Studentpersonalinformations { get; set; }
         public virtual DbSet<Time> Times { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
@@ -336,9 +337,7 @@ namespace SEPHMS.Entities
                     .HasColumnType("int(11)")
                     .HasColumnName("normalrangeId");
 
-                entity.Property(e => e.Gender)
-                    .IsRequired()
-                    .HasMaxLength(250);
+                entity.Property(e => e.Gender).HasMaxLength(250);
 
                 entity.Property(e => e.MaxAge).HasColumnType("int(11)");
 
@@ -413,6 +412,154 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("password");
+            });
+
+            modelBuilder.Entity<Studenthealthinformation>(entity =>
+            {
+                entity.HasKey(e => e.ShiId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("studenthealthinformation");
+
+                entity.Property(e => e.ShiId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("shiId");
+
+                entity.Property(e => e.Basophil).HasColumnName("basophil");
+
+                entity.Property(e => e.Basophilunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("basophilunits");
+
+                entity.Property(e => e.Cbcdatetimerequested)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("cbcdatetimerequested");
+
+                entity.Property(e => e.Cbcdrawdatetime)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("cbcdrawdatetime");
+
+                entity.Property(e => e.Cbcphysician)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("cbcphysician");
+
+                entity.Property(e => e.Datet)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("datet");
+
+                entity.Property(e => e.Eosinophil)
+                    .HasPrecision(10)
+                    .HasColumnName("eosinophil");
+
+                entity.Property(e => e.Eosinophilunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("eosinophilunits");
+
+                entity.Property(e => e.Hematocrit).HasColumnName("hematocrit");
+
+                entity.Property(e => e.Hematocritunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("hematocritunits");
+
+                entity.Property(e => e.Hemoglobin).HasColumnName("hemoglobin");
+
+                entity.Property(e => e.Hemoglobinunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("hemoglobinunits");
+
+                entity.Property(e => e.Hospitalnumber)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("hospitalnumber");
+
+                entity.Property(e => e.Lymphocyte).HasColumnName("lymphocyte");
+
+                entity.Property(e => e.Lymphocyteunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("lymphocyteunits");
+
+                entity.Property(e => e.Mch).HasColumnName("mch");
+
+                entity.Property(e => e.Mchc).HasColumnName("mchc");
+
+                entity.Property(e => e.Mchcunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("mchcunits");
+
+                entity.Property(e => e.Mchunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("mchunits");
+
+                entity.Property(e => e.Mcv).HasColumnName("mcv");
+
+                entity.Property(e => e.Mcvunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("mcvunits");
+
+                entity.Property(e => e.Monocyte).HasColumnName("monocyte");
+
+                entity.Property(e => e.Monocyteunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("monocyteunits");
+
+                entity.Property(e => e.Mpv).HasColumnName("mpv");
+
+                entity.Property(e => e.Mpvunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("mpvunits");
+
+                entity.Property(e => e.Neutrophils).HasColumnName("neutrophils");
+
+                entity.Property(e => e.Neutrophilsunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("neutrophilsunits");
+
+                entity.Property(e => e.Plateletcount).HasColumnName("plateletcount");
+
+                entity.Property(e => e.Plateletcountunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("plateletcountunits");
+
+                entity.Property(e => e.Rbc).HasColumnName("rbc");
+
+                entity.Property(e => e.Rbcunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("rbcunits");
+
+                entity.Property(e => e.Rcdw).HasColumnName("rcdw");
+
+                entity.Property(e => e.Rcdwunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("rcdwunits");
+
+                entity.Property(e => e.SpiId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("SPI_ID");
+
+                entity.Property(e => e.Wbc).HasColumnName("wbc");
+
+                entity.Property(e => e.Wbcunits)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("wbcunits");
             });
 
             modelBuilder.Entity<Studentpersonalinformation>(entity =>

@@ -5,7 +5,9 @@
 <!-- Telephone Input CSS -->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css'>
 <!-- Icons CSS -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+    integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- Style CSS -->
 <link rel="stylesheet" href="~/css/studenthealthinfo.css">
 <!-- Demo CSS -->
@@ -14,14 +16,14 @@
 <body id="body">
 
 
+
+
     <div class="modal fade" id="modalStudentHealthInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-body d-flex justify-content-center">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
-                    </div>
+
                     <button type="button" id="modalStudentAddClose" class="btn-close btn-light" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -29,8 +31,15 @@
                 <main id="main">
                     <article>
 
+
+
+                        <template id="unitsOptionTemplate">
+                            <option value=""></option>
+                        </template>
+
                         <!-- Start Multiform HTML -->
                         <section class="multi_step_form">
+                            
                             <form id="addStudentHealthInfoForm">
                                 <!-- Tittle -->
                                 <div class="tittle">
@@ -47,167 +56,288 @@
                                 <fieldset>
                                     <h3>Input Credentials</h3>
                                     @* <h6>We will send you a SMS. Input the code to verify.</h6> *@
+
                                     <div class="row">
-                                        <div class="col-sm-4">
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
-                                                <label name="" class="control-label">White Blood Cells</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName" class="form-control" required />
+                                                <label class="control-label">WBC</label>
+                                                <input type="number" name="Wbc" id="inputMedicineName"
+                                                    class="form-control" required />
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="wbc" name="Wbcunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Neutrophils</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
+                                                <input   type="number" name="Neutrophils" id="inputMedicineName"
                                                     class="form-control" required />
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="Neutrophils" name="Neutrophilsunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Lymphocyte</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
+                                                <input type="number" name="Lymphocyte" id="inputMedicineName"
                                                     class="form-control" required />
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="Lymphocyte" name="Lymphocyteunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Monocyte</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
+                                                <input type="number" name="Monocyte" id="inputMedicineName"
+                                                    class="form-control" required />
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="Monocyte" name="Monocyteunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Eosinophil</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
+                                                <input type="number" name="Eosinophil" id="inputMedicineName"
+                                                    class="form-control" required />
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="Eosinophil" name="Eosinophilunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Basophil</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
+                                                <input type="number" name="Basophil" id="inputMedicineName"
+                                                    class="form-control" required />
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="Basophil" name="Basophilunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Hemoglobin</label>
+                                                <input type="number" name="Hemoglobin" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="Hemoglobin"  name="Hemoglobinunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Hematocrit</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
+                                                <input type="number" name="Hematocrit" id="inputMedicineName"
+                                                    class="form-control" required />
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
-                                                <label name="" class="control-label">Red Blood Cells</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
-                                            </div>
-                                        </div>
-
-                                         <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label name="" class="control-label">Mean Corpuscular Volume</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
-                                            </div>
-                                        </div>
-                                         <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label name="" class="control-label">Mean Corpuscular Hemoglobin</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
-                                            </div>
-                                        </div>
-                                         <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label name="" class="control-label">Mean Corpuscular Hemoglobin Concentration</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label name="" class="control-label">Red Cell Distribution Width</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label name="" class="control-label">Platelet Count</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="Hematocrit"  name="Hematocritunits" class="form-select"></select>
                                             </div>
                                         </div>
 
 
-                                        <div class="col-sm-4">
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">RBC</label>
+                                                <input type="number" name="Rbc" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="RBC"  name="Rbcunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">MCV </label>
+                                                <input type="number" name="Mcv" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="MCV"   name="Mcvunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">MCH</label>
+                                                <input type="number" name="Mch" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="MCH"  name="Mchunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">MCHC</label>
+                                                <input type="number" name="Mchc" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="MCHC"   name="Mchcunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">RCDW</label>
+                                                <input type="number" name="Rcdw" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="RCDW"  name="Rcdwunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">PlateletCount</label>
+                                                <input type="number" name="Plateletcount" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select  id="PlateletCount"  name="Plateletcountunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">MPV</label>
-                                                <input type="number" name="Lastname" id="inputMedicineName"
-                                                     class="form-control" required />
+                                                <input type="number" name="Mpv" id="inputMedicineName"
+                                                    class="form-control" required />
                                             </div>
                                         </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select  id="MPV"  name="Mpvunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
                                     </div>
-                                    
-            
+
+
+                                      <button type="button" class="btn btn-primary" id="createStudentHealth">Confirm</button>
+
                                     <button type="button" class="action-button previous_button">Back</button>
                                     <button type="button" class="next action-button">Continue</button>
-                                    <button type="button" class="btn btn-primary" id="createStudent">Confirm</button>
-
+                                  
                                 </fieldset>
                                 <fieldset>
                                     <h3>Verify Your Identity</h3>
                                     <h6>Please upload any of these documents to verify your Identity.</h6>
-                                    <div class="passport">
-                                        <h4>Govt. ID card <br>PassPort <br>Driving License.</h4>
-                                        <a href="#" class="don_icon"><i class="ion-android-done"></i></a>
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="upload">
-                                            <label class="custom-file-label" for="upload"><i
-                                                    class="ion-android-cloud-outline"></i>Choose file</label>
-                                        </div>
-                                    </div>
-                                    <ul class="file_added">
-                                        <li>File Added:</li>
-                                        <li><a href="#"><i class="ion-paperclip"></i>national_id_card.png</a></li>
-                                        <li><a href="#"><i class="ion-paperclip"></i>national_id_card_back.png</a></li>
-                                    </ul>
+                                   
                                     <button type="button" class="action-button previous previous_button">Back</button>
                                     <button type="button" class="next action-button">Continue</button>
-                                    
-                              
+
+
                                 </fieldset>
                                 <fieldset>
                                     <h3>Create Security Questions</h3>
                                     <h6>Please update your account with security questions</h6>
-                                    <div class="form-group">
-                                        <select class="product_select">
-                                            <option data-display="1. Choose A Question">1. Choose A Question</option>
-                                            <option>2. Choose A Question</option>
-                                            <option>3. Choose A Question</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group fg_2">
-                                        <input type="text" class="form-control" placeholder="Anwser here:">
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="product_select">
-                                            <option data-display="1. Choose A Question">1. Choose A Question</option>
-                                            <option>2. Choose A Question</option>
-                                            <option>3. Choose A Question</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group fg_3">
-                                        <input type="text" class="form-control" placeholder="Anwser here:">
-                                    </div>
+                                    
                                     <button type="button" class="action-button previous previous_button">Back</button>
                                     <a href="#" class="action-button">Finish</a>
                                 </fieldset>
+                               
                             </form>
+                              
                         </section>
                         <!-- END Multiform HTML -->
                     </article>

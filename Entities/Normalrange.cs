@@ -10,8 +10,8 @@ namespace SEPHMS.Entities
         public float MinRange { get; set; }
         public float MaxRange { get; set; }
         public int UnitId { get; set; }
-        public string Gender { get; set; }
         public int? MinAge { get; set; }
         public int? MaxAge { get; set; }
+        public string? Gender { get; set; } //always remember to put ?
     }
 }

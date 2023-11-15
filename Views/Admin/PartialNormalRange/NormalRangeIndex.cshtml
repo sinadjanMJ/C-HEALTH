@@ -10,7 +10,7 @@
 
 @Html.Partial("PartialNormalRange/CreateNormalRange")
 @Html.Partial("PartialNormalRange/NormalRangeTable")
-@* @Html.Partial("PartialNormalRange/NormalRangeUpdate") *@
+@Html.Partial("PartialNormalRange/NormalRangeUpdate")
 
 
 
@@ -37,7 +37,8 @@
             $.ajax("../api/adminapi/getNR")
                 .done(function (result) {
                    NRList = result;
-                 //  console.log(result);
+                 
+                  console.log(result);
                     result.forEach(function (item) {
                   //   console.log(item);
 
@@ -153,9 +154,165 @@
         }
 
         function btnAddNR(normalrangeId) {
-            return "<center><a class='btn btn-success NRUpdate' data-normalrangeId=" + normalrangeId + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger NrDelete' data-normalrangeId=" + normalrangeId + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
+            return "<center><a class='btn btn-success NRUpdate' data-normalrangeId=" + normalrangeId + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger NRDelete' data-normalrangeId=" + normalrangeId + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
         }
 
+         $("tbody").delegate(".NRUpdate", "click", function (e) {
+            console.log("I was clicked");
+            var i = e.target.closest("a").getAttribute("data-normalrangeId");
+            if (i != null) {
+                $("#createNRForm")[0].reset();
+                $("#modalNRUpdate").modal("toggle");
+
+                selectedNRId = i;
+                selectedNR = NRList.find(element => element.normalrangeId == i);
+
+                console.log(selectedNR);
+
+                oFormObject = document.forms["updateNRForm"];
+                initForm(oFormObject, selectedNR);
+            }
+        });
+
+
+        function initForm(form, data) {
+
+            Object.getOwnPropertyNames(data).forEach(function (item) {
+
+                var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
+
+                if (currentElem == null) { return; }
+
+                if (currentElem.tagName == "SELECT") {
+                    var selectChildren = Array.from(currentElem.children);
+                    var matchedOpt = selectChildren.find(opt => opt.value == selectedNR.unitId);
+                  //  console.log(selectedNR.normalrangeId);
+                    if (matchedOpt) {
+                        matchedOpt.selected = true;
+                    }
+                } else {
+                    form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
+                }
+
+
+            });
+
+
+        }
+
+
+        $("#updateNR").click(function () {
+            alertSaveChanges();
+        });
+
+        function alertSaveChanges() {
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                confirmButtonText: 'Save',
+                showCancelButton: true,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    updateNRHolder();
+                }
+            })
+        }
+
+        function updateNRHolder() {
+            var arrData = {};
+
+            var formelements = $("#updatNRForm .form-group");
+
+            var formInputs = $("#updateNRForm").serializeArray();
+            console.log(formInputs);
+            formInputs.forEach(function (item) {
+                arrData[item.name] = item.value;
+            });
+
+            //attempts to give value to the data
+            arrData.normalrangeId = selectedNRId;
+            console.log(arrData);
+
+
+
+            if (formInputs[0].value !== '') {
+
+                $.ajax
+                    ({
+                        url: "../api/adminapi/updateNR",
+                        type: "POST",
+                        data:
+                        {
+                            upNR: arrData
+                        },
+                    })
+                    .done(function () {
+                        // document.querySelector(".parent").innerHTML ="";
+                     
+                         $("#updateNRForm")[0].reset();
+                         $("#modalNRUpdate").modal("toggle");
+
+
+                        displayNRData();
+                        displaySavedProgress();
+                        getNR();
+
+                    });
+
+
+            } else {
+                alertError();
+            }
+
+
+
+        }
+
+
+        $("tbody").delegate(".NRDelete", "click", function (e) {
+            var i = e.target.closest("a").getAttribute("data-normalrangeId");
+            if (i != null) {
+                //Insert code here for the delete
+                selectedNRId = i;
+                console.log(selectedNRId + "mao ni siya");
+                alertDeleteConfirmation();
+            }
+        });
+
+        function alertDeleteConfirmation() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to Delete this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    proceedDelete();
+                }
+            })
+        }
+
+        function proceedDelete() {
+            console.log(selectedNRId + "proceed");
+            //AJAX DELETE DEPARTMENT
+            $.ajax
+                ({
+                    url: "../api/adminapi/deleteNR",
+                    type: "POST",
+                    data:
+                
+        {
+                        id: selectedNRId
+                    },
+                })
+                .done(function () {
+                    displayNRData();
+                    alertDeleteInfo();
+                });
+        }
         
 
 
@@ -165,10 +322,7 @@
     
     
     
-
-
-
-
+ 
 
 
 

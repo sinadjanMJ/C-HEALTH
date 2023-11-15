@@ -899,6 +899,38 @@ namespace SEPHMS.Controllers
 
 
 
+
+        public IActionResult AddStudentHealth(Studenthealthinformation shi, string Datet,string Cbcdrawdatetime, string Cbcdatetimerequested, string Cbcphysician, string Hospitalnumber, int SpiId)
+        {
+            shi.Datet = Datet;
+            shi.SpiId = SpiId;
+            shi.Cbcphysician = Cbcphysician;
+            shi.Cbcdatetimerequested = Cbcdatetimerequested;
+            shi.Cbcdrawdatetime = Cbcdrawdatetime;
+            shi.Hospitalnumber = Hospitalnumber;
+
+
+
+            _context.Studenthealthinformations.Add(shi);
+            _context.SaveChanges();
+     
+            return Ok();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
        
 

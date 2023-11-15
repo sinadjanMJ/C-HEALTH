@@ -37,7 +37,7 @@
                 .done(function (result) {
                     UnitList = result;
                     result.forEach(function (item) {
-                        console.log(item);
+                      //  console.log(item);
                         unitsname = item.unitname;
                     });
 
@@ -91,6 +91,7 @@
                 alertError();
             }
         });
+        
 
         function displayUnitData() {
             $('#UnitData').DataTable().destroy();

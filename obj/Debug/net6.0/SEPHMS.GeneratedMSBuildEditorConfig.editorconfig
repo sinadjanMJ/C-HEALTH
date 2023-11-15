@@ -247,16 +247,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbE5vcm1hbFJhbmdlXENyZWF0ZU5vcm1hbFJhbmdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialNormalRange/NormalRageUpdate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbE5vcm1hbFJhbmdlXE5vcm1hbFJhZ2VVcGRhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialNormalRange/NormalRangeIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbE5vcm1hbFJhbmdlXE5vcm1hbFJhbmdlSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialNormalRange/NormalRangeTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbE5vcm1hbFJhbmdlXE5vcm1hbFJhbmdlVGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialNormalRange/NormalRangeUpdate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbE5vcm1hbFJhbmdlXE5vcm1hbFJhbmdlVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialNurse/NurseIndex.cshtml]
