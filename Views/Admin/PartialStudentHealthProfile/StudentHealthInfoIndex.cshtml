@@ -1,0 +1,73 @@
+@Html.Partial("PartialStudentHealthProfile/StudentHealthInformationTable")
+
+
+@* gamit kaayu ni siya para maka pa display og value sa select option *@
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    var selectedStudentHI;
+    var selectedStudentHIId;
+    var StudentHIList = {};
+    var arr = {};
+
+
+      $(document).ready(function () {
+
+      displayStudentHealthData();
+
+      
+      function displayStudentHealthData() {
+            $('#StudentHealthInfoData').DataTable().destroy();
+            if (!$.fn.DataTable.isDataTable('#StudentHealthInfoData')) {
+                $('#StudentHealthInfoData').DataTable({
+                    ajax: {
+                        url: '../api/adminapi/getStudentHI', // API endpoint to retrieve department
+                        dataSrc: ''
+                    },
+                    columns:
+                        [
+                            { data: 'shiId' },
+                            { data: 'fullname' },
+                            { data: 'birthdate' },
+                            { data: 'gender' },
+                            { data: 'age' },
+                            { data: 'hospitalnumber' },
+                            { data: 'cbcphysician' },
+                            { data: 'departmentName' },
+                            { data: 'courseStrandYearName' },
+
+                            {
+                                data: 'shiId',
+                                render: function (data, type, row) {
+                                    return btnAddStudentHealthData(data);
+                                }
+                            },
+                        ]
+                });
+            }
+           
+        }
+
+        function btnAddStudentHealthData(id) {
+            return "<center><a style='color : #ffffff;' class='btn btn-success StudentUpdate' data-shiId=" + id + "><i title='Update Student Information' class='fa-solid fa-pen-to-square'></i> Update</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentDelete' data-shiId=" + id + "><i title='Delete Student Information' class='fa-solid fa-trash' ></i>  Delete</a> <br> <br>  <a  style='color : #ffffff;'   class='btn btn-info StudentInfo' data-spiId=" + id + "> <i  class='fa fa-medkit'  title='Add Student Health Information'></i> Health </a> </center>"
+        }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      });// end of this do not touch it
+
+
+</script>

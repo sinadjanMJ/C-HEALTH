@@ -73,6 +73,10 @@ namespace SEPHMS.Controllers
            public ActionResult AdminNormalRange(){
             return View("PartialNormalRange/NormalRangeIndex");
         }
+
+           public ActionResult AdminStudentHealthInfo(){
+            return View("PartialStudentHealthProfile/StudentHealthInfoIndex");
+        }
         
         
         

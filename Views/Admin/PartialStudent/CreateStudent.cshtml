@@ -10,6 +10,10 @@
     <option value=""></option>
 </template>
 
+<template id="prabensOptionTemplate">
+    <option value=""></option>
+</template>
+
 
 
 <div class="modal fade" id="modalStudentCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,56 +77,53 @@
                                      <label name="" class="control-label">Select Gender</label>
                                     <select name="Gender" class="form-select">
                                         <option>Male</option>
-                                        <option>Fenale</option>
+                                        <option>Female</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="address">Address</div>
-
                             <div class="col-sm-6">
-                                <div class="autocomplete">
-                                    <div class="form-group">
-                                        <label name="" class="control-label">Province</label>
-                                        <input type="text" name="AddressProvince" id="Province" placeholder="Enter  Province"
-                                            class="form-control" required />
-                                        <ul id="suggestionsProv"></ul>
-                                    </div>
+                                <div class="form-group">
+                                    <label name="" class="control-label">Select Province</label>
+                                    <select id="prabens" name="AddressProvince" class="form-select">
+                                         <option value="" disabled selected>Select a Province</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <div class="autocomplete">
-                                    <div class="form-group">
-                                        <label name="" class="control-label">Municipality</label>
-                                        <input type="text" name="AddressMunicipality" id="Municipality"
-                                            placeholder="Enter Municipality" class="form-control" required />
-                                        <ul id="suggestionsMuni"></ul>
-                                    </div>
+                                <div class="form-group">
+                                    <label name="" class="control-label">Select Municipality</label>
+                                    <select id="muni" name="AddressMunicipality" class="form-select">
+                                    
+                                    </select>
+                                    
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="autocomplete">
-                                    <div class="form-group">
-                                        <label name="" class="control-label">Barangay</label>
-                                        <input type="text" name="AddressBarangay" id="Barangay" placeholder="Enter Barangay"
-                                            class="form-control" required />
-                                        <ul id="suggestionsBar"></ul>
-                                    </div>
+
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label name="" class="control-label">Select Baranggay</label>
+                                    <select id="barang" name="AddressBarangay" class="form-select">
+        
+                                    </select>
+                                    
                                 </div>
                             </div>
+                            
 
                             <div class="col-sm-6">
-                                <div class="autocomplete">
+                                
                                     <div class="form-group">
                                         <label name="" class="control-label">Purok</label>
                                         <input type="text" name="AddressPurok" id="Purok" placeholder="Enter Purok"
                                             class="form-control" required />
-                                        <ul id="suggestionsPor"></ul>
+                                      
 
                                     </div>
-                                </div>
+                             
                             </div>
 
                             <div class="address">Department Course Or Year</div>
@@ -156,6 +157,9 @@
                 <div class="modal-body d-flex justify-content-center">
                     <button type="button" class="btn btn-primary" id="createStudent">Confirm</button>
                 </div>
+                <div class="modal-body d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary" id="samp">sample</button>
+                </div>
             </div>
         </div>
 
@@ -170,89 +174,4 @@
         padding-bottom: 20px;
     }
 
-    .autocomplete {
-        position: relative;
-        display: inline-block;
-    }
-
-
-
-    #suggestionsBar {
-        position: absolute;
-        width: 220px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: white;
-        border: 1px solid #ccc;
-        border-top: none;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        display: none;
-    }
-
-
-    #suggestionsBar li {
-
-        padding: 10px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    #suggestionsBar li:hover {
-        background-color: #918d8d;
-    }
-
-    #suggestionsProv {
-        position: absolute;
-        width: 220px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: white;
-        border: 1px solid #ccc;
-        border-top: none;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        display: none;
-    }
-
-
-    #suggestionsProv li {
-
-        padding: 10px;
-        cursor: pointer;
-        transition: background-color 0.1s;
-    }
-
-    #suggestionsProv li:hover {
-        background-color: #918d8d;
-    }
-
-
-    #suggestionsMuni {
-        position: absolute;
-        width: 220px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: white;
-        border: 1px solid #ccc;
-        border-top: none;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        display: none;
-    }
-
-
-    #suggestionsMuni li {
-
-        padding: 10px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    #suggestionsMuni li:hover {
-        background-color: #918d8d;
-    }
 </style>

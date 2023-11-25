@@ -9,6 +9,8 @@ namespace SEPHMS.ViewModel
         public string Birthdate { get; set; }
         public string Gmailaddress { get; set; }
         public string AddressProvince { get; set; }
+        public string Fullname { get; set; }
+
         public int Age { get; set; }
         public int SpiCode { get; set; }
         public string Gender { get; set; }

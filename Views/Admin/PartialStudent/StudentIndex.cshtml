@@ -7,7 +7,7 @@
 @Html.Partial("PartialStudent/CreateStudent")
 @Html.Partial("PartialStudent/StudentTable")
 @Html.Partial("PartialStudent/StudentUpdate")
-@Html.Partial("PartialStudent/AddStudentHealthInfo")
+@Html.Partial("PartialStudentHealthProfile/AddStudentHealthInfo")
 
 
 @* gamit kaayu ni siya para maka pa display og value sa select option *@
@@ -30,16 +30,16 @@
 
         getStudent();
         displayStudentData();
-        baranggay();
-        Municipality();
-        Province();
+
 
         AddSelectDepartment();
-        UpdateSelectDepartments();
-
-
-
+        UpdateSelectDepartments()
         getUnits();
+
+
+        AddSelectPrabens();
+        address();
+       
 
 
         function getUnits() {
@@ -149,7 +149,7 @@
                     for (i = 0; i < parent.length; i++) {
                         b.forEach(function (item) {
                             var cloned = template.content.cloneNode(true);
-                           cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").value = item.unitId;
                             cloned.querySelector("option").innerText = item.unitname;
 
                             parent[i].prepend(cloned);
@@ -267,7 +267,7 @@
                     for (i = 0; i < parent.length; i++) {
                         j.forEach(function (item) {
                             var cloned = template.content.cloneNode(true);
-                         cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").value = item.unitId;
                             cloned.querySelector("option").innerText = item.unitname;
 
                             parent[i].prepend(cloned);
@@ -282,7 +282,7 @@
                     for (i = 0; i < parent.length; i++) {
                         k.forEach(function (item) {
                             var cloned = template.content.cloneNode(true);
-                             cloned.querySelector("option").value = item.unitId;
+                            cloned.querySelector("option").value = item.unitId;
                             cloned.querySelector("option").innerText = item.unitname;
 
                             parent[i].prepend(cloned);
@@ -348,6 +348,126 @@
         }
 
 
+
+        function AddSelectPrabens() {
+
+            fetch("../../js/province.js")
+                .then(response => response.json())
+                .then(result => {
+
+
+
+                    var template = document.querySelector("template#prabensOptionTemplate");
+                    var parent = document.querySelectorAll("#prabens");
+
+
+                    for (i = 0; i < parent.length; i++) {
+                        result.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.code;
+                            cloned.querySelector("option").innerText = item.name;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+                });
+        }
+
+
+        function address() {
+
+
+            const munSelect = document.querySelector("#muni");
+            const barSelect = document.querySelector("#barang");
+
+            // Function to populate the result select with data
+            function populateResultSelects(selectedValues) {
+
+
+
+
+                fetch("../../js/baranggay.js")
+                    .then(response => response.json())
+                    .then(data => {
+
+
+
+
+                        // Filter the data based on the selected category
+                        const datos = data.filter(item => item.municipalityCode == selectedValues || item.cityCode == selectedValues);
+
+                        // Clear the existing options in the result select
+                        barSelect.innerHTML = "";
+
+
+
+                        // Populate the result select with the filtered data
+                        datos.forEach((item) => {
+                            const option = document.createElement("option");
+                            option.value = item.code;
+                            option.innerText = item.name;
+                            barSelect.appendChild(option);
+                        });
+
+
+                    });
+            }
+
+
+
+            // Initial population of the result select based on the default selected value
+            populateResultSelects(munSelect.value);
+
+            // Event listener to update the result select when the category select changes
+            munSelect.addEventListener("change", function () {
+                const selectedValues = this.value;
+                populateResultSelects(selectedValues);
+            });
+
+
+            const depSelect = document.querySelector("#prabens");
+            const courseSelect = document.querySelector("#muni");
+
+            // Function to populate the result select with data
+            function populateResultSelect(selectedValue) {
+
+
+                fetch("../../js/municipality.js")
+                    .then(response => response.json())
+                    .then(data => {
+
+
+                        // Filter the data based on the selected category
+                        const datos = data.filter(item => item.provinceCode == selectedValue);
+
+                        // Clear the existing options in the result select
+                        courseSelect.innerHTML = "";
+
+                        // Populate the result select with the filtered data
+                        datos.forEach((item) => {
+                            const option = document.createElement("option");
+                            option.value = item.code;
+                            option.innerText = item.name;
+                            courseSelect.appendChild(option);
+                        });
+
+
+                    });
+            }
+
+
+
+            // Initial population of the result select based on the default selected value
+            populateResultSelect(depSelect.value);
+
+            // Event listener to update the result select when the category select changes
+            depSelect.addEventListener("change", function () {
+                const selectedValue = this.value;
+                populateResultSelect(selectedValue);
+            });
+
+        }
 
 
 
@@ -490,6 +610,9 @@
 
 
 
+        
+
+
 
 
         function getStudent() {
@@ -521,6 +644,8 @@
                     }
 
 
+
+
                     $.ajax
                         ({
                             url: "../api/adminapi/updateStudent",
@@ -529,7 +654,9 @@
                             {
                                 upst: arr,
                                 age: arr.age,
-                                //  randompass: arr.spiCode,
+
+                                fullname: ` ${arr.Firstname}  ${arr.Middlename}  ${arr.Lastname}`,
+
                                 addrs: `Purok ${arr.AddressPurok}, ${arr.AddressBarangay}, ${arr.AddressMunicipality}, ${arr.AddressProvince}`
 
                             },
@@ -557,6 +684,8 @@
                 return "Invalid date format. Please enter a date in the format YYYY-MM-DD.";
             }
         }
+
+
 
 
 
@@ -604,10 +733,15 @@
 
                 if (formInputs[0].value != gmailaddress) {
 
-                    // console.log(`${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`);
+
+                    /// pagkuha sa data instead value  ang text kuhaon
+
+                    var prabens = $('#prabens option:selected').text();
+                    var muni = $('#muni option:selected').text();
+                    var barang = $('#barang option:selected').text();
+                 
 
 
-                    //AJAX ADD Student
 
                     $.ajax
                         ({
@@ -618,7 +752,14 @@
                                 addStudent: arrData,
                                 randompass: random8DigitNumber,
                                 age: result,
-                                addrs: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`
+                                province: prabens,
+                                municipal: muni,
+                                baranggay: barang,
+
+                                fullname: ` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`,
+
+
+                                address: `Purok ${arrData.AddressPurok}, ${barang}, ${muni}, ${prabens}`
 
 
 
@@ -656,9 +797,7 @@
                     columns:
                         [
                             { data: 'spiId' },
-                            { data: 'firstname' },
-                            { data: 'lastname' },
-                            { data: 'middlename' },
+                            { data: 'fullname' },
                             { data: 'birthdate' },
                             { data: 'gender' },
                             { data: 'age' },
@@ -786,6 +925,34 @@
                 } else {
                     form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
                 }
+
+
+                // Assuming currentElem is a reference to the DOM element
+
+                if (currentElem.tagName == "SELECT") {
+                    // Check the ID of the SELECT element
+                    if (currentElem.id == "gender") {
+                        // Handle the case where the current element is a SELECT with a specific ID
+                        var selectChildren = Array.from(currentElem.children);
+                        var matchedOpt = selectChildren.find(opt => opt.innerText.trim() == selectedStudent.gender.trim());
+                        if (matchedOpt) {
+                            matchedOpt.selected = true;
+                        }
+                    }
+                } else {
+                    // Handle the case where the current element is not a SELECT with the specific ID
+                    form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
+                }
+
+
+
+
+
+
+
+
+
+
             });
         }
 
@@ -854,6 +1021,8 @@
 
         function proceedUpdate(arrData, result) {
 
+          //  alert(` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`);
+
 
             //AJAX UPDATE DEPARTMENT
             $.ajax
@@ -865,7 +1034,9 @@
                         upst: arrData,
                         age: result,
                         //  randompass: arrData.spiCode,
-                        addrs: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`
+                        fullname: ` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`,
+
+                        address: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`
 
                     },
                 })
@@ -955,28 +1126,62 @@
             var formInputs = $("#addStudentHealthInfoForm").serializeArray();
             formInputs.forEach(function (item) {
                 arrData[item.name] = item.value;
-               // console.log(arrData);
+                // console.log(arrData);
             });
 
 
-          
-
-
-              var now = new Date(), year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate(), hours = now.getHours(), minutes = now.getMinutes(), seconds = now.getSeconds();
-
-                var formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-               var formattedDate = `${year}-${month}-${day} `;
-               
-               
-              
 
 
 
+            var now = new Date(), year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate(), hours = now.getHours(), minutes = now.getMinutes(), seconds = now.getSeconds();
+
+            var formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            var formattedDate = `${year}-${month}-${day} `;
+
+            var wbc = $('#wbc option:selected').text();
+            var neutrophils = $('#Neutrophils option:selected').text();
+            var lymphocyte = $('#Lymphocyte option:selected').text();
+            var monocyte = $('#Monocyte option:selected').text();
+            var eosinophil = $('#Eosinophil option:selected').text();
+            var basophil = $('#Basophil option:selected').text();
+            var hemoglobin = $('#Hemoglobin option:selected').text();
+            var hematocrit = $('#Hematocrit option:selected').text();
+            var rbc = $('#RBC option:selected').text();
+            var mcv = $('#MCV option:selected').text();
+            var mch = $('#MCH option:selected').text();
+            var mchc = $('#MCHC option:selected').text();
+            var rcdw = $('#RCDW option:selected').text();
+            var plateletcount = $('#PlateletCount option:selected').text();
+            var mpv = $('#MPV option:selected').text();
 
 
-            if (formInputs.length === formelements.length ) {
+            arrData.Wbcunits = wbc;
+            arrData.Neutrophilsunits = neutrophils;
+            arrData.Lymphocyteunits = lymphocyte;
+            arrData.Monocyteunits = monocyte;
+            arrData.Eosinophilunits = eosinophil;
+            arrData.Basophilunits = basophil;
+            arrData.Hemoglobinunits = hemoglobin;
+            arrData.Hematocritunits = hematocrit;
+            arrData.Rbcunits = rbc;
+            arrData.Mcvunits = mcv;
+            arrData.Mchunits = mch;
+            arrData.Mchcunits = mchc;
+            arrData.Rcdwunits = rcdw;
+            arrData.Plateletcountunits = plateletcount;
+            arrData.Mpvunits = mpv;
 
-              
+
+
+
+
+
+
+
+
+            if (formInputs.length === formelements.length) {
+
+
                 //AJAX ADD DEPARTMENT
                 $.ajax
                     ({
@@ -991,6 +1196,9 @@
                             Cbcphysician: "Dr Mj",
                             Hospitalnumber: "09701530736",
                             SpiId: selectedStudentId
+
+
+
                         },
                     })
                     .done(function () {

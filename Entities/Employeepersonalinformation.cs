@@ -15,5 +15,9 @@ namespace SEPHMS.Entities
         public string Address { get; set; }
         public string Gmailaddress { get; set; }
         public int EpiCode { get; set; }
+        public string AddressProvince { get; set; }
+        public string AddressMunicipality { get; set; }
+        public string AddressBarangay { get; set; }
+        public string AddressPurok { get; set; }
     }
 }

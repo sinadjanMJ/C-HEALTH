@@ -1,3 +1,8 @@
+<template id="prabensOptionTemplate">
+    <option value=""></option>
+</template>
+
+
 <div class="modal fade" id="modalEmployeeCreate" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
@@ -16,117 +21,119 @@
                         <div class="row">
 
 
+
+                            <div class="address">Name</div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                   
-                                        <label name="" class="control-label">First Name</label>
-                                        <input type="text" name="Firstname" id="inputMedicineName"
-                                            placeholder="Enter First Name" class="form-control" required />
-                              
+
+                                    <label name="" class="control-label">First Name</label>
+                                    <input type="text" name="Firstname" id="inputMedicineName"
+                                        placeholder="Enter First Name" class="form-control" required />
+
                                 </div>
                             </div>
 
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                   
-                                        <label name="" class="control-label">Last Name</label>
-                                        <input type="text" name="Lastname" id="inputMedicineName"
-                                            placeholder="Enter Last Name" class="form-control" required />
-                                  
+
+                                    <label name="" class="control-label">Last Name</label>
+                                    <input type="text" name="Lastname" id="inputMedicineName"
+                                        placeholder="Enter Last Name" class="form-control" required />
+
                                 </div>
                             </div>
 
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                   
-                                        <label name="" class="control-label">Middle Name</label>
-                                        <input type="text" name="Middlename" id="inputMedicineName"
-                                            placeholder="Enter Middle Name" class="form-control" required />
-                                    
+
+                                    <label name="" class="control-label">Middle Name</label>
+                                    <input type="text" name="Middlename" id="inputMedicineName"
+                                        placeholder="Enter Middle Name" class="form-control" required />
+
                                 </div>
                             </div>
 
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                   
-                                        <label name="" class="control-label">Birthdate</label>
-                                        <input type="date" name="Birthdate" id="inputMedicineName"
-                                            placeholder="Enter Birthdate" class="form-control" required />
-                                    
+
+                                    <label name="" class="control-label">Birthdate</label>
+                                    <input type="date" name="Birthdate" id="inputMedicineName"
+                                        placeholder="Enter Birthdate" class="form-control" required />
+
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    
-                                        <label name="" class="control-label">Gmail address</label>
-                                        <input type="text" name="Gmailaddress" id="inputUnit"
-                                            placeholder="Enter GmailAddress" class="form-control" required />
-                                    
+
+                                    <label name="" class="control-label">Gmail address</label>
+                                    <input type="text" name="Gmailaddress" id="inputUnit"
+                                        placeholder="Enter GmailAddress" class="form-control" required />
+
                                 </div>
                             </div>
 
-                           
+
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    
-                                        <span class="form-label">Select Gender </span>
-                                        <select name="Gender" class="form-select genders" id="gend">
-                                            <option>Male</option>
-                                            <option>Female</option>
+
+                                    <span class="form-label">Select Gender </span>
+                                    <select name="Gender" class="form-select genders" id="gender">
+                                        <option>Male</option>
+                                        <option>Female</option>
 
 
 
-                                        </select>
-                                   
+                                    </select>
+
                                 </div>
                             </div>
 
-
-                             <div class="col-sm-6">
+                            <div class="address">Address</div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="autocomplete">
                                         <label name="" class="control-label">Province</label>
-                                        <input type="text" name="Province" id="Province"
-                                            placeholder="Enter Province" class="form-control" required />
-                                   <ul id="suggestionsProv"></ul>
+                                        <input type="text" name="AddressProvince" id="Province" placeholder="Enter Province"
+                                            class="form-control" required />
+                                        <ul id="suggestionsProv"></ul>
                                     </div>
                                 </div>
                             </div>
 
-                             <div class="col-sm-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="autocomplete">
                                         <label name="" class="control-label">Municipality</label>
-                                        <input type="text" name="Municipality" id="Municipality"
+                                        <input type="text" name="AddressMunicipality" id="Municipality"
                                             placeholder="Enter Municipality" class="form-control" required />
-                                    <ul id="suggestionsMuni"></ul>
+                                        <ul id="suggestionsMuni"></ul>
                                     </div>
                                 </div>
                             </div>
 
 
-                             <div class="col-sm-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="autocomplete">
                                         <label name="" class="control-label">Barangay</label>
-                                        <input type="text" name="Barangay" id="Barangay"
-                                            placeholder="Enter Barangay" class="form-control" required />
-                                   <ul id="suggestionsBar"></ul>
+                                        <input type="text" name="AddressBarangay" id="Barangay" placeholder="Enter Barangay"
+                                            class="form-control" required />
+                                        <ul id="suggestionsBar"></ul>
                                     </div>
                                 </div>
                             </div>
 
-                             <div class="col-sm-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="autocomplete">
                                         <label name="" class="control-label">Purok</label>
-                                        <input type="text" name="Purok" id="Purok"
-                                            placeholder="Enter Purok" class="form-control" required />
+                                        <input type="text" name="AddressPurok" id="Purok" placeholder="Enter Purok"
+                                            class="form-control" required />
                                     </div>
                                 </div>
                             </div>
@@ -149,90 +156,10 @@
 </div>
 
 <style>
-
-.autocomplete {
-    position: relative;
-    display: inline-block;
-}
-
-
-
-#suggestionsBar {
-    position: absolute;
-    width: 220px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    display: none;
-}
-
-
-#suggestionsBar li {
-   
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#suggestionsBar li:hover {
-    background-color: #918d8d;
-}
-
-#suggestionsProv {
-    position: absolute;
-    width: 220px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    display: none;
-}
-
-
-#suggestionsProv li {
-   
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#suggestionsProv li:hover {
-    background-color: #918d8d;
-}
-
-
-#suggestionsMuni {
-    position: absolute;
-    width: 220px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    display: none;
-}
-
-
-#suggestionsMuni li {
-   
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#suggestionsMuni li:hover {
-    background-color: #918d8d;
-}
+    .Address {
+        text-align: center;
+        font-size: large;
+        font-weight: bolder;
+        padding-bottom: 20px;
+    }
 </style>

@@ -1,5 +1,3 @@
-
-
 <button type="button" title="" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalEmployeeCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
@@ -29,14 +27,18 @@
         getEmployee();
         baranggay();
         Municipality();
-         Province();
+        Province();
 
 
 
 
 
 
-        
+
+
+
+
+
 
         function getEmployee() {
             $.ajax("../api/adminapi/getEmployee")
@@ -51,7 +53,7 @@
 
                 });
 
-            @* updateEmployeeAge(); *@
+    @* updateEmployeeAge(); *@
 
         }
 
@@ -97,13 +99,13 @@
             var result = calculateYearsDifference(userDateInput);
             console.log("mao nis siya ang result" + result); // This will either print the years difference or an error message
 
-
+        
 
 
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
                 // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
-
+             //  alert(`Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`);
                 if (formInputs[0].value != gmailaddress) {
                     //AJAX ADD Student
                     console.log(formInputs);
@@ -115,7 +117,9 @@
                             {
                                 addEmployee: arrData,
                                 randompass: random8DigitNumber,
+                                address: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`,
                                 age: result
+                              
                             },
                         })
                         .done(function () {
@@ -143,7 +147,7 @@
             $('#EmployeeData').DataTable().destroy();
             if (!$.fn.DataTable.isDataTable('#EmployeeData')) {
                 $('#EmployeeData').DataTable({
-                responsive: true,
+                    responsive: true,
                     ajax: {
                         url: '../api/adminapi/getEmployee', // API endpoint to retrieve department
                         dataSrc: ''
@@ -193,7 +197,7 @@
                 initForm(oFormObject, selectedEmployee);
 
                 console.log(selectedEmployee.gender);
-                $("#gends").val(selectedEmployee.gender); 
+                $("#gends").val(selectedEmployee.gender);
 
             }
         });
@@ -204,8 +208,21 @@
                 var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
 
                 if (currentElem == null) { return; }
-                form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
 
+                  if (currentElem.tagName == "SELECT") {
+                    // Check the ID of the SELECT element
+                    if (currentElem.id == "gender") {
+                        // Handle the case where the current element is a SELECT with a specific ID
+                        var selectChildren = Array.from(currentElem.children);
+                        var matchedOpt = selectChildren.find(opt => opt.innerText.trim() == selectedEmployee.gender.trim());
+                        if (matchedOpt) {
+                            matchedOpt.selected = true;
+                        }
+                    }
+                } else {
+                    // Handle the case where the current element is not a SELECT with the specific ID
+                    form.elements[item.charAt(0).toUpperCase() + item.slice(1)].setAttribute("value", data[item]);
+                }
             });
         }
 
@@ -259,6 +276,8 @@
         }
 
         function proceedUpdate(arrData, result) {
+
+            alert(`Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`);
             //AJAX UPDATE DEPARTMENT
             $.ajax
                 ({
@@ -268,6 +287,8 @@
                     {
                         upemp: arrData,
                         age: result,
+                        address: `Purok ${arrData.AddressPurok}, ${arrData.AddressBarangay}, ${arrData.AddressMunicipality}, ${arrData.AddressProvince}`
+                             
                     },
                 })
                 .done(function () {
@@ -279,8 +300,8 @@
         }
 
 
-        
-    $("tbody").delegate(".EmployeeDelete", "click", function (e) {
+
+        $("tbody").delegate(".EmployeeDelete", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-epiId");
             if (i != null) {
                 //Insert code here for the delete
@@ -314,8 +335,8 @@
                     url: "../api/adminapi/deleteEmployee",
                     type: "POST",
                     data:
-                
-        {
+
+                    {
                         id: selectedEmployeeId
                     },
                 })
@@ -329,8 +350,7 @@
 
         /////////////
         ///populating baranggay
-        function baranggay() 
-        {
+        function baranggay() {
             const baranggayInput = document.getElementById("Barangay");
             const suggestions = document.getElementById("suggestionsBar");
 
@@ -387,8 +407,7 @@
 
         /////////////
         ///populating municipality
-        function Municipality()
-         {
+        function Municipality() {
             const municipalityInput = document.getElementById("Municipality");
             const suggestions = document.getElementById("suggestionsMuni");
 

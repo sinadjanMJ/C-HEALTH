@@ -20,6 +20,8 @@ namespace SEPHMS.Controllers
             _context = context;
         }
 
+        
+
 
      
 
@@ -669,10 +671,11 @@ namespace SEPHMS.Controllers
             return _context.Employeepersonalinformations.ToList();
         }
 
-        public IActionResult addEmployee(Employeepersonalinformation addEmployee ,int randompass ,int age)
+        public IActionResult addEmployee(Employeepersonalinformation addEmployee ,int randompass ,int age ,string address)
         {
              addEmployee.Age = age;
              addEmployee.EpiCode = randompass;
+             addEmployee.Address = address;
 
 
             _context.Employeepersonalinformations.Add(addEmployee);
@@ -681,12 +684,13 @@ namespace SEPHMS.Controllers
             return Ok();
         }
 
-             public IActionResult updateEmployee(Employeepersonalinformation upemp, int age)
+             public IActionResult updateEmployee(Employeepersonalinformation upemp, int age ,string address)
         {
             try
             {
                 
             upemp.Age = age;
+            upemp.Address = address;
 
 
             _context.Employeepersonalinformations.Update(upemp);
@@ -740,6 +744,7 @@ namespace SEPHMS.Controllers
                    MinAge = n.MinAge,
                    MaxAge = n.MaxAge,
                    Gender = n.Gender
+                   //ayaw kalimot og butang og ? tagarefresh sa database adtos entities
                   
                 }
 
@@ -815,6 +820,8 @@ namespace SEPHMS.Controllers
                 on s.CourseStrandYearId equals c.CourseStrandYearId
 
 
+
+
                 select new StudentDepViewModel
                 {
 
@@ -826,6 +833,7 @@ namespace SEPHMS.Controllers
                    Firstname = s.Firstname,
                    Lastname = s.Lastname,
                    Middlename = s.Middlename,
+                   Fullname = s.Fullname,
                    Birthdate = s.Birthdate,
                    Gmailaddress = s.Gmailaddress,
                    Age = s.Age,
@@ -849,11 +857,15 @@ namespace SEPHMS.Controllers
            
         }
 
-        public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age , string addrs)
+        public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age , string addrs, string province ,string municipal, string baranggay ,string fullname)
         {
              addStudent.Age = age;
              addStudent.SpiCode = randompass;
              addStudent.Address = addrs;
+             addStudent.AddressProvince = province;
+             addStudent.AddressMunicipality = municipal;
+             addStudent.AddressBarangay = baranggay;
+             addStudent.Fullname = fullname;
 
 
             _context.Studentpersonalinformations.Add(addStudent);
@@ -862,13 +874,14 @@ namespace SEPHMS.Controllers
             return Ok();
         }
 
-             public IActionResult updateStudent(Studentpersonalinformation upst, int age , string addrs)
+             public IActionResult updateStudent(Studentpersonalinformation upst, int age , string address ,string fullname)
         {
             try
             {
                 
             upst.Age = age;
-            upst.Address = addrs;
+            upst.Address = address;
+            upst.Fullname = fullname;
 
 
             _context.Studentpersonalinformations.Update(upst);
@@ -896,7 +909,7 @@ namespace SEPHMS.Controllers
 
 
 
-
+      
 
 
 
@@ -919,8 +932,102 @@ namespace SEPHMS.Controllers
 
 
 
+        public ActionResult<List<StudentHealthInfoViewModel>> getStudentHI(){
+
+             var result = (
+                from s in _context.Studenthealthinformations
+
+                join ss in _context.Studentpersonalinformations
+                on s.SpiId equals ss.SpiId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+
+                join d in _context.Departments
+                on ss.DepartmentId equals d.DepartmentId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+                join c in _context.Coursestrandyears
+                on ss.CourseStrandYearId equals c.CourseStrandYearId
+
+                select new StudentHealthInfoViewModel
+                {
+
+                   ShiId = s.ShiId,
+                   Hospitalnumber = s.Hospitalnumber,
+                   Cbcphysician = s.Cbcphysician,
+                   Cbcdatetimerequested = s.Cbcdatetimerequested,
+                   Cbcdrawdatetime = s.Cbcdrawdatetime,
+                   Wbc = s.Wbc,
+                   Wbcunits = s.Wbcunits,
+                   Neutrophils = s.Neutrophils,
+                   Neutrophilsunits = s.Neutrophilsunits,
+                   Lymphocyte = s.Lymphocyte,
+                   Lymphocyteunits = s.Lymphocyteunits,
+                   Monocyte = s.Monocyte,
+                   Monocyteunits = s.Monocyteunits,
+                   Eosinophil = s.Eosinophil,
+                   Eosinophilunits = s.Eosinophilunits,
+                   Basophil = s.Basophil,
+                   Basophilunits = s.Basophilunits,
+                   Hemoglobin = s.Hemoglobin,
+                   Hemoglobinunits = s.Hemoglobinunits,
+                   Hematocrit = s.Hematocrit,
+                   Hematocritunits = s.Hematocritunits,
+                   Rbc = s.Rbc,
+                   Rbcunits = s.Rbcunits,
+                   Mcv = s.Mcv,
+                   Mcvunits = s.Mcvunits,
+                   Mch = s.Mch,
+                   Mchunits = s.Mchunits,
+                   Mchc = s.Mchc,
+                   Mchcunits = s.Mchcunits,
+                   Rcdw = s.Rcdw,
+                   Rcdwunits = s.Rcdwunits,
+                   Plateletcount = s.Plateletcount,
+                   Plateletcountunits = s.Plateletcountunits,
+                   Mpv = s.Mpv,
+                   Mpvunits = s.Mpvunits,
+                   Datet = s.Datet,
 
 
+
+
+                   Firstname = ss.Firstname,
+                   Middlename = ss.Middlename,
+                   Lastname = ss.Lastname,
+                   Fullname = ss.Fullname,
+                   Birthdate = ss.Birthdate,
+                   Gmailaddress = ss.Gmailaddress,
+                   AddressProvince = ss.AddressProvince,
+                   AddressMunicipality = ss.AddressMunicipality,
+                   AddressBarangay = ss.AddressBarangay,
+                   AddressPurok = ss.AddressPurok,
+                   Age = ss.Age,
+                   Gender = ss.Gender,
+                   Address = ss.Address,
+                   SpiCode = ss.SpiCode,
+                   
+                  
+                   CourseStrandYearId = c.CourseStrandYearId,
+                   CourseStrandYearName = c.CourseStrandYearName,
+
+                   DepartmentId = d.DepartmentId,
+                   DepartmentName = d.DepartmentName
+                   
+
+
+
+                  
+                }
+
+
+
+            ).ToList();
+            return Ok(result);
+           
+        }
+
+
+
+       
 
 
 
