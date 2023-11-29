@@ -931,6 +931,16 @@ namespace SEPHMS.Controllers
         }
 
 
+         public IActionResult UpdateStudentHealth(Studenthealthinformation upsth)
+        {
+            
+            _context.Studenthealthinformations.Update(upsth);
+            _context.SaveChanges();
+     
+            return Ok();
+        }
+
+
 
         public ActionResult<List<StudentHealthInfoViewModel>> getStudentHI(){
 
@@ -949,7 +959,7 @@ namespace SEPHMS.Controllers
 
                 select new StudentHealthInfoViewModel
                 {
-
+                   SpiId = ss.SpiId,
                    ShiId = s.ShiId,
                    Hospitalnumber = s.Hospitalnumber,
                    Cbcphysician = s.Cbcphysician,

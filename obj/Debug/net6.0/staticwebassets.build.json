@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EY3v63jmrPxP0arj2ILzNefG6oA8VuH1Vsf1vaTsaJM=",
+  "Hash": "/lAFlgMdicojBlVB6KqVhnJAk2lqlN/9QyzFq+B+n7A=",
   "Source": "SEPHMS",
   "BasePath": "_content/SEPHMS",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\studenthealthinfo.css"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\studenthealthupdate.css",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "css/studenthealthupdate.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\studenthealthupdate.css"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\style.css",
