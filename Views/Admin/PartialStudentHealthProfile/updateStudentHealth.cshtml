@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
     integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
 <!-- Style CSS -->
 <link rel="stylesheet" href="~/css/studenthealthupdate.css">
 <!-- Demo CSS -->
@@ -36,11 +38,15 @@
                         <template id="unitsOptionTemplate">
                             <option value=""></option>
                         </template>
+                         <template id="phyOptionTemplate">
+                            <option value=""></option>
+                        </template>
 
                         <!-- Start Multiform HTML -->
                         <section class="multi_step_form">
                             
                             <form id="StudentHealthUpdateForm">
+
                                 <!-- Tittle -->
                                 <div class="tittle">
                                     <h2>Health Information Process</h2>
@@ -54,10 +60,51 @@
                                 </ul>
                                 <!-- fieldsets -->
                                 <fieldset>
-                                    <h3>Input Credentials</h3>
+                                    <h3 style="text-align: center; ">Input Credentials</h3>
                                     @* <h6>We will send you a SMS. Input the code to verify.</h6> *@
-
+                                      <hr style="margin:25px 0px 25px;" />
                                     <div class="row">
+
+                                          <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <span class="lebel">Physician</span>
+
+                                                <input type="text" name="Cbcphysician" id="hn"
+                                                     class="form-control" required />
+                                            </div>
+                                        </div>
+
+                                 
+                                        
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <span class="lebel">Hospital No.</span>
+
+                                                <input type="text" name="Hospitalnumber" id="hn"
+                                                    placeholder="Enter Hospital No." class="form-control" required />
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label name="" class="control-label"> Date Time Requested</label>
+                                                <input type="datetime-local" name="Cbcdatetimerequested" id="dtr"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Draw Date Time</label>
+                                                <input type="datetime-local" name="Cbcdrawdatetime" id="ddt"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <hr style="margin:25px 0px 50px;" />
+
 
 
                                         <div class="col-sm-3">

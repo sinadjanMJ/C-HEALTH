@@ -13,6 +13,10 @@
 <!-- Demo CSS -->
 <link rel="stylesheet" href="~/css/demo.css">
 
+
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
+
 <body id="body">
 
 
@@ -39,7 +43,7 @@
 
                         <!-- Start Multiform HTML -->
                         <section class="multi_step_form">
-                            
+
                             <form id="addStudentHealthInfoForm">
                                 <!-- Tittle -->
                                 <div class="tittle">
@@ -54,11 +58,46 @@
                                 </ul>
                                 <!-- fieldsets -->
                                 <fieldset>
-                                    <h3>Input Credentials</h3>
+                                    <h3 style="text-align: center; ">Input Credentials</h3>
                                     @* <h6>We will send you a SMS. Input the code to verify.</h6> *@
-
+                                    <hr style="margin:25px 0px 25px;" />
                                     <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label  class="control-label">Select Physician</label>
+                                                <select name="Physician" id="physicians" multiple>
 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <span class="lebel">Hospital No.</span>
+
+                                                <input type="text" name="Hospitalnumber" id="hn"
+                                                    placeholder="Enter Hospital No." class="form-control" required />
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label name="" class="control-label"> Date Time Requested</label>
+                                                <input type="datetime-local" name="Cbcdatetimerequested" id="dtr"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Draw Date Time</label>
+                                                <input type="datetime-local" name="Cbcdrawdatetime" id="ddt"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <hr style="margin:25px 0px 50px;" />
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -80,14 +119,15 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Neutrophils</label>
-                                                <input   type="number" name="Neutrophils" id="inputMedicineName"
+                                                <input type="number" name="Neutrophils" id="inputMedicineName"
                                                     class="form-control" required />
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="Neutrophils" name="Neutrophilsunits" class="form-select"></select>
+                                                <select id="Neutrophils" name="Neutrophilsunits"
+                                                    class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -105,7 +145,8 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="Lymphocyte" name="Lymphocyteunits" class="form-select"></select>
+                                                <select id="Lymphocyte" name="Lymphocyteunits"
+                                                    class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -141,7 +182,8 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="Eosinophil" name="Eosinophilunits" class="form-select"></select>
+                                                <select id="Eosinophil" name="Eosinophilunits"
+                                                    class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -171,7 +213,8 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="Hemoglobin"  name="Hemoglobinunits" class="form-select"></select>
+                                                <select id="Hemoglobin" name="Hemoglobinunits"
+                                                    class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -187,7 +230,8 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="Hematocrit"  name="Hematocritunits" class="form-select"></select>
+                                                <select id="Hematocrit" name="Hematocritunits"
+                                                    class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -203,7 +247,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="RBC"  name="Rbcunits" class="form-select"></select>
+                                                <select id="RBC" name="Rbcunits" class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -219,7 +263,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="MCV"   name="Mcvunits" class="form-select"></select>
+                                                <select id="MCV" name="Mcvunits" class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -235,7 +279,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="MCH"  name="Mchunits" class="form-select"></select>
+                                                <select id="MCH" name="Mchunits" class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -251,7 +295,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="MCHC"   name="Mchcunits" class="form-select"></select>
+                                                <select id="MCHC" name="Mchcunits" class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -268,7 +312,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select id="RCDW"  name="Rcdwunits" class="form-select"></select>
+                                                <select id="RCDW" name="Rcdwunits" class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -285,7 +329,8 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select  id="PlateletCount"  name="Plateletcountunits" class="form-select"></select>
+                                                <select id="PlateletCount" name="Plateletcountunits"
+                                                    class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -303,7 +348,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label name="" class="control-label">Units</label>
-                                                <select  id="MPV"  name="Mpvunits" class="form-select"></select>
+                                                <select id="MPV" name="Mpvunits" class="form-select"></select>
                                             </div>
                                         </div>
 
@@ -313,30 +358,33 @@
                                     </div>
 
 
-                                      <button type="button" class="btn btn-primary" id="createStudentHealth">Confirm</button>
-                                    <button type="button" class="action-button previous_button">Back</button>
-                                    <button type="button" class="next action-button">Continue</button>
-                                  
+                                    <button type="button" class="btn btn-primary"
+                                        id="createStudentHealth">Confirm</button>
+                                    <button id="btn" type="button" class="action-button previous_button">Back</button>
+                                    <button id="btn" type="button" class="next action-button">Continue</button>
+
                                 </fieldset>
                                 <fieldset>
                                     <h3>Verify Your Identity</h3>
                                     <h6>Please upload any of these documents to verify your Identity.</h6>
-                                   
-                                    <button type="button" class="action-button previous previous_button">Back</button>
-                                    <button type="button" class="next action-button">Continue</button>
+
+                                    <button id="btn" type="button"
+                                        class="action-button previous previous_button">Back</button>
+                                    <button id="btn" type="button" class="next action-button">Continue</button>
 
 
                                 </fieldset>
                                 <fieldset>
                                     <h3>Create Security Questions</h3>
                                     <h6>Please update your account with security questions</h6>
-                                    
-                                    <button type="button" class="action-button previous previous_button">Back</button>
+
+                                    <button id="btn" type="button"
+                                        class="action-button previous previous_button">Back</button>
                                     <a href="#" class="action-button">Finish</a>
                                 </fieldset>
-                               
+
                             </form>
-                              
+
                         </section>
                         <!-- END Multiform HTML -->
                     </article>
@@ -347,8 +395,46 @@
     </div>
 
 </body>
+
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
 <script src="~/js/studenthealthinfo.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
+<script>
+   // Sample data
+    var physiciansData = [];
+    
+            $.ajax("../api/adminapi/getPhysician")
+                .done(function (result) {
+                    physiciansData = result;
+                });
+
+    // Function to populate the select element
+    function populatePhysiciansSelect(data) {
+        var selectElement = $('#physicians');
+
+        // Clear existing options
+        selectElement.empty();
+
+        // Iterate over the data and append options
+        $.each(data, function(index, physician) {
+            selectElement.append($('<option>', {
+                value: physician.fullname,
+                text: physician.fullname.trim() // Trim to remove leading/trailing spaces
+            }));
+        });
+    }
+
+    // Document ready function
+    $(document).ready(function() {
+        // Call the function to populate the select element
+        populatePhysiciansSelect(physiciansData);
+    });
+</script>

@@ -1,13 +1,16 @@
-<button type="button" title="Add Student" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
+<button type="button" title="Add Student" class="btn btn-success"
+    style="color: #ffffff;  margin-bottom: 20px; font-family: 'Poppins' , sans-serif;" data-bs-toggle="modal"
     data-bs-target="#modalStudentCreate">
-    <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
+    <i class="fa-solid fa-circle-plus" style="color: #ffffff; "></i>
     Add Student
 </button>
 
+@Html.Partial("PartialStudentHealthProfile/AddStudentHealthInfo")
 @Html.Partial("PartialStudent/CreateStudent")
 @Html.Partial("PartialStudent/StudentTable")
 @Html.Partial("PartialStudent/StudentUpdate")
-@Html.Partial("PartialStudentHealthProfile/AddStudentHealthInfo")
+
+@Html.Partial("PartialStudent/StudentInfo")
 
 
 @* gamit kaayu ni siya para maka pa display og value sa select option *@
@@ -35,11 +38,14 @@
         AddSelectDepartment();
         UpdateSelectDepartments()
         getUnits();
+       
 
 
         AddSelectPrabens();
         address();
+
        
+        new MultiSelectTag('physicians')  // id
 
 
         function getUnits() {
@@ -610,24 +616,24 @@
 
 
 
-        
+
 
 
 
 
         function getStudent() {
-            $.ajax("../api/adminapi/getStudent")
+            $.ajax("../api/adminapi/getStudents")
                 .done(function (result) {
                     StudentList = result;
-
+                    console.log(result);
 
 
                     result.forEach(function (item) {
                         gmailaddress = item.gmailaddress;
 
                         arr = item;
-                        console.log(arr.age);
-                        console.log(arr.spiCode);
+                        //    console.log(arr.age);
+                        //   console.log(arr.spiCode);
 
                     });
 
@@ -739,7 +745,7 @@
                     var prabens = $('#prabens option:selected').text();
                     var muni = $('#muni option:selected').text();
                     var barang = $('#barang option:selected').text();
-                 
+
 
 
 
@@ -801,9 +807,7 @@
                             { data: 'birthdate' },
                             { data: 'gender' },
                             { data: 'age' },
-                            { data: 'gmailaddress' },
                             { data: 'address' },
-                            { data: 'departmentName' },
                             { data: 'courseStrandYearName' },
 
                             {
@@ -819,8 +823,32 @@
         }
 
         function btnAddStudentData(id) {
-            return "<center><a style='color : #ffffff;' class='btn btn-success StudentUpdate' data-spiId=" + id + "><i title='Update Student Information' class='fa-solid fa-pen-to-square'></i> Update</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentDelete' data-spiId=" + id + "><i title='Delete Student Information' class='fa-solid fa-trash' ></i>  Delete</a> <br> <br>  <a  style='color : #ffffff;'   class='btn btn-info StudentInfo' data-spiId=" + id + "> <i  class='fa fa-medkit'  title='Add Student Health Information'></i> Health </a> </center>"
+            return "<center><a style='color : #ffffff;' class='btn btn-warning StudentUpdate' data-spiId=" + id + "><i title='Update Student Information' class='fa-solid fa-pen-to-square'></i> Update</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentDelete' data-spiId=" + id + "><i title='Delete Student Information' class='fa-solid fa-trash' ></i>  Delete</a> <br> <br>  <a  style='color : #ffffff;'   class='btn btn-info StudentHIInfo' data-spiId=" + id + "> <i  class='fa fa-medkit'  title='Add Student Health Information'></i> Health </a> <br><br> <a style='color : #ffffff;' class='btn btn-success StudentInfo' data-spiId=" + id + "><i title=' Student Information' class='fa-solid fa-circle-info'></i>&emsp;Info&emsp;</a></center>"
         }
+
+
+        $("tbody").delegate(".StudentInfo", "click", function (e) {
+            var i = e.target.closest("a").getAttribute("data-spiId");
+            console.log(i);
+
+            if (i != null) {
+                selectedStudentId = i;
+                selectedStudent = StudentList.find(element => element.spiId == i);
+                $("#modalStudentInfo").modal("toggle");
+
+                console.log(selectedStudent);
+                $(".cardInfo .info-Fullname").html('Fullname : ' + selectedStudent.fullname);
+                $(".cardInfo .info-Birthdate").html('Birthdate : ' + selectedStudent.birthdate);
+                $(".cardInfo .info-Gender").html('Gender : ' + selectedStudent.gender);
+                $(".cardInfo .info-Age").html('Age : ' + selectedStudent.age);
+                $(".cardInfo .info-Department").html('Department : ' + selectedStudent.departmentName);
+                $(".cardInfo .info-Course").html('Course : ' + selectedStudent.courseStrandYearName);
+                $(".cardInfo .info-EmailAdd").html('Email Address : ' + selectedStudent.gmailaddress);
+                $(".cardInfo .info-Address").html('Address : ' + selectedStudent.address);
+
+
+            }
+        });
 
 
         $("tbody").delegate(".StudentUpdate", "click", function (e) {
@@ -1021,7 +1049,7 @@
 
         function proceedUpdate(arrData, result) {
 
-          //  alert(` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`);
+            //  alert(` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`);
 
 
             //AJAX UPDATE DEPARTMENT
@@ -1097,7 +1125,7 @@
 
         ///////////////////
 
-        $("tbody").delegate(".StudentInfo", "click", function (e) {
+        $("tbody").delegate(".StudentHIInfo", "click", function (e) {
             console.log("I was clicked");
             var i = e.target.closest("a").getAttribute("data-spiId");
             if (i != null) {
@@ -1172,50 +1200,78 @@
             arrData.Mpvunits = mpv;
 
 
+            var dtr = $('#dtr').val();
+            var ddt = $('#ddt').val();
+            var phy = $('#physicians').val();
+
+             let res = phy.join(', ');
+
+
+        
+           arrData.Cbcphysician = res;
+          
+     
+         
+
+
+            var dateTimeRequested = formatDateTime(dtr);
+            var drawDateTime = formatDateTime(ddt);
+
+            arrData.Cbcdatetimerequested = dateTimeRequested;
+            arrData.Cbcdrawdatetime = drawDateTime;
+            arrData.Datet = formattedDate;
+            arrData.SpiId = selectedStudentId;
+
+
+            function formatDateTime(dateTime) {
+                return new Date(dateTime).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'
+                });
+            }
 
 
 
 
 
 
+            console.log(arrData);
 
-            if (formInputs.length === formelements.length) {
+
+
+    
+        console.log(formInputs.length);
+           console.log(formelements.length);
+
+                if (formelements.length === 34) {
+
 
 
                 //AJAX ADD DEPARTMENT
                 $.ajax
-                    ({
-                        url: "../api/adminapi/AddStudentHealth",
-                        type: "POST",
-                        data:
-                        {
-                            shi: arrData,
-                            Datet: formattedDate,
-                            Cbcdrawdatetime: formattedDateTime,
-                            Cbcdatetimerequested: formattedDateTime,
-                            Cbcphysician: "Dr Mj",
-                            Hospitalnumber: "09701530736",
-                            SpiId: selectedStudentId
+                ({
+                url: "../api/adminapi/AddStudentHealth",
+                type: "POST",
+                data:
+                {
+                shi: arrData,
+ 
+                },
+                })
+                .done(function () {
+
+                $("#addStudentHealthInfoForm")[0].reset();
+                $("#modalStudentHealthInfo").modal("toggle");
+                // getNR();
+                displaySavedProgress();
+                //  displayNRData();
+
+                });
 
 
-
-                        },
-                    })
-                    .done(function () {
-
-                        $("#addStudentHealthInfoForm")[0].reset();
-                        $("#modalStudentHealthInfo").modal("toggle");
-                        // getNR();
-                        displaySavedProgress();
-                        //  displayNRData();
-
-                    });
-
-
-            }
-            else {
+                }
+                else {
                 alertError();
-            }
+                }
 
 
         });

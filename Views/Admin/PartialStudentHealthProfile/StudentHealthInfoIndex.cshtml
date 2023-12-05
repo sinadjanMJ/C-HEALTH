@@ -1,6 +1,7 @@
 @Html.Partial("PartialStudentHealthProfile/cardtable")
 @Html.Partial("PartialStudentHealthProfile/StudentHealthInformationTable")
 @Html.Partial("PartialStudentHealthProfile/updateStudentHealth")
+@Html.Partial("PartialStudentHealthProfile/StudentHealthInfo")
 
 
 @* gamit kaayu ni siya para maka pa display og value sa select option *@
@@ -338,6 +339,7 @@
                 .done(function (data) {
 
                     dateComp = data;
+                    StudentHIList = data;
 
                     document.querySelector(".parent").innerHTML = "";
 
@@ -462,8 +464,6 @@
                 { data: 'birthdate' },
                 { data: 'gender' },
                 { data: 'age' },
-                { data: 'hospitalnumber' },
-                { data: 'cbcphysician' },
                 { data: 'departmentName' },
                 { data: 'courseStrandYearName' },
 
@@ -479,7 +479,7 @@
 
 
         function btnAddStudentHealthData(shiId) {
-            return "<center><a style='color : #ffffff;' class='btn btn-success StudentHIUpdate' data-shiId=" + shiId + "><i title='Update Student Information' class='fa-solid fa-pen-to-square'></i> Update</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentHIDelete' data-shiId=" + shiId + "><i title='Delete Student Information' class='fa-solid fa-trash' ></i>  Delete</a>  </center>"
+            return "<center><a style='color : #ffffff;' class='btn btn-warning StudentHIUpdate' data-shiId=" + shiId + "><i title='Update Student Information' class='fa-solid fa-pen-to-square'></i> Update</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentHIDelete' data-shiId=" + shiId + "><i title='Delete Student Information' class='fa-solid fa-trash' ></i>&nbsp;&nbsp;&nbsp;Delete</a> <br><br> <a style='color : #ffffff;' class='btn btn-info StudentHIInfo' data-shiId=" + shiId + "><i title='View Student Information' class='fa-solid fa-circle-info' ></i>&nbsp;View Info</a> </center>"
         }
 
 
@@ -490,6 +490,43 @@
                 table.row.add(item).draw(false);
             });
         }
+
+        $("tbody").delegate(".StudentHIInfo", "click", function (e) {
+            var i = e.target.closest("a").getAttribute("data-shiId");
+            console.log(i);
+
+            if (i != null) {
+                selectedStudentHIId = i;
+                selectedStudentHI = StudentHIList.find(element => element.shiId == i);
+                $("#modalStudentHealthInfo").modal("toggle");
+
+                //    console.log(selectedStudent);
+                $(".cardInfo .info-Name").html('Name &emsp;&emsp;&emsp;: &emsp;' + selectedStudentHI.fullname + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Date Time Requested : &emsp;' + selectedStudentHI.cbcdatetimerequested);
+                $(".cardInfo .info-AgeGender").html('Age/Gender : &emsp;' + selectedStudentHI.age + '&nbsp;Year / ' + selectedStudentHI.gender + '&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Draw Date & Time : &emsp;' + selectedStudentHI.cbcdrawdatetime);
+                $(".cardInfo .info-Birthdate").html('Birthdate &emsp;&nbsp;&nbsp;: &emsp;' + selectedStudentHI.birthdate);
+                $(".cardInfo .info-HN").html('Hospital No. &nbsp;: &emsp;' + selectedStudentHI.hospitalnumber);
+                $(".cardInfo .info-SPID").html('Specimen ID : &emsp;' + selectedStudentHI.shiId);
+                $(".cardInfo .info-Physician").html('Physician &emsp;&nbsp;&nbsp;: &emsp;' + selectedStudentHI.cbcphysician);
+
+                $(".cardInfo .info-wbc").html('White Blood Cells &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.wbc + '&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.wbcunits);
+                $(".cardInfo .info-neutrophils").html('Neutrophils &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.neutrophils + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.neutrophilsunits);
+                $(".cardInfo .info-lymphocyte").html('Lymphocyte &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;' + selectedStudentHI.lymphocyte + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.lymphocyteunits);
+                $(".cardInfo .info-monocyte").html('Monocyte &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;' + selectedStudentHI.monocyte + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.monocyteunits);
+                $(".cardInfo .info-eosinophil").html('Eosinophil &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;' + selectedStudentHI.eosinophil + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.eosinophilunits);
+                $(".cardInfo .info-basophil").html('Basophil &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;' + selectedStudentHI.basophil + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.basophilunits);
+                $(".cardInfo .info-hemoglobin").html('Hemoglobin &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;' + selectedStudentHI.hemoglobin + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.hemoglobinunits);
+                $(".cardInfo .info-hematocrit").html('Hematocrit &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;' + selectedStudentHI.hematocrit + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.hematocritunits);
+                $(".cardInfo .info-rbc").html('Red Blood Cells &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;' + selectedStudentHI.rbc + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.rbcunits);
+                $(".cardInfo .info-mcv").html('Mean Corpuscular Volume &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;' + selectedStudentHI.mcv + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.mcvunits);
+                $(".cardInfo .info-mch").html('Mean Corpuscular Hemoglobin &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.mch + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.mchunits);
+                $(".cardInfo .info-mchc").html('Mean Corpuscular Hemoglobin Concentration&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.mchc + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.mchcunits);
+                $(".cardInfo .info-rcdw").html('Red Cell Distribution Width &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;' + selectedStudentHI.rcdw + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.rcdwunits);
+                $(".cardInfo .info-plateletcount").html('Platelet Count &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;' + selectedStudentHI.plateletcount + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.plateletcountunits);
+                $(".cardInfo .info-mpv").html('MPV &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;' + selectedStudentHI.mpv + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + selectedStudentHI.mpvunits);
+
+
+            }
+        });
 
 
         $("tbody").delegate(".StudentHIUpdate", "click", function (e) {
@@ -515,6 +552,20 @@
 
                 initForm(oFormObject, selectedStudentHI);
 
+                var databaseDate = selectedStudentHI.cbcdatetimerequested;
+                var dateObject = new Date(databaseDate);
+                var formattedDate = `${dateObject.getFullYear()}-${('0' + (dateObject.getMonth() + 1)).slice(-2)}-${('0' + dateObject.getDate()).slice(-2)}T${('0' + dateObject.getHours()).slice(-2)}:${('0' + dateObject.getMinutes()).slice(-2)}`;
+
+                document.getElementById("dtr").value = formattedDate;
+
+
+                var databaseDate = selectedStudentHI.cbcdrawdatetime;
+                var dateObject = new Date(databaseDate);
+                var formattedDate = `${dateObject.getFullYear()}-${('0' + (dateObject.getMonth() + 1)).slice(-2)}-${('0' + dateObject.getDate()).slice(-2)}T${('0' + dateObject.getHours()).slice(-2)}:${('0' + dateObject.getMinutes()).slice(-2)}`;
+
+                document.getElementById("ddt").value = formattedDate;
+
+            
 
 
             }
@@ -528,6 +579,7 @@
                 var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
 
                 if (currentElem == null) { return; }
+
                 if (currentElem.tagName == "SELECT") {
                     // Check the ID of the SELECT element
                     if (currentElem.id == "wbc") {
@@ -816,6 +868,12 @@
             var plateletcount = $('#pl option:selected').text();
             var mpv = $('#mpv option:selected').text();
 
+
+          
+           
+
+          
+
             arrData.ShiId = selectedStudentHIId;
             arrData.Wbcunits = wbc;
             arrData.Neutrophilsunits = neutrophils;
@@ -835,14 +893,34 @@
 
 
             arrData.Datet = selectedStudentHI.datet;
-            arrData.Hospitalnumber = selectedStudentHI.hospitalnumber;
-            arrData.Cbcphysician = selectedStudentHI.cbcphysician;
-            arrData.Cbcdatetimerequested = selectedStudentHI.cbcdatetimerequested;
-            arrData.Cbcdrawdatetime = selectedStudentHI.cbcdrawdatetime;
             arrData.spiId = selectedStudentHI.spiId;
 
 
-            console.log('before', arrData);
+          
+
+
+            console.log('checking', arrData);
+              var dtr = $('#dtr').val();
+            var ddt = $('#ddt').val();
+
+            var dateTimeRequested = formatDateTime(dtr);
+            var drawDateTime = formatDateTime(ddt);
+
+
+            
+             arrData.Cbcdatetimerequested = dateTimeRequested;
+            arrData.Cbcdrawdatetime  = drawDateTime;
+
+            //  console.log( arrData.Cbcdatetimerequested);
+
+
+              function formatDateTime(dateTime) {
+                return new Date(dateTime).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'
+                });
+            }
+
+
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
 
@@ -876,6 +954,53 @@
 
 
 
+                });
+        }
+
+
+        $("tbody").delegate(".StudentHIDelete", "click", function (e) {
+            var i = e.target.closest("a").getAttribute("data-shiId");
+            if (i != null) {
+                //Insert code here for the delete
+                selectedStudentHIId = i;
+                console.log(selectedStudentHIId + "mao ni siya");
+                alertDeleteConfirmation();
+            }
+        });
+
+        function alertDeleteConfirmation() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to Delete this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    proceedDelete();
+                }
+            })
+        }
+
+        function proceedDelete() {
+            // console.log(selectedStudentHIId + "proceed");
+            //AJAX DELETE DEPARTMENT
+            $.ajax
+                ({
+                    url: "../api/adminapi/DeleteStudentHealth",
+                    type: "POST",
+                    data:
+
+                    {
+                        id: selectedStudentHIId
+                    },
+                })
+                .done(function () {
+                    setTimeout(function () { location.reload(); }, 100);
+
+                    alertDeleteInfo();
                 });
         }
 

@@ -1,0 +1,100 @@
+
+
+<div class="modal fade" id="modalPhysicianCreate" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-body d-flex justify-content-center">
+                    <h3 class="modal-title" id="exampleModalLabel">Add Physician</h3>
+                </div>
+                <button type="button" id="modalPhysicianCreateClose" class="btn-close btn-light" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body PhysicianCreate d-flex justify-content-center">
+                <div>
+
+                    <form id="createPhysicianForm">
+                    
+                        <div class="row">
+
+
+
+                            <div class="address">Name</div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+
+                                    <label name="" class="control-label">First Name</label>
+                                    <input type="text" name="Firstname" id="inputMedicineName"
+                                        placeholder="Enter First Name" class="form-control" required />
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+
+                                    <label name="" class="control-label">Last Name</label>
+                                    <input type="text" name="Lastname" id="inputMedicineName"
+                                        placeholder="Enter Last Name" class="form-control" required />
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+
+                                    <label name="" class="control-label">Middle Name</label>
+                                    <input type="text" name="Middlename" id="inputMedicineName"
+                                        placeholder="Enter Middle Name" class="form-control" required />
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+
+                                    <label name="" class="control-label">Select Gender</label>
+                                    <select name="Gender" class="form-select genders" id="gender">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="modal-body d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary" id="createPhysician">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .Address {
+        text-align: center;
+        font-size: large;
+        font-weight: bolder;
+        padding-bottom: 20px;
+    }
+
+   
+
+
+
+</style>

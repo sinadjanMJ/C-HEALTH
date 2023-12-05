@@ -118,7 +118,7 @@
         }
 
         function btnAddUnit(id) {
-            return "<center><a class='btn btn-success UnitUpdate' data-unitId=" + id + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger UnitDelete' data-unitId=" + id + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
+            return "<center><a style='color : #ffffff;' class='btn btn-success UnitUpdate' data-unitId=" + id + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;' ></i>&nbsp;Update</a> | <a   class='btn btn-danger UnitDelete' data-unitId=" + id + "  style='color : #ffffff;><i class='fa-solid fa-trash' style='color : #ffffff;'></i>&nbsp;Delete</a></center>"
         }
 
         $("tbody").delegate(".UnitUpdate", "click", function (e) {

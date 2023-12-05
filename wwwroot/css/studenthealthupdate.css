@@ -7,7 +7,7 @@
   overflow-x: hidden;
 }
 .multi_step_form #StudentHealthUpdateForm {
-  text-align: center;
+ 
   position: relative;
   min-height: 1020px;
     height: auto;
@@ -16,17 +16,21 @@
   background: #ffffff;
   z-index: 1;
 }
+.multi_step_form #StudentHealthUpdateForm li {
+  text-align: center;
+  }
+
 .multi_step_form #StudentHealthUpdateForm .tittle {
   text-align: center;
 
 }
 .multi_step_form #StudentHealthUpdateForm .tittle h2 {
-  font: 500 24px/35px "Roboto", sans-serif;
+  font: 500 24px/35px "Poppins", sans-serif;
   color: #3f4553;
   padding-bottom: 5px;
 }
 .multi_step_form #StudentHealthUpdateForm .tittle p {
-  font: 400 16px/28px "Roboto", sans-serif;
+  font: 400 16px/28px "Poppins", sans-serif;
   color: #5f6771;
 }
 

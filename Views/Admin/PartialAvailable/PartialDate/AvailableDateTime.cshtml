@@ -1,23 +1,3 @@
-<template id="provincetemplate">
-    <option value=""></option>
-</template>
-
-<template id="citytemplate">
-    <option value=""></option>
-</template>
-
-
-
-<div class="form-group">
-                 <label name="" class="control-label">province</label>
-                <select id="province" name="DateId" class="form-select"></select>
-            </div>
-
-            <div class="form-group">
-                 <label name="" class="control-label">city</label>
-                <select id="city" name="DateId" class="form-select"></select>
-            </div>
-
 <h1>Available Date Data</h1>
 
 <button type="button" title="Create Date" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
@@ -27,10 +7,10 @@
 </button>
 
 
-
+@Html.Partial("PartialAvailable/PartialDate/AvailableDateUpdate")
 @Html.Partial("PartialAvailable/PartialDate/CreateAvailableDate")
 @Html.Partial("PartialAvailable/PartialDate/AvailableDateTable")
-@Html.Partial("PartialAvailable/PartialDate/AvailableDateUpdate")
+
 
 
 <h1>Available Time Data</h1>
@@ -70,8 +50,8 @@
     $(document).ready(function () {
 
 
-        getprovince();
-         
+
+
 
         getDate();
         getDateTime();
@@ -79,66 +59,6 @@
         displayDateData();
         displayDateTimeData();
 
-        function getprovince() {
-             $.ajax({
-            @* url: "https://psgc.gitlab.io/api/provinces/", *@
-            url: "https://psgc.gitlab.io/api/regions/070000000/provinces/",  
-            method: "GET",
-            dataType: "json",
-            success: function (result) {
-                 console.log(result)
-
-               var template = document.querySelector("template#provincetemplate");
-
-                    var parent = document.querySelectorAll("#province");
-
-                    for (i = 0; i < parent.length; i++) {
-                        result.forEach(function (item) {
-                            var cloned = template.content.cloneNode(true);
-                           
-                            cloned.querySelector("option").innerText = item.name;
-                           
-
-                            parent[i].prepend(cloned);
-                        });
-                    }
-
-
-             getcity();
-                
-            },
-            error: function (error) {
-                console.error("API request failed: " + error);
-            }
-        });
-        }
-        
-
-        function getcity() {
-             $.ajax({
-            url: "https://psgc.gitlab.io/api/municipalities/",
-            method: "GET",
-            dataType: "json",
-            success: function (result) {
-                var template = document.querySelector("template#citytemplate");
-
-                    var parent = document.querySelectorAll("#city");
-
-                    for (i = 0; i < parent.length; i++) {
-                        result.forEach(function (item) {
-                            var cloned = template.content.cloneNode(true);
-                           
-                            cloned.querySelector("option").innerText = item.name;
-
-                            parent[i].prepend(cloned);
-                        });
-                    }
-            },
-            error: function (error) {
-                console.error("API request failed: " + error);
-            }
-        });
-        }
 
 
 
@@ -148,7 +68,7 @@
                 .done(function (result) {
                     DateList = result;
                     result.forEach(function (item) {
-                        console.log(item);
+                        //   console.log(item);
                         datesame = item.avadate;
                     });
 
@@ -159,7 +79,7 @@
                 .done(function (result) {
                     DateTimeList = result;
                     result.forEach(function (item) {
-                        console.log(item);
+                        //   console.log(item);
 
                     });
 
@@ -234,7 +154,7 @@
                     },
                     columns:
                         [
-                            { data: 'dateId' },
+                          
                             { data: 'avadate' },
                             {
                                 data: 'dateId',
@@ -250,10 +170,10 @@
         }
 
         function btnAddDate(dateId) {
-            return "<center><a class='btn btn-success DateUpdate' data-dateId=" + dateId + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger DateDelete' data-dateId=" + dateId + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
+            return "<center><a class='btn btn-success datesUpdate' data-dateId=" + dateId + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger DateDelete' data-dateId=" + dateId + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
         }
 
-        $("tbody").delegate(".DateUpdate", "click", function (e) {
+        $("tbody").delegate(".datesUpdate", "click", function (e) {
             console.log("I was clicked");
             var i = e.target.closest("a").getAttribute("data-dateId");
             if (i != null) {
@@ -267,6 +187,11 @@
 
                 oFormObject = document.forms["updateDateForm"];
                 initForm(oFormObject, selectedDate);
+
+
+                var parts = selectedDate.avadate.split('/');
+                var formattedDate = parts.join('-');
+                document.getElementById("inputDateUpdate").value = formattedDate;
             }
         });
 
@@ -282,11 +207,11 @@
         }
 
 
-        $("#updateDate").click(function () {
-            alertSaveChanges();
+        $("#updateDatos").click(function () {
+            SaveChanges();
         });
 
-        function alertSaveChanges() {
+        function SaveChanges() {
             Swal.fire({
                 title: 'Do you want to save the changes?',
                 confirmButtonText: 'Save',
@@ -294,12 +219,12 @@
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    updateDateHolder();
+                    updateDate();
                 }
             })
         }
 
-        function updateDateHolder() {
+        function updateDate() {
 
             var arrData = {};
             var formelements = $("#updateDateForm .form-group");
@@ -313,7 +238,15 @@
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
                 if (formInputs[0].value != datesame) {
-                    proceedUpdate(arrData);
+
+
+                    var parts = arrData.Avadate.split('-');
+                    var formattedDate = parts.join('/');
+
+                    arrData.Avadate = formattedDate;
+
+
+                    proceedUpdateDATOS(arrData);
                     console.log("gi click lagi ko " + arrData);
                 } else {
                     vol1();
@@ -324,7 +257,10 @@
             }
         }
 
-        function proceedUpdate(arrData) {
+        function proceedUpdateDATOS(arrData) {
+
+
+
             //AJAX UPDATE DEPARTMENT
             $.ajax
                 ({
@@ -340,7 +276,6 @@
                     $("#modalDateUpdate").modal("toggle");
                     displayDateData();
                     displaySavedProgress();
-                    getDates();
                 });
         }
 
@@ -350,11 +285,11 @@
                 //Insert code here for the delete
                 selectedDateId = i;
                 console.log(selectedDateId + "mao ni siya");
-                alertDeleteConfirmation();
+                DeleteConfirmation();
             }
         });
 
-        function alertDeleteConfirmation() {
+        function DeleteConfirmation() {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to Delete this!",
@@ -365,13 +300,13 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    proceedDelete();
+                    proceedDeleteDATOS();
                 }
             })
         }
 
 
-        function proceedDelete() {
+        function proceedDeleteDATOS() {
             console.log(selectedDateId + "proceed");
             //AJAX DELETE DEPARTMENT
             $.ajax
@@ -387,7 +322,7 @@
                 .done(function () {
                     displayDateData();
                     alertDeleteInfo();
-                    getDates();
+                    //getDates();
 
 
                 });
@@ -395,16 +330,6 @@
         //end of date function create update delete /////////////////////
 
 
-
-
-
-
-
-
-
-
-
-        ///funtion start  time ccretae update delete
 
 
 
@@ -448,12 +373,25 @@
                 arrData[item.name] = item.value;
             });
 
+
+
+
+            const convertTimeTo12HourFormat = time24 => new Date("2000-01-01 " + time24).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+            // Example usage
+            const time24Hour =  arrData.Avatime;
+            const time12Hour = convertTimeTo12HourFormat(time24Hour);
+            //console.log(time12Hour); // Output: 1:05 PM
+
+            arrData.Avatime = time12Hour;
+
+
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
 
 
 
                 //AJAX ADD Equipment
-                console.log(formInputs);
+                //  console.log(formInputs);
                 $.ajax
                     ({
                         url: "../api/adminapi/AddDateTime",
@@ -492,7 +430,7 @@
                     },
                     columns:
                         [
-                            { data: 'timeId' },
+                           
                             { data: 'avadate' },
                             { data: 'avatime' },
                             {
@@ -522,10 +460,38 @@
                 selectedDateTimeId = i;
                 selectedDateTime = DateTimeList.find(element => element.timeId == i);
 
-                console.log(selectedDateTime);
+             //   console.log(selectedDateTime);
 
                 oFormObject = document.forms["updateDateTimeForm"];
                 initForm(oFormObject, selectedDateTime);
+
+              
+               
+                const convertTimeTo24HourFormat = time12 => new Date("2000-01-01 " + time12).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+
+                // Example usage
+                const time12Hour = selectedDateTime.avatime;
+                const time24Hour = convertTimeTo24HourFormat(time12Hour);
+             //   console.log(time24Hour); // Output: 13:23
+
+
+                document.getElementById("updatetime").value = time24Hour;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
         });
 
@@ -579,14 +545,24 @@
             var formelements = $("#updateDateTimeForm .form-group");
 
             var formInputs = $("#updateDateTimeForm").serializeArray();
-            console.log(formInputs);
+          //  console.log(formInputs);
             formInputs.forEach(function (item) {
                 arrData[item.name] = item.value;
             });
 
             //attempts to give value to the data
             arrData.timeId = selectedDateTimeId;
-            console.log(arrData);
+          //  console.log(arrData);
+
+
+             const convertTimeTo12HourFormat = time24 => new Date("2000-01-01 " + time24).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+            // Example usage
+            const time24Hour =  arrData.Avatime;
+            const time12Hour = convertTimeTo12HourFormat(time24Hour);
+            //console.log(time12Hour); // Output: 1:05 PM
+
+            arrData.Avatime = time12Hour;
 
 
 
@@ -603,16 +579,19 @@
                     })
                     .done(function () {
                         // document.querySelector(".parent").innerHTML ="";
-                        $("#modalDateTimeUpdate").modal("toggle");
                         $("#updateDateTimeForm")[0].reset();
+                        $("#modalDateTimeUpdate").modal("toggle");
+                      
 
-
+                        getDates();
+                        getDateTime();
                         displayDateTimeData();
                         displaySavedProgress();
-                        getDates();
+                        
 
                     });
 
+                    
 
             } else {
                 alertError();
@@ -671,6 +650,25 @@
 
                 });
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ///funtion start  time ccretae update delete
+
+
+
+
 
 
 

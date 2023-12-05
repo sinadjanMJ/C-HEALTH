@@ -77,6 +77,10 @@ namespace SEPHMS.Controllers
            public ActionResult AdminStudentHealthInfo(){
             return View("PartialStudentHealthProfile/StudentHealthInfoIndex");
         }
+
+           public ActionResult AdminPhysician(){
+            return View("PartialPhysician/PhysicianIndex");
+        }
         
         
         

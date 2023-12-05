@@ -476,6 +476,58 @@ namespace SEPHMS.Controllers
 
 
 
+          public ActionResult<List<Physician>> getPhysician(){
+             return _context.Physicians.ToList();
+            //   return _context.Doctors.Where(c => c.Status =="Active").ToList();
+            }
+
+             public IActionResult AddPhysician(Physician addPhy)
+        {
+            
+            _context.Physicians.Add(addPhy);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+      public IActionResult updatePhysician(Physician upPhy)
+        {
+            try
+            {
+            
+            _context.Physicians.Update(upPhy);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+    
+           public IActionResult deletePhysician(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Physicians.Where(element => element.PhysicianId == id).FirstOrDefault();
+            _context.Physicians.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -913,16 +965,8 @@ namespace SEPHMS.Controllers
 
 
 
-        public IActionResult AddStudentHealth(Studenthealthinformation shi, string Datet,string Cbcdrawdatetime, string Cbcdatetimerequested, string Cbcphysician, string Hospitalnumber, int SpiId)
+        public IActionResult AddStudentHealth(Studenthealthinformation shi)
         {
-            shi.Datet = Datet;
-            shi.SpiId = SpiId;
-            shi.Cbcphysician = Cbcphysician;
-            shi.Cbcdatetimerequested = Cbcdatetimerequested;
-            shi.Cbcdrawdatetime = Cbcdrawdatetime;
-            shi.Hospitalnumber = Hospitalnumber;
-
-
 
             _context.Studenthealthinformations.Add(shi);
             _context.SaveChanges();
@@ -939,7 +983,18 @@ namespace SEPHMS.Controllers
      
             return Ok();
         }
+       
+       
+      
 
+          public IActionResult DeleteStudentHealth(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Studenthealthinformations.Where(element => element.ShiId == id).FirstOrDefault();
+            _context.Studenthealthinformations.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
 
 
         public ActionResult<List<StudentHealthInfoViewModel>> getStudentHI(){

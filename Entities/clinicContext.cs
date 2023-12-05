@@ -28,6 +28,7 @@ namespace SEPHMS.Entities
         public virtual DbSet<Medicinestockhistory> Medicinestockhistories { get; set; }
         public virtual DbSet<Normalrange> Normalranges { get; set; }
         public virtual DbSet<Nurse> Nurses { get; set; }
+        public virtual DbSet<Physician> Physicians { get; set; }
         public virtual DbSet<Signup> Signups { get; set; }
         public virtual DbSet<Studenthealthinformation> Studenthealthinformations { get; set; }
         public virtual DbSet<Studentpersonalinformation> Studentpersonalinformations { get; set; }
@@ -403,6 +404,39 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("status");
+            });
+
+            modelBuilder.Entity<Physician>(entity =>
+            {
+                entity.ToTable("physician");
+
+                entity.Property(e => e.PhysicianId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("physicianId");
+
+                entity.Property(e => e.Firstname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("firstname");
+
+                entity.Property(e => e.Fullname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("fullname");
+
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("gender");
+
+                entity.Property(e => e.Lastname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("lastname");
+
+                entity.Property(e => e.Middlename)
+                    .HasMaxLength(250)
+                    .HasColumnName("middlename");
             });
 
             modelBuilder.Entity<Signup>(entity =>

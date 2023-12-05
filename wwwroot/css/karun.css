@@ -1,0 +1,48 @@
+ 
+ 
+ 
+  
+  header {
+    background-color: #007BFF;
+    padding: 10px;
+    color: #fff;
+  }
+
+  .container {
+    margin-top: 20px;
+  }
+
+  .schedule {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 576px) {
+    .schedule {
+      padding: 10px;
+    }
+
+    .schedule .row {
+        flex-wrap: wrap;
+    }
+    
+    .schedule .col-sm-3 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .btn-width {
+       justify-content: center;
+    }
+}
+
+.names{
+    margin-bottom: 25px;
+    font-family: 'Poppins', sans-serif;
+}
+.address{
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+

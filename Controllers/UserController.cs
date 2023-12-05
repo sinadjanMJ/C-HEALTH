@@ -24,6 +24,15 @@ namespace SEPHMS.Controllers
           public ActionResult UserStudentForm(){
             return View("PartialAppoint/studentformappointment");
         }
+          public ActionResult  Appoint(){
+            return View("PartialAppoint/Appoint");
+        }
+          public ActionResult Home(){
+            return View("PartialAppoint/Home");
+        }
+          public ActionResult ViewMed(){
+            return View("PartialAppoint/ViewMidecine");
+        }
 
         
         

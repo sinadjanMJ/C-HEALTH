@@ -7,7 +7,7 @@
   overflow-x: hidden;
 }
 .multi_step_form #addStudentHealthInfoForm {
-  text-align: center;
+
   position: relative;
   min-height: 820px;
     height: auto;
@@ -16,6 +16,11 @@
   background: #ffffff;
   z-index: 1;
 }
+
+.multi_step_form #addStudentHealthInfoForm li {
+text-align: center;
+}
+
 .multi_step_form #addStudentHealthInfoForm .tittle {
   text-align: center;
 
@@ -129,8 +134,6 @@
   font-size: 30px;
   color: #5f6771;
   padding: 0;
-  margin-right: 7px;
-  text-align: center;
   line-height: 1;
 }
 .multi_step_form #addStudentHealthInfoForm fieldset .passport {
