@@ -719,54 +719,7 @@ namespace SEPHMS.Controllers
 
 
 
-        public ActionResult<List<Employeepersonalinformation>> getEmployee(){
-            return _context.Employeepersonalinformations.ToList();
-        }
-
-        public IActionResult addEmployee(Employeepersonalinformation addEmployee ,int randompass ,int age ,string address)
-        {
-             addEmployee.Age = age;
-             addEmployee.EpiCode = randompass;
-             addEmployee.Address = address;
-
-
-            _context.Employeepersonalinformations.Add(addEmployee);
-            _context.SaveChanges();
-
-            return Ok();
-        }
-
-             public IActionResult updateEmployee(Employeepersonalinformation upemp, int age ,string address)
-        {
-            try
-            {
-                
-            upemp.Age = age;
-            upemp.Address = address;
-
-
-            _context.Employeepersonalinformations.Update(upemp);
-            _context.SaveChanges();
-            }
-            catch (System.Exception)
-            {
-                
-                throw;
-            }
-            
-            return Ok();
-        }
-
-
-            public IActionResult deleteEmployee(int id)
-        {
-            Console.WriteLine(id);
-            var res = _context.Employeepersonalinformations.Where(element => element.EpiId == id).FirstOrDefault();
-            _context.Employeepersonalinformations.Remove(res);
-            _context.SaveChanges();
-            return Ok();
-        }
-
+        
 
 
 
@@ -909,6 +862,163 @@ namespace SEPHMS.Controllers
            
         }
 
+         public ActionResult<List<Employeepersonalinformation>> getEmployee(){
+            return _context.Employeepersonalinformations.ToList();
+        }
+
+
+          public ActionResult<List<Employeepersonalinformation>> getEmployeeJoin(){
+
+             var result = (
+                from s in _context.Employeepersonalinformations
+                join d in _context.Departments
+                on s.DepartmentId equals d.DepartmentId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+                join c in _context.Coursestrandyears
+                on s.CourseStrandYearId equals c.CourseStrandYearId
+
+
+
+
+                select new EmployeeDepViewModel
+                {
+
+                   DepartmentId = d.DepartmentId,
+                   DepartmentName = d.DepartmentName,
+                 
+                   
+                   EpiId = s.EpiId,
+                   Firstname = s.Firstname,
+                   Lastname = s.Lastname,
+                   Middlename = s.Middlename,
+                   Fullname = s.Fullname,
+                   Birthdate = s.Birthdate,
+                   Gmailaddress = s.Gmailaddress,
+                   Age = s.Age,
+                   EpiCode = s.EpiCode,
+                   Gender = s.Gender,
+                   Address = s.Address,
+                   AddressProvince = s.AddressProvince,
+                   AddressMunicipality = s.AddressMunicipality,
+                   AddressBarangay = s.AddressBarangay,
+                   AddressPurok = s.AddressPurok,
+
+                   CourseStrandYearId = c.CourseStrandYearId,
+                   CourseStrandYearName = c.CourseStrandYearName
+                  
+                }
+
+
+
+            ).ToList();
+            return Ok(result);
+           
+        }
+
+
+
+         public IActionResult AddEmployee(Employeepersonalinformation addEmployee ,int randompass ,int age , string address, string province ,string municipal, string baranggay ,string fullname)
+        {
+             addEmployee.Age = age;
+             addEmployee.EpiCode = randompass;
+             addEmployee.Address = address;
+             addEmployee.AddressProvince = province;
+             addEmployee.AddressMunicipality = municipal;
+             addEmployee.AddressBarangay = baranggay;
+             addEmployee.Fullname = fullname;
+
+
+            _context.Employeepersonalinformations.Add(addEmployee);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+
+        
+             public IActionResult updateEmployee(Employeepersonalinformation upEmp)
+        {
+            try
+            {
+ 
+            _context.Employeepersonalinformations.Update(upEmp);
+            _context.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+            
+            return Ok();
+        }
+  
+            public IActionResult deleteEmployee(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Employeepersonalinformations.Where(element => element.EpiId == id).FirstOrDefault();
+            _context.Employeepersonalinformations.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+
+
+
+
+
+
+
+
+
+           public IActionResult AddEmployeeHealth(Employeehealthinformation shi)
+        {
+
+            _context.Employeehealthinformations.Add(shi);
+            _context.SaveChanges();
+     
+            return Ok();
+        }
+           public IActionResult UpdateEmployeeHealth(Employeehealthinformation upsth)
+        {
+            
+            _context.Employeehealthinformations.Update(upsth);
+            _context.SaveChanges();
+     
+            return Ok();
+        }
+       
+       
+      
+
+          public IActionResult DeleteEmployeeHealth(int id)
+        {
+            Console.WriteLine(id);
+            var res = _context.Employeehealthinformations.Where(element => element.EphiId == id).FirstOrDefault();
+            _context.Employeehealthinformations.Remove(res);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age , string addrs, string province ,string municipal, string baranggay ,string fullname)
         {
              addStudent.Age = age;
@@ -925,6 +1035,7 @@ namespace SEPHMS.Controllers
 
             return Ok();
         }
+
 
              public IActionResult updateStudent(Studentpersonalinformation upst, int age , string address ,string fullname)
         {
@@ -995,6 +1106,9 @@ namespace SEPHMS.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
+
+
 
 
         public ActionResult<List<StudentHealthInfoViewModel>> getStudentHI(){
@@ -1069,6 +1183,100 @@ namespace SEPHMS.Controllers
                    Gender = ss.Gender,
                    Address = ss.Address,
                    SpiCode = ss.SpiCode,
+                   
+                  
+                   CourseStrandYearId = c.CourseStrandYearId,
+                   CourseStrandYearName = c.CourseStrandYearName,
+
+                   DepartmentId = d.DepartmentId,
+                   DepartmentName = d.DepartmentName
+                   
+
+
+
+                  
+                }
+
+
+
+            ).ToList();
+            return Ok(result);
+           
+        }
+
+
+         public ActionResult<List<Employeehealthinformation>> getEmployeeHI(){
+
+             var result = (
+                from s in _context.Employeehealthinformations
+
+                join ss in _context.Employeepersonalinformations
+                on s.EpiId equals ss.EpiId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+
+                join d in _context.Departments
+                on ss.DepartmentId equals d.DepartmentId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+                join c in _context.Coursestrandyears
+                on ss.CourseStrandYearId equals c.CourseStrandYearId
+
+                select new EmployeeHealthInfoViewModel
+                {
+                   EpiId = ss.EpiId,
+                   EphiId = s.EphiId,
+                   Hospitalnumber = s.Hospitalnumber,
+                   Cbcphysician = s.Cbcphysician,
+                   Cbcdatetimerequested = s.Cbcdatetimerequested,
+                   Cbcdrawdatetime = s.Cbcdrawdatetime,
+                   Wbc = s.Wbc,
+                   Wbcunits = s.Wbcunits,
+                   Neutrophils = s.Neutrophils,
+                   Neutrophilsunits = s.Neutrophilsunits,
+                   Lymphocyte = s.Lymphocyte,
+                   Lymphocyteunits = s.Lymphocyteunits,
+                   Monocyte = s.Monocyte,
+                   Monocyteunits = s.Monocyteunits,
+                   Eosinophil = s.Eosinophil,
+                   Eosinophilunits = s.Eosinophilunits,
+                   Basophil = s.Basophil,
+                   Basophilunits = s.Basophilunits,
+                   Hemoglobin = s.Hemoglobin,
+                   Hemoglobinunits = s.Hemoglobinunits,
+                   Hematocrit = s.Hematocrit,
+                   Hematocritunits = s.Hematocritunits,
+                   Rbc = s.Rbc,
+                   Rbcunits = s.Rbcunits,
+                   Mcv = s.Mcv,
+                   Mcvunits = s.Mcvunits,
+                   Mch = s.Mch,
+                   Mchunits = s.Mchunits,
+                   Mchc = s.Mchc,
+                   Mchcunits = s.Mchcunits,
+                   Rcdw = s.Rcdw,
+                   Rcdwunits = s.Rcdwunits,
+                   Plateletcount = s.Plateletcount,
+                   Plateletcountunits = s.Plateletcountunits,
+                   Mpv = s.Mpv,
+                   Mpvunits = s.Mpvunits,
+                   Datet = s.Datet,
+
+
+
+
+                   Firstname = ss.Firstname,
+                   Middlename = ss.Middlename,
+                   Lastname = ss.Lastname,
+                   Fullname = ss.Fullname,
+                   Birthdate = ss.Birthdate,
+                   Gmailaddress = ss.Gmailaddress,
+                   AddressProvince = ss.AddressProvince,
+                   AddressMunicipality = ss.AddressMunicipality,
+                   AddressBarangay = ss.AddressBarangay,
+                   AddressPurok = ss.AddressPurok,
+                   Age = ss.Age,
+                   Gender = ss.Gender,
+                   Address = ss.Address,
+                   EpiCode = ss.EpiCode,
                    
                   
                    CourseStrandYearId = c.CourseStrandYearId,

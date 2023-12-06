@@ -1,0 +1,403 @@
+<!-- Normalize CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<!-- Bootstrap 4 CSS -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
+<!-- Telephone Input CSS -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css'>
+<!-- Icons CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+    integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+<!-- Style CSS -->
+<link rel="stylesheet" href="~/css/Employeehealthupdate.css">
+<!-- Demo CSS -->
+<link rel="stylesheet" href="~/css/demo.css">
+
+<body id="body">
+
+
+
+
+    <div class="modal fade" id="modalEmployeeHealthUpdate" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content" id="contentvol">
+                <div class="modal-header">
+
+                    <button type="button" id="modalEmployeeAddClose" class="btn-close btn-light" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <main id="main">
+                    <article>
+
+
+
+                        <template id="unitsOptionTemplate">
+                            <option value=""></option>
+                        </template>
+                         <template id="phyOptionTemplate">
+                            <option value=""></option>
+                        </template>
+
+                        <!-- Start Multiform HTML -->
+                        <section class="multi_step_form">
+                            
+                            <form id="EmployeeHealthUpdateForm">
+
+                                <!-- Tittle -->
+                                <div class="tittle">
+                                    <h2>Health Information Process</h2>
+                                    <p>In order to use this service, you have to complete this process</p>
+                                </div>
+                                <!-- progressbar -->
+                                <ul id="progressbar">
+                                    <li class="active">Commplete Blood Count</li>
+                                    <li>Urinalysis</li>
+                                    <li>Security Questions</li>
+                                </ul>
+                                <!-- fieldsets -->
+                                <fieldset>
+                                    <h3 style="text-align: center; ">Input Credentials</h3>
+                                    @* <h6>We will send you a SMS. Input the code to verify.</h6> *@
+                                      <hr style="margin:25px 0px 25px;" />
+                                    <div class="row">
+
+                                          <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <span class="lebel">Physician</span>
+
+                                                <input type="text" name="Cbcphysician" id="hn"
+                                                     class="form-control" required />
+                                            </div>
+                                        </div>
+
+                                 
+                                        
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <span class="lebel">Hospital No.</span>
+
+                                                <input type="text" name="Hospitalnumber" id="hn"
+                                                    placeholder="Enter Hospital No." class="form-control" required />
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label name="" class="control-label"> Date Time Requested</label>
+                                                <input type="datetime-local" name="Cbcdatetimerequested" id="dtr"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Draw Date Time</label>
+                                                <input type="datetime-local" name="Cbcdrawdatetime" id="ddt"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <hr style="margin:25px 0px 50px;" />
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="control-label">WBC</label>
+                                                <input type="number" name="Wbc" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+
+                                         <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="wbc" name="Wbcunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+                                       
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Neutrophils</label>
+                                                <input   type="number" name="Neutrophils" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="neutrophils" name="Neutrophilsunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Lymphocyte</label>
+                                                <input type="number" name="Lymphocyte" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="lymphocyte" name="Lymphocyteunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Monocyte</label>
+                                                <input type="number" name="Monocyte" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="monocyte" name="Monocyteunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Eosinophil</label>
+                                                <input type="number" name="Eosinophil" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="eosinophil" name="Eosinophilunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Basophil</label>
+                                                <input type="number" name="Basophil" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="basophil" name="Basophilunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Hemoglobin</label>
+                                                <input type="number" name="Hemoglobin" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="hemoglobin"  name="Hemoglobinunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Hematocrit</label>
+                                                <input type="number" name="Hematocrit" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="hematocrit"  name="Hematocritunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">RBC</label>
+                                                <input type="number" name="Rbc" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="rbc"  name="Rbcunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">MCV </label>
+                                                <input type="number" name="Mcv" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="mcv"   name="Mcvunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">MCH</label>
+                                                <input type="number" name="Mch" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="mch"  name="Mchunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">MCHC</label>
+                                                <input type="number" name="Mchc" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="mchc"   name="Mchcunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">RCDW</label>
+                                                <input type="number" name="Rcdw" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select id="rcdw"  name="Rcdwunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">PlateletCount</label>
+                                                <input type="number" name="Plateletcount" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select  id="pl"  name="Plateletcountunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">MPV</label>
+                                                <input type="number" name="Mpv" id="inputMedicineName"
+                                                    class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label name="" class="control-label">Units</label>
+                                                <select  id="mpv"  name="Mpvunits" class="form-select"></select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+                                      <button type="button" class="btn btn-primary" id="updateEmployeeHealth">Confirm</button>
+                                    <button type="button" class="action-button previous_button">Back</button>
+                                    <button type="button" class="next action-button">Continue</button>
+                                  
+                                </fieldset>
+                                <fieldset>
+                                    <h3>Verify Your Identity</h3>
+                                    <h6>Please upload any of these documents to verify your Identity.</h6>
+                                   
+                                    <button type="button" class="action-button previous previous_button">Back</button>
+                                    <button type="button" class="next action-button">Continue</button>
+
+
+                                </fieldset>
+                                <fieldset>
+                                    <h3>Create Security Questions</h3>
+                                    <h6>Please update your account with security questions</h6>
+                                    
+                                    <button type="button" class="action-button previous previous_button">Back</button>
+                                    <a href="#" class="action-button">Finish</a>
+                                </fieldset>
+                               
+                            </form>
+                              
+                        </section>
+                        <!-- END Multiform HTML -->
+                    </article>
+                </main>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+<script src="~/js/studenthealthinfo.js"></script>

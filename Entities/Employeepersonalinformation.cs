@@ -19,5 +19,8 @@ namespace SEPHMS.Entities
         public string AddressMunicipality { get; set; }
         public string AddressBarangay { get; set; }
         public string AddressPurok { get; set; }
+        public string Fullname { get; set; }
+        public int CourseStrandYearId { get; set; }
+        public int DepartmentId { get; set; }
     }
 }

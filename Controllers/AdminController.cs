@@ -55,6 +55,9 @@ namespace SEPHMS.Controllers
           public ActionResult AdminEmployee(){
             return View("PartialEmployee/EmployeeIndex");
         }
+           public ActionResult AdminEmployeeHealthProfile(){
+            return View("PartialEmployeeHealthProfile/EmployeeHealthInfoIndex");
+        }
        
           public ActionResult AdminAvailabilty(){
             return View("PartialAvailable/PartialDate/AvailableDateTime");
@@ -81,6 +84,8 @@ namespace SEPHMS.Controllers
            public ActionResult AdminPhysician(){
             return View("PartialPhysician/PhysicianIndex");
         }
+        
+
         
         
         

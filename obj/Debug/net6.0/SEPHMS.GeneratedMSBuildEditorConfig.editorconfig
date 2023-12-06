@@ -131,12 +131,40 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbERvY3RvclxEb2N0b3JVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployeeHealthProfile/AddEmployeeHealthInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlSGVhbHRoUHJvZmlsZVxBZGRFbXBsb3llZUhlYWx0aEluZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployeeHealthProfile/cardtable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlSGVhbHRoUHJvZmlsZVxjYXJkdGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployeeHealthProfile/EmployeeHealthInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlSGVhbHRoUHJvZmlsZVxFbXBsb3llZUhlYWx0aEluZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployeeHealthProfile/EmployeeHealthInfoIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlSGVhbHRoUHJvZmlsZVxFbXBsb3llZUhlYWx0aEluZm9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployeeHealthProfile/EmployeeHealthInformationTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlSGVhbHRoUHJvZmlsZVxFbXBsb3llZUhlYWx0aEluZm9ybWF0aW9uVGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployeeHealthProfile/updateEmployeeHealth.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlSGVhbHRoUHJvZmlsZVx1cGRhdGVFbXBsb3llZUhlYWx0aC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployee/CreateEmployee.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlXENyZWF0ZUVtcGxveWVlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployee/EmployeeIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlXEVtcGxveWVlSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployee/EmployeeInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFydGlhbEVtcGxveWVlXEVtcGxveWVlSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/Admin/PartialEmployee/EmployeeTable.cshtml]

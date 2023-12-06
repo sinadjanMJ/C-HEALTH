@@ -1,15 +1,27 @@
+<template id="studentOptionTemplate">
+    <option value=""></option>
+</template>
+
+<template id="departmentOptionTemplate">
+    <option value=""></option>
+</template>
+
+<template id="courseOptionTemplate">
+    <option value=""></option>
+</template>
+
 <template id="prabensOptionTemplate">
     <option value=""></option>
 </template>
 
 
-<div class="modal fade" id="modalEmployeeCreate" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="modalEmployeeCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-body d-flex justify-content-center">
-                    <h3 class="modal-title" id="exampleModalLabel">Add Employee</h3>
+                <div class="modal-body d-flex justify-content-center" >
+                    <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
                 </div>
                 <button type="button" id="modalEmployeeCreateClose" class="btn-close btn-light" data-bs-dismiss="modal"
                     aria-label="Close"></button>
@@ -17,124 +29,120 @@
             <div class="modal-body EmployeeCreate d-flex justify-content-center">
                 <div>
 
+
+
                     <form id="createEmployeeForm">
                         <div class="row">
-
-
-
                             <div class="address">Name</div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
-
                                     <label name="" class="control-label">First Name</label>
                                     <input type="text" name="Firstname" id="inputMedicineName"
                                         placeholder="Enter First Name" class="form-control" required />
-
                                 </div>
                             </div>
-
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-
                                     <label name="" class="control-label">Last Name</label>
                                     <input type="text" name="Lastname" id="inputMedicineName"
                                         placeholder="Enter Last Name" class="form-control" required />
-
                                 </div>
                             </div>
-
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-
                                     <label name="" class="control-label">Middle Name</label>
                                     <input type="text" name="Middlename" id="inputMedicineName"
                                         placeholder="Enter Middle Name" class="form-control" required />
-
                                 </div>
                             </div>
-
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-
                                     <label name="" class="control-label">Birthdate</label>
                                     <input type="date" name="Birthdate" id="inputMedicineName"
                                         placeholder="Enter Birthdate" class="form-control" required />
-
                                 </div>
                             </div>
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-
                                     <label name="" class="control-label">Gmail address</label>
                                     <input type="text" name="Gmailaddress" id="inputUnit"
                                         placeholder="Enter GmailAddress" class="form-control" required />
-
                                 </div>
                             </div>
 
 
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-
-                                    <span class="form-label">Select Gender </span>
-                                    <select name="Gender" class="form-select genders" id="gender">
+                                     <label name="" class="control-label">Select Gender</label>
+                                    <select name="Gender" class="form-select">
                                         <option>Male</option>
                                         <option>Female</option>
-
-
-
                                     </select>
-
                                 </div>
                             </div>
 
                             <div class="address">Address</div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <div class="autocomplete">
-                                        <label name="" class="control-label">Province</label>
-                                        <input type="text" name="AddressProvince" id="Province" placeholder="Enter Province"
-                                            class="form-control" required />
-                                        <ul id="suggestionsProv"></ul>
-                                    </div>
+                                    <label name="" class="control-label">Select Province</label>
+                                    <select id="prabens" name="AddressProvince" class="form-select">
+                                         <option value="" disabled selected>Select a Province</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <div class="autocomplete">
-                                        <label name="" class="control-label">Municipality</label>
-                                        <input type="text" name="AddressMunicipality" id="Municipality"
-                                            placeholder="Enter Municipality" class="form-control" required />
-                                        <ul id="suggestionsMuni"></ul>
-                                    </div>
+                                    <label name="" class="control-label">Select Municipality</label>
+                                    <select id="muni" name="AddressMunicipality" class="form-select">
+                                    
+                                    </select>
+                                    
                                 </div>
                             </div>
 
 
-                            <div class="col-sm-6">
+                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <div class="autocomplete">
-                                        <label name="" class="control-label">Barangay</label>
-                                        <input type="text" name="AddressBarangay" id="Barangay" placeholder="Enter Barangay"
-                                            class="form-control" required />
-                                        <ul id="suggestionsBar"></ul>
-                                    </div>
+                                    <label name="" class="control-label">Select Baranggay</label>
+                                    <select id="barang" name="AddressBarangay" class="form-select">
+        
+                                    </select>
+                                    
                                 </div>
                             </div>
+                            
 
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <div class="autocomplete">
+                                
+                                    <div class="form-group">
                                         <label name="" class="control-label">Purok</label>
                                         <input type="text" name="AddressPurok" id="Purok" placeholder="Enter Purok"
                                             class="form-control" required />
+                                      
+
                                     </div>
+                             
+                            </div>
+
+                            <div class="address">Department Course Or Year</div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    @* <label name="" class="control-label">Select Department</label> *@
+                                    <select id="Department" name="DepartmentId" class="form-select">
+                                         <option value="" disabled selected>Select a department</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                   
+                                    <select id="Course" name="CourseStrandYearId" class="form-select">
+                                    
+                                    </select>
+                                    
                                 </div>
                             </div>
 
@@ -149,6 +157,7 @@
                 <div class="modal-body d-flex justify-content-center">
                     <button type="button" class="btn btn-primary" id="createEmployee">Confirm</button>
                 </div>
+              
             </div>
         </div>
 
@@ -162,4 +171,13 @@
         font-weight: bolder;
         padding-bottom: 20px;
     }
+  .modal-header{
+    background-color: #7293c7;
+    color: #ffffff;
+    
+  }
+  .modal-title{
+    font-size: 25px;
+  }
+
 </style>

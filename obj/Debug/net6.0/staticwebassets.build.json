@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0Fov8yTxyaxK+I4OAZHWriZentEOKHng932EwsLwV5g=",
+  "Hash": "tcgwLFS8WlT6CJe/a/wPMrlV4xfElx4EXAmSGHRevU0=",
   "Source": "SEPHMS",
   "BasePath": "_content/SEPHMS",
   "Mode": "Default",
@@ -49,6 +49,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\SEPHMS.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\AddEmp.css",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "css/AddEmp.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\AddEmp.css"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\AddStudenthealth.css",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "css/AddStudenthealth.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\AddStudenthealth.css"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\bootstrap.min.css",
@@ -151,23 +185,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\studentform.css"
-    },
-    {
-      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\studenthealthinfo.css",
-      "SourceId": "SEPHMS",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
-      "BasePath": "_content/SEPHMS",
-      "RelativePath": "css/studenthealthinfo.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\studenthealthinfo.css"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\studenthealthupdate.css",
