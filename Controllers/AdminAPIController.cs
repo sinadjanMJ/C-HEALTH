@@ -1304,7 +1304,12 @@ namespace SEPHMS.Controllers
 
 
 
-       
+         public ActionResult<List<Account>> getaccount(){
+            return _context.Accounts.ToList();
+        }
+
+
+ 
 
 
 

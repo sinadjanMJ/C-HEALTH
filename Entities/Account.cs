@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 namespace SEPHMS.Entities
 {
-    public partial class Physician
+    public partial class Account
     {
-        public int PhysicianId { get; set; }
+        public int AccountId { get; set; }
+        public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string? Middlename { get; set; }
+        public string Gmail { get; set; }
+        public string Password { get; set; }
         public string Fullname { get; set; }
-        public string Firstname { get; set; }
-        public string Gender { get; set; }
     }
 }

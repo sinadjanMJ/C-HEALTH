@@ -28,7 +28,7 @@ namespace SEPHMS.ViewModel
         public string AddressProvince { get; set; }
         public int Age { get; set; }
         public int EpiCode { get; set; }
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
         public string AddressMunicipality { get; set; }
         public string AddressBarangay { get; set; }
         public string AddressPurok { get; set; }

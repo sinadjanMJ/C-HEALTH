@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wkepeH2Ju9d0BQEFdVAF/eutbcXGGNrDnWPnFFGLOEY=",
+  "Hash": "S5wBUtR2tJQ3s3lfzxXvzA1RCHwLz8xeuqE/BOG0O38=",
   "Source": "SEPHMS",
   "BasePath": "_content/SEPHMS",
   "Mode": "Default",
@@ -136,12 +136,12 @@
       "OriginalItemSpec": "wwwroot\\css\\Employeehealthupdate.css"
     },
     {
-      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\karun.css",
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\homepage.css",
       "SourceId": "SEPHMS",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
       "BasePath": "_content/SEPHMS",
-      "RelativePath": "css/karun.css",
+      "RelativePath": "css/homepage.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -150,7 +150,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\karun.css"
+      "OriginalItemSpec": "wwwroot\\css\\homepage.css"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\css\\login.css",

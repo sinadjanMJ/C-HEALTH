@@ -16,6 +16,7 @@ namespace SEPHMS.Entities
         {
         }
 
+        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Adminaccount> Adminaccounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Coursestrandyear> Coursestrandyears { get; set; }
@@ -49,6 +50,44 @@ namespace SEPHMS.Entities
         {
             modelBuilder.UseCollation("utf8mb4_general_ci")
                 .HasCharSet("utf8mb4");
+
+            modelBuilder.Entity<Account>(entity =>
+            {
+                entity.ToTable("account");
+
+                entity.Property(e => e.AccountId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("accountId");
+
+                entity.Property(e => e.Firstname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("firstname");
+
+                entity.Property(e => e.Fullname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("fullname");
+
+                entity.Property(e => e.Gmail)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("gmail");
+
+                entity.Property(e => e.Lastname)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("lastname");
+
+                entity.Property(e => e.Middlename)
+                    .HasMaxLength(250)
+                    .HasColumnName("middlename");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("password");
+            });
 
             modelBuilder.Entity<Adminaccount>(entity =>
             {
@@ -406,7 +445,6 @@ namespace SEPHMS.Entities
                     .HasColumnName("lastname");
 
                 entity.Property(e => e.Middlename)
-                    .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("middlename");
             });
@@ -857,7 +895,6 @@ namespace SEPHMS.Entities
                     .HasColumnName("lastname");
 
                 entity.Property(e => e.Middlename)
-                    .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("middlename");
 

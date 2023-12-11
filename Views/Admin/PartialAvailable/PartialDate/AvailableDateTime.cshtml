@@ -170,7 +170,7 @@
         }
 
         function btnAddDate(dateId) {
-            return "<center><a class='btn btn-success datesUpdate' data-dateId=" + dateId + " style='color : #ffffff;'>Update</a> &nbsp; <a class='btn btn-danger DateDelete' data-dateId=" + dateId + " style='color : #ffffff;'>Delete</a></center>"
+            return "<center><a class='btn btn-info datesUpdate' data-dateId=" + dateId + " style='color : #ffffff;'>Update</a> &nbsp; <a class='btn btn-danger DateDelete' data-dateId=" + dateId + " style='color : #ffffff;'>Delete</a></center>"
         }
 
         $("tbody").delegate(".datesUpdate", "click", function (e) {
@@ -447,7 +447,7 @@
         }
 
         function btnAddDateTime(timeId) {
-            return "<center><a class='btn btn-success DateTimeUpdate' data-timeId=" + timeId + " style='color : #ffffff;'>Update</a> &nbsp; <a class='btn btn-danger DateTimeDelete' data-timeId=" + timeId + "  style='color : #ffffff;'>Delete</a></center>"
+            return "<center><a class='btn btn-info DateTimeUpdate' data-timeId=" + timeId + " style='color : #ffffff;'>Update</a> &nbsp; <a class='btn btn-danger DateTimeDelete' data-timeId=" + timeId + "  style='color : #ffffff;'>Delete</a></center>"
         }
 
         $("tbody").delegate(".DateTimeUpdate", "click", function (e) {

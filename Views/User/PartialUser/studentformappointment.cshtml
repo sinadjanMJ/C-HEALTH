@@ -8,12 +8,78 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
+<style>
+	.slider-container {
+		width: 80%;
+		margin: auto;
+		overflow: hidden;
+	}
+
+	.slider {
+		display: flex;
+		transition: transform 0.5s ease-in-out;
+	}
+
+	.slide {
+		min-width: 100%;
+	}
+
+	/* Set fixed width and height for the images */
+	.slide img {
+		width: 100%;
+		height: 300px;
+		/* Adjust the height as needed */
+		object-fit: cover;
+		/* Maintain aspect ratio and cover the container */
+	}
+</style>
+
 <body>
 	<div>
 		<canvas id="myChart"></canvas>
 	</div>
 
+	<div class="slider-container">
+		<div class="slider">
+			<!-- Add your images here -->
+			<div class="slide"><img src="~/image/background.jpg" alt="Image 1"> </div>
+			<div class="slide"><img src="~/image/frvsignin.jpg" alt="Image 2"></div>
+			<div class="slide"><img src="~/image/school.jpg" alt="Image 3"></div>
+			
+			<!-- Add more slides as needed -->
+		</div>
+	</div>
+
+
+
+
+
+
+
+
 	<script>
+
+		const slider = document.querySelector('.slider');
+		let isTransitioning = false;
+
+		function nextSlide() {
+			if (!isTransitioning) {
+				isTransitioning = true;
+				setTimeout(() => {
+					const firstSlide = slider.firstElementChild;
+					slider.style.transition = 'none';
+					slider.style.transform = 'translateX(0)';
+					setTimeout(() => {
+						slider.style.transition = 'transform 2s ease-in-out';
+						firstSlide.parentNode.appendChild(firstSlide);
+						slider.style.transform = 'translateX(-100%)';
+						isTransitioning = false;
+					}, 0);
+				}, 500);
+			}
+		}
+
+		setInterval(nextSlide, 5000); // Change slide every 3 seconds
 
 
 
@@ -26,18 +92,97 @@
 					return item.test === "Neutrophils" && item.unitname === "%";
 				});
 
+				var c = [];
+
+				c = result.filter(function (item) {
+					return item.test === "WBC" && item.unitname === "x(10^9)/L";
+				});
+
+				var d = [];
+
+				d = result.filter(function (item) {
+					return item.test === "Lymphocyte" && item.unitname === "%";
+				});
+
+
+				var e = [];
+
+				e = result.filter(function (item) {
+					return item.test === "Basophil" && item.unitname === "%";
+				});
+
+				var f = [];
+
+				f = result.filter(function (item) {
+					return item.test === "Eosinophil" && item.unitname === "%";
+				});
+
+				var g = [];
+
+				g = result.filter(function (item) {
+					return item.test === "Hematocrit" && item.unitname === "mg/dl";
+				});
+
+
+				var h = [];
+
+				h = result.filter(function (item) {
+					return item.test === "Hemoglobin" && item.unitname === "mg/dl";
+				});
+
+
+				var i = [];
+
+				i = result.filter(function (item) {
+					return item.test === "MCH" && item.unitname === "pg";
+				});
+
+				var j = [];
+
+				j = result.filter(function (item) {
+					return item.test === "MCHC" && item.unitname === "g/dL";
+				});
+
+				var k = [];
+
+				k = result.filter(function (item) {
+					return item.test === "MCV" && item.unitname === "fL";
+				});
+
+				var l = [];
+
+				l = result.filter(function (item) {
+					return item.test === "Monocyte" && item.unitname === "%";
+				});
+
+
+				var m = [];
+
+				m = result.filter(function (item) {
+					return item.test === "MPV" && item.unitname === "fL";
+				});
+
+				var n = [];
+
+				n = result.filter(function (item) {
+					return item.test === "Platelet Count" && item.unitname === "x(10^9)/L";
+				});
+
+				var o = [];
+
+				o = result.filter(function (item) {
+					return item.test === "RBC" && item.unitname === "10^12/L";
+				});
+
+				var p = [];
+
+				p = result.filter(function (item) {
+					return item.test === "RCDW" && item.unitname === "%";
+				});
 
 
 
-				const testData1 = [
-					{ gender: null, maxAge: null, maxRange: 7.10, minAge: null, minRange: 5.9, normalrangeId: 3, test: "WBC", unitId: 7, unitname: "%" },
-					{ gender: null, maxAge: null, maxRange: 19, minAge: null, minRange: 15, normalrangeId: 5, test: "WBC", unitId: 6, unitname: "x(10^9)/L" }
-				];
 
-				const testData2 = [
-					{ gender: null, maxAge: null, maxRange: 7.10, minAge: null, minRange: 5.9, normalrangeId: 3, test: "lymphocyte", unitId: 7, unitname: "x(10^9)/L" },
-					{ gender: null, maxAge: null, maxRange: 40, minAge: null, minRange: 15, normalrangeId: 5, test: "lymphocyte", unitId: 6, unitname: "%" }
-				];
 
 
 
@@ -51,23 +196,57 @@
 					"gender": "Male",
 					"neutrophils": 56,
 					"neutrophilsunits": "%",
-					"wbc": 10,
+					"wbc": 11,
 					"wbcunits": "x(10^9)/L",
 					"lymphocyte": 30,
-					"lymphocyteunits": "%"
+					"lymphocyteunits": "%",
+					"basophil": 13,
+					"basophilunits": "%",
+					"eosinophil": 5,
+					"eosinophilunits": "%",
+					"hematocrit": 30,
+					"hematocritunits": "mg/dl",
+					"hemoglobin": 16,
+					"hemoglobinunits": "mg/dl",
+					"mch": 31,
+					"mchunits": "pg",
+					"mchc": 41,
+					"mchcunits": "g/dL",
+					"mcv": 15,
+					"mcvunits": "fL",
+					"monocyte": 11,
+					"monocyteunits": "%",
+					"mpv": 8,
+					"mpvunits": "fL",
+					"plateletcount": 61,
+					"plateletcountunits": "x(10^9)/L",
+					"rbc": 8,
+					"rbcunits": "10^12/L",
+					"rcdw": 13,
+					"rcdwunits": "%",
 				};
 
 				// Check Neutrophils value against maxRange and minRange
 				const neutrophilsColor = sampleValue.neutrophils >= b[0].minRange && sampleValue.neutrophils <= b[0].maxRange ? 'green' : 'red';
-
 				// Check WBC value against maxRange and minRange
-				const wbcColor = sampleValue.wbc >= testData1[1].minRange && sampleValue.wbc <= testData1[1].maxRange ? 'green' : 'red';
-
-				const lymColor = sampleValue.lymphocyte >= testData2[1].minRange && sampleValue.lymphocyte <= testData2[1].maxRange ? 'green' : 'red';
+				const wbcColor = sampleValue.wbc >= c[0].minRange && sampleValue.wbc <= c[0].maxRange ? 'green' : 'red';
+				const lymColor = sampleValue.lymphocyte >= d[0].minRange && sampleValue.lymphocyte <= d[0].maxRange ? 'green' : 'red';
+				const basoColor = sampleValue.basophil >= e[0].minRange && sampleValue.basophil <= e[0].maxRange ? 'green' : 'red';
+				const eosiColor = sampleValue.eosinophil >= f[0].minRange && sampleValue.eosinophil <= f[0].maxRange ? 'green' : 'red';
+				const hemaColor = sampleValue.hematocrit >= g[0].minRange && sampleValue.hematocrit <= g[0].maxRange ? 'green' : 'red';
+				const hemoColor = sampleValue.hemoglobin >= h[0].minRange && sampleValue.hemoglobin <= h[0].maxRange ? 'green' : 'red';
+				const mchColor = sampleValue.mch >= i[0].minRange && sampleValue.mch <= i[0].maxRange ? 'green' : 'red';
+				const mchcColor = sampleValue.mchc >= j[0].minRange && sampleValue.mchc <= j[0].maxRange ? 'green' : 'red';
+				const mcvColor = sampleValue.mcv >= k[0].minRange && sampleValue.mcv <= k[0].maxRange ? 'green' : 'red';
+				const monoColor = sampleValue.monocyte >= l[0].minRange && sampleValue.monocyte <= l[0].maxRange ? 'green' : 'red';
+				const mpvColor = sampleValue.mpv >= l[0].minRange && sampleValue.mpv <= l[0].maxRange ? 'green' : 'red';
+				const plColor = sampleValue.plateletcount >= l[0].minRange && sampleValue.plateletcount <= l[0].maxRange ? 'green' : 'red';
+				const rbcColor = sampleValue.rbc >= l[0].minRange && sampleValue.rbc <= l[0].maxRange ? 'green' : 'red';
+				const rcdwColor = sampleValue.rcdw >= l[0].minRange && sampleValue.rcdw <= l[0].maxRange ? 'green' : 'red';
 
 
 				console.log(Chart.version);
-				console.log(neutrophilsColor, wbcColor, lymColor);
+				console.log(neutrophilsColor, wbcColor, lymColor, basoColor, eosiColor, hemaColor, hemoColor, mchColor, mchcColor, mcvColor, monoColor,mpvColor,plColor,rbcColor,rcdwColor);
 
 
 				const ctx = document.getElementById('myChart').getContext('2d');
@@ -77,7 +256,7 @@
 				new Chart(ctx, {
 					type: 'bar',
 					data: {
-						labels: ['Neutrophils', 'WBC', 'Lympocyte'],
+						labels: ['Neutrophils', 'WBC', 'Lympocyte', 'Basophil', 'Eosinophil', 'Hematocrit', 'Hemoglobin', 'Mch', 'Mchc', 'Mcv', 'Monocyte', 'Mpv', 'Platelet Count', 'Rbc', 'Rcdw'],
 
 						datasets: [
 							{
@@ -93,11 +272,87 @@
 								borderWidth: 0,
 							},
 							{
-								label: 'lymphocyte',
+								label: 'Lmphocyte',
 								data: [0, 0, sampleValue.lymphocyte], // Add 0 for Neutrophils to keep them separate
 								backgroundColor: lymColor,
 								borderWidth: 0,
-							}
+							},
+
+
+							{
+								label: 'Basophil',
+								data: [0, 0, 0, sampleValue.basophil], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: basoColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'Eosinophil',
+								data: [0, 0, 0, 0, sampleValue.eosinophil], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: eosiColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'Hematocrit',
+								data: [0, 0, 0, 0, 0, sampleValue.hematocrit], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: hemaColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'Hemoglobin',
+								data: [0, 0, 0, 0, 0, 0, sampleValue.hemoglobin], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: hemoColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'MCH',
+								data: [0, 0, 0, 0, 0, 0, 0, sampleValue.mch], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: mchColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'MCHC',
+								data: [0, 0, 0, 0, 0, 0, 0, 0, sampleValue.mchc], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: mchcColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'MCV',
+								data: [0, 0, 0, 0, 0, 0, 0, 0, 0, sampleValue.mcv], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: mcvColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'Monocyte',
+								data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, sampleValue.monocyte], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: monoColor,
+								borderWidth: 0,
+							},
+		                   {
+							label: 'MPV',
+							data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,sampleValue.mpv], // Add 0 for Neutrophils to keep them separate
+							backgroundColor: mpvColor,
+							borderWidth: 0,
+							},
+
+							{
+							label: 'Platelet Count',
+							data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,sampleValue.plateletcount], // Add 0 for Neutrophils to keep them separate
+							backgroundColor: plColor,
+							borderWidth: 0,
+							},
+                            {
+							label: 'Red Blood Cell',
+							data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,sampleValue.rbc], // Add 0 for Neutrophils to keep them separate
+							backgroundColor: rbcColor,
+							borderWidth: 0,
+							},
+
+							{
+							label: 'RCDW',
+							data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,sampleValue.rcdw], // Add 0 for Neutrophils to keep them separate
+							backgroundColor: rcdwColor,
+							borderWidth: 0,
+							},
 
 						]
 

@@ -8,7 +8,7 @@ namespace SEPHMS.Entities
         public int SpiId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string Middlename { get; set; }
+        public string? Middlename { get; set; }
         public string Birthdate { get; set; }
         public string Gmailaddress { get; set; }
         public string AddressProvince { get; set; }
