@@ -1,7 +1,12 @@
  
  
  
-  
+  #navbar{
+  position: sticky;
+  top: 0;
+  }
+
+
   header {
     background-color: #007BFF;
     padding: 10px;
@@ -10,6 +15,7 @@
 
   .container {
     margin-top: 20px;
+   
   }
 
   .schedule {
@@ -17,6 +23,14 @@
     padding: 20px;
     margin-bottom: 20px;
   }
+
+  .schedules{
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    /* width: 18rem; */
+  }
+
 
   @media (max-width: 576px) {
     .schedule {
@@ -31,9 +45,29 @@
         width: 100%;
         margin-bottom: 10px;
     }
-    .btn-width {
-       justify-content: center;
+
+
+
+
+
+    .schedules {
+      padding: 10px;
+      /* width: 31rem; */
     }
+
+    .schedules .row {
+        flex-wrap: wrap;
+    }
+    
+    .schedules .col-sm-3 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+
+
+
+    
 }
 
 .names{

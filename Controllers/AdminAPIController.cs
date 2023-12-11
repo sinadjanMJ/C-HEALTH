@@ -1019,15 +1019,19 @@ namespace SEPHMS.Controllers
 
 
 
-        public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age , string addrs, string province ,string municipal, string baranggay ,string fullname)
+        public IActionResult AddStudent(Studentpersonalinformation addStudent ,int randompass ,int age , string address, string province ,string municipal, string baranggay ,string fullname)
         {
+
+            
              addStudent.Age = age;
              addStudent.SpiCode = randompass;
-             addStudent.Address = addrs;
+             addStudent.Address = address;
              addStudent.AddressProvince = province;
              addStudent.AddressMunicipality = municipal;
              addStudent.AddressBarangay = baranggay;
              addStudent.Fullname = fullname;
+
+
 
 
             _context.Studentpersonalinformations.Add(addStudent);

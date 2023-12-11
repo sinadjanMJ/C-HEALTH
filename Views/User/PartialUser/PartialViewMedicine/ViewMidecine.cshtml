@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Appointment Schedule</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/karun.css">
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>View more and explore</h1>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="Home">Home</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Appoint">Schedule</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="ViewMed">Available
+                            Medicine</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="s1">
+        <div class="container">
+            <div class="schedule">
+                <!-- Your appointment schedule content goes here -->
+                <h2>Available Medicine</h2>
+                <p>This is a placeholder for your appointment schedule content.</p>
+
+                @* <div class="schedules">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Michael Jay Sinadjan</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's content.</p>
+
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Go
+                            somewhere</a>
+                    </div>
+                </div> *@
+
+
+
+
+                <div class="input-group rounded" style="margin-bottom: 20px;">
+                    <input type="search" name="Asearchbar" id="AsearchText" class="form-control rounded"
+                        placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <span class="input-group-text border-0" id="search-addon" style="color: white; background-color: #00A5BA;">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+
+                @Html.Partial("PartialUser/PartialViewMedicine/viewMedtable")
+                @Html.Partial("PartialUser/PartialViewMedicine/modalDesc")
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+    var activeMedicines = [];
+    var med;
+
+
+    $(document).ready(function () {
+        margin();
+        populateIndex();
+
+        function margin() {
+
+            $(".page-content").removeClass();
+            $(".container-fluid").removeClass();
+        }
+
+
+
+        function populateIndex() {
+
+            $.ajax("../api/adminapi/getAllMedicine")
+                .done(function (result) {
+
+                    document.querySelector(".parent").innerHTML = "";
+                    //list of active medicine
+
+                    activeMedicines = result.filter(function (item) {
+                        return item.status === "Active";
+                    });
+                    AcMedicineList = [];
+                    AcMedicineList = activeMedicines;
+                    med  =   activeMedicines.medicineName;
+                    activeMedicines.forEach(function (item) {
+
+                        var template = document.querySelector("template#card-container");
+                        var parent = document.querySelector(".parent");
+                        var cloned = template.content.cloneNode(true);
+
+
+
+                        cloned.querySelector(".schedules .card-title").innerHTML = item.medicineName;
+                        cloned.querySelector(".schedules .card-category").innerHTML = item.categoryName;
+                        cloned.querySelector(".schedules .card-dosage").innerHTML = item.units + item.dosage;
+                        cloned.querySelector(".schedules .card-stock").innerHTML = item.units + item.stock;
+
+
+
+                        cloned.querySelector(".viewDesc").setAttribute("data-medicineId", item.medicineId);
+
+                        parent.prepend(cloned);
+                    });
+                });
+
+            // getMedicine();
+        }
+
+
+         $('#AsearchText').on("input", function () {
+        var searchedItem = $(this).val();
+
+
+            //console.log(searchedItem);
+
+        var search = AcMedicineList.filter(element => element.medicineName.toLowerCase().includes(searchedItem.toLowerCase()) || element.medicineName.toUpperCase().includes(searchedItem.toUpperCase())&&
+        element.categoryName.toLowerCase().includes(searchedItem.toLowerCase()) || element.categoryName.toUpperCase().includes(searchedItem.toUpperCase())
+        );
+        //console.log(sear);
+     
+            document.querySelector(".parent").innerHTML = "";
+            search.forEach(function (item) {
+                var template = document.querySelector("template#card-container");
+                var parent = document.querySelector(".parent");
+                var cloned = template.content.cloneNode(true);
+
+                  cloned.querySelector(".schedules .card-title").innerHTML = item.medicineName;
+                        cloned.querySelector(".schedules .card-category").innerHTML = item.categoryName;
+                        cloned.querySelector(".schedules .card-dosage").innerHTML = item.units + item.dosage;
+                        cloned.querySelector(".schedules .card-stock").innerHTML = item.units + item.stock;
+
+
+
+                        cloned.querySelector(".viewDesc").setAttribute("data-medicineId", item.medicineId);
+  
+                parent.prepend(cloned);
+            });
+
+
+       
+       
+
+    });
+
+      
+        
+
+
+
+
+
+
+
+        $(".exampleModal").click(function () {
+            $("#exampleModal").modal("toggle");
+
+        });
+
+
+
+        $(".parent").delegate(".viewDesc", "click", function (e) {
+            var i = e.target.closest("a").getAttribute("data-medicineId");
+            console.log("The value is " + i);
+
+            if (i != null) {
+                var selectedMedicineId;
+                var selectedMedicine;
+
+                selectedMedicineId = i;
+                selectedMedicine = AcMedicineList.find(element => element.medicineId == i);
+
+
+
+                console.log(selectedMedicine.description);
+    @* $("#descText").innerHTML = selectedMedicine.description; //magamit rani siya sa text area , h1 and etc og sa labels
+
+                    $("#descText").val(selectedMedicine.description); *@
+                    $("#descText").html(selectedMedicine.description);
+
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>
+<style>
+    .sidebar-wrapper {
+        display: none;
+    }
+
+    .btn-width {
+        padding: 10px 100px 10px 100px;
+
+    }
+</style>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Chart.js Example</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+	<div>
+		<canvas id="myChart"></canvas>
+	</div>
+
+	<script>
+
+
+
+		$.ajax("../api/adminapi/getNR")
+			.done(function (result) {
+
+				var b = [];
+
+				b = result.filter(function (item) {
+					return item.test === "Neutrophils" && item.unitname === "%";
+				});
+
+
+
+
+				const testData1 = [
+					{ gender: null, maxAge: null, maxRange: 7.10, minAge: null, minRange: 5.9, normalrangeId: 3, test: "WBC", unitId: 7, unitname: "%" },
+					{ gender: null, maxAge: null, maxRange: 19, minAge: null, minRange: 15, normalrangeId: 5, test: "WBC", unitId: 6, unitname: "x(10^9)/L" }
+				];
+
+				const testData2 = [
+					{ gender: null, maxAge: null, maxRange: 7.10, minAge: null, minRange: 5.9, normalrangeId: 3, test: "lymphocyte", unitId: 7, unitname: "x(10^9)/L" },
+					{ gender: null, maxAge: null, maxRange: 40, minAge: null, minRange: 15, normalrangeId: 5, test: "lymphocyte", unitId: 6, unitname: "%" }
+				];
+
+
+
+
+
+
+
+
+				const sampleValue = {
+					"shiId": 11,
+					"gender": "Male",
+					"neutrophils": 56,
+					"neutrophilsunits": "%",
+					"wbc": 10,
+					"wbcunits": "x(10^9)/L",
+					"lymphocyte": 30,
+					"lymphocyteunits": "%"
+				};
+
+				// Check Neutrophils value against maxRange and minRange
+				const neutrophilsColor = sampleValue.neutrophils >= b[0].minRange && sampleValue.neutrophils <= b[0].maxRange ? 'green' : 'red';
+
+				// Check WBC value against maxRange and minRange
+				const wbcColor = sampleValue.wbc >= testData1[1].minRange && sampleValue.wbc <= testData1[1].maxRange ? 'green' : 'red';
+
+				const lymColor = sampleValue.lymphocyte >= testData2[1].minRange && sampleValue.lymphocyte <= testData2[1].maxRange ? 'green' : 'red';
+
+
+				console.log(Chart.version);
+				console.log(neutrophilsColor, wbcColor, lymColor);
+
+
+				const ctx = document.getElementById('myChart').getContext('2d');
+
+
+
+				new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: ['Neutrophils', 'WBC', 'Lympocyte'],
+
+						datasets: [
+							{
+								label: 'Neutrophils',
+								data: [sampleValue.neutrophils, 0], // Add 0 for WBC to keep them separate
+								backgroundColor: neutrophilsColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'WBC',
+								data: [0, sampleValue.wbc], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: wbcColor,
+								borderWidth: 0,
+							},
+							{
+								label: 'lymphocyte',
+								data: [0, 0, sampleValue.lymphocyte], // Add 0 for Neutrophils to keep them separate
+								backgroundColor: lymColor,
+								borderWidth: 0,
+							}
+
+						]
+
+
+					},
+					options: {
+						scales: {
+							x: {
+								stacked: false, // Display bars side by side
+							},
+							y: {
+								beginAtZero: true
+							}
+						}
+					}
+				});
+
+
+
+
+
+
+
+
+
+			});
+
+
+
+
+
+
+
+	</script>
+</body>
+
+</html>
+
+
+<style>
+	.sidebar-wrapper {
+		display: none;
+	}
+</style>

@@ -357,7 +357,7 @@
 
         function AddSelectPrabens() {
 
-            fetch("../../js/province.js")
+            fetch("../../js/provinceFinal.js")
                 .then(response => response.json())
                 .then(result => {
 
@@ -766,7 +766,7 @@
 
 
                                 address: `Purok ${arrData.AddressPurok}, ${barang}, ${muni}, ${prabens}`
-
+               
 
 
                             },
@@ -823,7 +823,7 @@
         }
 
         function btnAddStudentData(id) {
-            return "<center><a style='color : #ffffff;' class='btn btn-warning StudentUpdate' data-spiId=" + id + "><i title='Update Student Information' class='fa-solid fa-pen-to-square'></i> Update</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentDelete' data-spiId=" + id + "><i title='Delete Student Information' class='fa-solid fa-trash' ></i>  Delete</a> <br> <br>  <a  style='color : #ffffff;'   class='btn btn-info StudentHIInfo' data-spiId=" + id + "> <i  class='fa fa-medkit'  title='Add Student Health Information'></i> Health </a> <br><br> <a style='color : #ffffff;' class='btn btn-success StudentInfo' data-spiId=" + id + "><i title=' Student Information' class='fa-solid fa-circle-info'></i>&emsp;Info&emsp;</a></center>"
+            return "<center><a style='color : #ffffff;' class='btn btn-primary StudentUpdate' data-spiId=" + id + ">&emsp;Update&emsp;</a> <br><br> <a style='color : #ffffff;' class='btn btn-danger StudentDelete' data-spiId=" + id + ">&emsp;&nbsp;Delete&nbsp;&emsp;</a> <br> <br>  <a  style='color : #ffffff;'   class='btn btn-success StudentHIInfo' data-spiId=" + id + "> Add Health </a> <br><br> <a style='color : #ffffff;' class='btn btn-info StudentInfo' data-spiId=" + id + ">&nbsp;&nbsp;View Info&nbsp;&nbsp;</a></center>"
         }
 
 
