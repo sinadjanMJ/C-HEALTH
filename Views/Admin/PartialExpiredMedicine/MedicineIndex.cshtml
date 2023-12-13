@@ -280,7 +280,7 @@ $(document).ready(function () {
                         $("#modalMedicineCreate").modal("toggle");
                         getMedicine();
                         displaySavedProgress();
-                        populateIndex();
+                        @* populateIndex(); *@
                         populateIndexInactive();
 
                     });
@@ -417,7 +417,7 @@ $(document).ready(function () {
                     // document.querySelector(".parent").innerHTML ="";
                     $("#modalMedicineUpdate").modal("toggle");
                     $("#updateMedicineForm")[0].reset();
-                    populateIndex();
+                    populateIndexInactive();
                     getMedicine();
                 });
 
@@ -479,7 +479,7 @@ $(document).ready(function () {
                 },
             })
             .done(function () {
-                populateIndex();
+                @* populateIndex(); *@
                 populateIndexInactive()
                 alertDeleteInfo();
             });

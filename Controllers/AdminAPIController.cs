@@ -1,8 +1,15 @@
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SEPHMS.ViewModel;
 using SEPHMS.Entities;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace SEPHMS.Controllers
 {
@@ -1304,8 +1311,13 @@ namespace SEPHMS.Controllers
 
 
 
-         public ActionResult<List<Account>> getaccount(){
-            return _context.Accounts.ToList();
+       [HttpPost]
+        public async Task<IActionResult> userlogin(string gmail, string password){
+            var user = await _context.Accounts.FirstOrDefaultAsync(b=>b.Gmail ==gmail && b.Password==password);
+            if(user != null){
+                return Ok();
+            }
+            return new BadRequestObjectResult("Account not found");
         }
 
 

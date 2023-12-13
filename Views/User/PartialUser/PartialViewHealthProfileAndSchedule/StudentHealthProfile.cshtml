@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>View Health Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/homepage.css">
+
+
+
+
+
+</head>
+
+<body>
+
+    <header style=" background-color: #6c7b88;">
+        <div class="container">
+            <h1>View Health Profile</h1>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Schedule
+                            Date</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User"
+                            asp-action="studenthealthprofile">Available
+                            Medicine</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="studenthealthprofile">View
+                            Health
+                            Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="s1">
+        <div class="container">
+            <div class="schedule">
+
+                @Html.Partial("PartialUser/PartialViewHealthProfileAndSchedule/cardtable")
+                <h2>Complete Blood Count</h2>
+                <h2>
+                    <center>Test</center>
+                </h2>
+
+                @Html.Partial("PartialUser/PartialViewHealthProfileAndSchedule/chart")
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var selectedStudentHI;
+    var selectedStudentHIId;
+    var StudentHIList = {};
+    var arr = {};
+    var disdate = {};
+    var dateClick;
+    var dateComp = {};
+    var selectedID;
+    var filteredData = {};
+
+
+    $(document).ready(function () {
+        margin();
+        populateIndex();
+
+
+
+
+
+        function populateIndex() {
+
+            $.ajax("../api/adminapi/getStudentHI")
+                .done(function (result) {
+
+
+
+                    //   dateComp = data;
+                    //  StudentHIList = data;
+                    selectedStudentHIId = 15;
+
+                    dateComp = result.filter(function (item) {
+                        return item.spiId == selectedStudentHIId;
+                    });
+
+                    console.log("dateComp", dateComp)
+
+                    document.querySelector(".parent").innerHTML = "";
+
+
+                    // Remove duplicates based on 'datet'
+                    let uniqueData = [];
+                    let seenDates = new Set();
+
+                    dateComp.forEach(entry => {
+                        if (!seenDates.has(entry.datet)) {
+                            seenDates.add(entry.datet);
+                            uniqueData.push(entry);
+                        }
+                    });
+
+                    // Display unique data
+                    //   console.log(uniqueData);
+
+                    disdate = uniqueData;
+
+
+
+                    uniqueData.forEach(function (item) {
+
+                        var template = document.querySelector("template#card-container");
+                        var parent = document.querySelector(".parent");
+                        var cloned = template.content.cloneNode(true);
+
+
+
+                        cloned.querySelector(".card .card-title").innerHTML = item.datet;
+
+
+                        cloned.querySelector(".datecard").setAttribute("data-datet", item.datet);
+
+                        parent.prepend(cloned);
+                    });
+                });
+
+        }// end of funcction populate
+
+
+
+        $('#AsearchText').on("input", function () {
+            var searchedItem = $(this).val();
+
+            //console.log(searchedItem);
+
+            var search = disdate.filter(element => element.datet.toLowerCase().includes(searchedItem.toLowerCase()) || element.datet.toUpperCase().includes(searchedItem.toUpperCase()));
+            //console.log(sear);
+
+            document.querySelector(".parent").innerHTML = "";
+
+            search.forEach(function (item) {
+                var template = document.querySelector("template#card-container");
+                var parent = document.querySelector(".parent");
+                var cloned = template.content.cloneNode(true);
+
+                cloned.querySelector(".card .card-title").innerHTML = item.datet;
+
+
+                cloned.querySelector(".datecard").setAttribute("data-datet", item.datet);
+
+
+                parent.prepend(cloned);
+            });
+
+
+        });//end offuncction search
+
+
+
+
+
+        $(".parent").delegate(".datecard", "click", function (e) {
+
+            // console.log("na click najyud");
+            var i = e.target.closest("div").getAttribute("data-datet");
+
+            console.log("salamat sa pag click", i);
+
+            if (i != null) {
+                dateClick = i;
+                //    console.log(dateClick + "mao ni siya");
+
+
+                //filtere data that have th same value on selected date
+
+                filteredData = dateComp.filter(function (entry) {
+                    return entry.datet === dateClick;
+                });
+
+                console.log("filter", filteredData);
+
+                filteredData.forEach(function (sampleValue) {
+
+                    $.ajax("../api/adminapi/getNR")
+                        .done(function (result) {
+
+                            var b = [];
+
+                            b = result.filter(function (item) {
+                                return item.test === "Neutrophils" && item.unitname === "%";
+                            });
+                            console.log(b)
+
+                            var c = [];
+
+                            c = result.filter(function (item) {
+                                return item.test === "WBC" && item.unitname === "x(10^9)/L";
+                            });
+
+                            var d = [];
+
+                            d = result.filter(function (item) {
+                                return item.test === "Lymphocyte" && item.unitname === "%";
+                            });
+
+
+                            var e = [];
+
+                            e = result.filter(function (item) {
+                                return item.test === "Basophil" && item.unitname === "%";
+                            });
+
+                            var f = [];
+
+                            f = result.filter(function (item) {
+                                return item.test === "Eosinophil" && item.unitname === "%";
+                            });
+
+                            var g = [];
+
+                            g = result.filter(function (item) {
+                                return item.test === "Hematocrit" && item.unitname === "mg/dl";
+                            });
+
+
+                            var h = [];
+
+                            h = result.filter(function (item) {
+                                return item.test === "Hemoglobin" && item.unitname === "mg/dl";
+                            });
+
+
+                            var i = [];
+
+                            i = result.filter(function (item) {
+                                return item.test === "MCH" && item.unitname === "pg";
+                            });
+
+                            var j = [];
+
+                            j = result.filter(function (item) {
+                                return item.test === "MCHC" && item.unitname === "g/dL";
+                            });
+
+                            var k = [];
+
+                            k = result.filter(function (item) {
+                                return item.test === "MCV" && item.unitname === "fL";
+                            });
+
+                            var l = [];
+
+                            l = result.filter(function (item) {
+                                return item.test === "Monocyte" && item.unitname === "%";
+                            });
+
+
+                            var m = [];
+
+                            m = result.filter(function (item) {
+                                return item.test === "MPV" && item.unitname === "fL";
+                            });
+
+                            var n = [];
+
+                            n = result.filter(function (item) {
+                                return item.test === "Platelet Count" && item.unitname === "x(10^9)/L";
+                            });
+
+                            var o = [];
+
+                            o = result.filter(function (item) {
+                                return item.test === "RBC" && item.unitname === "10^12/L";
+                            });
+
+                            var p = [];
+
+                            p = result.filter(function (item) {
+                                return item.test === "RCDW" && item.unitname === "%";
+                            });
+
+
+
+                            console.log('Reccieving ID', sampleValue.shiId);
+
+
+
+                            // console.log(sampleValue.neutrophils)
+                            // Check Neutrophils value against maxRange and minRange
+                            const neutrophilsColor = sampleValue.neutrophils >= b[0].minRange && sampleValue.neutrophils <= b[0].maxRange ? 'green' : 'red';
+                            // Check WBC value against maxRange and minRange
+                            const wbcColor = sampleValue.wbc >= c[0].minRange && sampleValue.wbc <= c[0].maxRange ? 'green' : 'red';
+                            const lymColor = sampleValue.lymphocyte >= d[0].minRange && sampleValue.lymphocyte <= d[0].maxRange ? 'green' : 'red';
+                            const basoColor = sampleValue.basophil >= e[0].minRange && sampleValue.basophil <= e[0].maxRange ? 'green' : 'red';
+                            const eosiColor = sampleValue.eosinophil >= f[0].minRange && sampleValue.eosinophil <= f[0].maxRange ? 'green' : 'red';
+                            const hemaColor = sampleValue.hematocrit >= g[0].minRange && sampleValue.hematocrit <= g[0].maxRange ? 'green' : 'red';
+                            const hemoColor = sampleValue.hemoglobin >= h[0].minRange && sampleValue.hemoglobin <= h[0].maxRange ? 'green' : 'red';
+                            const mchColor = sampleValue.mch >= i[0].minRange && sampleValue.mch <= i[0].maxRange ? 'green' : 'red';
+                            const mchcColor = sampleValue.mchc >= j[0].minRange && sampleValue.mchc <= j[0].maxRange ? 'green' : 'red';
+                            const mcvColor = sampleValue.mcv >= k[0].minRange && sampleValue.mcv <= k[0].maxRange ? 'green' : 'red';
+                            const monoColor = sampleValue.monocyte >= l[0].minRange && sampleValue.monocyte <= l[0].maxRange ? 'green' : 'red';
+                            const mpvColor = sampleValue.mpv >= l[0].minRange && sampleValue.mpv <= l[0].maxRange ? 'green' : 'red';
+                            const plColor = sampleValue.plateletcount >= l[0].minRange && sampleValue.plateletcount <= l[0].maxRange ? 'green' : 'red';
+                            const rbcColor = sampleValue.rbc >= l[0].minRange && sampleValue.rbc <= l[0].maxRange ? 'green' : 'red';
+                            const rcdwColor = sampleValue.rcdw >= l[0].minRange && sampleValue.rcdw <= l[0].maxRange ? 'green' : 'red';
+
+
+                            console.log(Chart.version);
+                            console.log(neutrophilsColor, wbcColor, lymColor, basoColor, eosiColor, hemaColor, hemoColor, mchColor, mchcColor, mcvColor, monoColor, mpvColor, plColor, rbcColor, rcdwColor);
+
+
+
+
+                            var data = {
+                                labels: ['Neutrophils', 'WBC', 'Lympocyte', 'Basophil', 'Eosinophil', 'Hematocrit', 'Hemoglobin', 'Mch', 'Mchc', 'Mcv', 'Monocyte', 'Mpv', 'Platelet Count', 'Rbc', 'Rcdw'],
+                                datasets: [{
+                                    label: 'Blood Count',
+
+                                    data: [sampleValue.neutrophils,
+                                    sampleValue.wbc,
+                                    sampleValue.lymphocyte,
+                                    sampleValue.basophil,
+                                    sampleValue.eosinophil,
+                                    sampleValue.hematocrit,
+                                    sampleValue.hemoglobin,
+                                    sampleValue.mch,
+                                    sampleValue.mchc,
+                                    sampleValue.mcv,
+                                    sampleValue.monocyte,
+                                    sampleValue.mpv,
+                                    sampleValue.plateletcount,
+                                    sampleValue.rbc,
+                                    sampleValue.rcdw],
+
+
+
+                                    backgroundColor: [
+                                        neutrophilsColor,
+                                        wbcColor,
+                                        lymColor,
+                                        basoColor,
+                                        eosiColor,
+                                        hemaColor,
+                                        hemoColor,
+                                        mchColor,
+                                        mchcColor,
+                                        mcvColor,
+                                        monoColor,
+                                        mpvColor,
+                                        plColor,
+                                        rbcColor,
+                                        rcdwColor,
+                                    ],
+                                    borderColor: [
+                                        neutrophilsColor,
+                                        wbcColor,
+                                        lymColor,
+                                        basoColor,
+                                        eosiColor,
+                                        hemaColor,
+                                        hemoColor,
+                                        mchColor,
+                                        mchcColor,
+                                        mcvColor,
+                                        monoColor,
+                                        mpvColor,
+                                        plColor,
+                                        rbcColor,
+                                        rcdwColor,
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            };
+
+
+
+
+
+
+
+
+                            // config 
+                            const config = {
+                                type: 'bar',
+                                data,
+                                options: {
+                                    maintainAspectRatio: false, // Set to false to make it responsive
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            };
+
+                            // render init block
+                            const myChart = new Chart(
+                                document.getElementById('myChart'),
+                                config
+                            );
+
+                            // Adjust container width dynamically based on the number of labels
+                            const containerBody = document.querySelector('.containerBody');
+                            const totalLabels = myChart.data.labels.length;
+
+
+
+
+                            if (totalLabels > 7) {
+                                const newWidth = 300 + ((totalLabels - 7) * 30)
+                                containerBody.style.width = `${newWidth}%`;
+                            }
+
+                            @* // Assuming myChart is your Chart.js instance
+                            if (myChart) {
+                                myChart.destroy();
+                            } *@
+
+
+
+
+                        });//end f the funcction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                });
+
+
+
+            }
+
+        });// end of selecting date record
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function margin() {
+
+            $(".page-content").removeClass();
+            $(".container-fluid").removeClass();
+        }
+
+    });// end for jquery
+
+</script>
+<style>
+    .sidebar-wrapper {
+        display: none;
+    }
+
+    .btn-width {
+        padding: 10px 100px 10px 100px;
+
+    }
+</style>

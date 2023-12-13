@@ -2,100 +2,75 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Chart.js Example</title>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .chartCard {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .chartBox {
+            width: 100%;
+            max-width: 700px;
+        @*border-radius:10px;*@border: solid 3px rgba(54, 162, 235, 1);
+            background: white;
+        }
+
+        .container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .containerBody {
+            height: 300px;
+            /* Set a specific height for the chart container */
+            margin: auto;
+        }
+    </style>
 </head>
 
-
-<style>
-	.chart-container {
-		width: 100%;
-		overflow-x: auto;
-	}
-
-	.slider-container {
-		width: 80%;
-		margin: auto;
-		overflow: hidden;
-	}
-
-	.slider {
-		display: flex;
-		transition: transform 0.5s ease-in-out;
-	}
-
-	.slide {
-		min-width: 100%;
-	}
-
-	/* Set fixed width and height for the images */
-	.slide img {
-		width: 100%;
-		height: 300px;
-		/* Adjust the height as needed */
-		object-fit: cover;
-		/* Maintain aspect ratio and cover the container */
-	}
-</style>
-
 <body>
-	<div class="chart-container">
-		<canvas id="myChart"></canvas>
-	</div>
+    <div class="chartCard">
+        <div class="chartBox">
+            <div class="container">
+                <div class="containerBody">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-	<div class="slider-container">
-		<div class="slider">
-			<!-- Add your images here -->
-			<div class="slide"><img src="~/image/background.jpg" alt="Image 1"> </div>
-			<div class="slide"><img src="~/image/frvsignin.jpg" alt="Image 2"></div>
-			<div class="slide"><img src="~/image/school.jpg" alt="Image 3"></div>
+    <script>
 
-			<!-- Add more slides as needed -->
-		</div>
-	</div>
+		
+        $(document).ready(function () {
+            margin();
+			chart();
 
+            function margin() {
 
-
-
-
-
-
-
-	<script>
-
-		const slider = document.querySelector('.slider');
-		let isTransitioning = false;
-
-		function nextSlide() {
-			if (!isTransitioning) {
-				isTransitioning = true;
-				setTimeout(() => {
-					const firstSlide = slider.firstElementChild;
-					slider.style.transition = 'none';
-					slider.style.transform = 'translateX(0)';
-					setTimeout(() => {
-						slider.style.transition = 'transform 2s ease-in-out';
-						firstSlide.parentNode.appendChild(firstSlide);
-						slider.style.transform = 'translateX(-100%)';
-						isTransitioning = false;
-					}, 0);
-				}, 500);
-			}
-		}
-
-		setInterval(nextSlide, 5000); // Change slide every 3 seconds
+                $(".page-content").removeClass();
+                $(".container-fluid").removeClass();
+            }
 
 
-
-
-
-
-		document.addEventListener("DOMContentLoaded", function () {
-
-			$.ajax("../api/adminapi/getNR")
+function chart(){
+  $.ajax("../api/adminapi/getNR")
 				.done(function (result) {
 
 					var b = [];
@@ -194,49 +169,29 @@
 
 
 
+                      $.ajax("../api/adminapi/getstudenthi")
+				.done(function (result) {
+                   
+					var pisot = result.filter(function (item) {
+						return item.spiId === 15;
+					});
+				console.log(pisot);
+
+					 pisot.forEach(function (sampleValue) {
+                 //  console.log(sampleValue);
+                    
+               
 
 
 
 
-                 
 
 
 
-					const sampleValue = {
-						"shiId": 11,
-						"gender": "Male",
-						"neutrophils": 56,
-						"neutrophilsunits": "%",
-						"wbc": 11,
-						"wbcunits": "x(10^9)/L",
-						"lymphocyte": 30,
-						"lymphocyteunits": "%",
-						"basophil": 13,
-						"basophilunits": "%",
-						"eosinophil": 5,
-						"eosinophilunits": "%",
-						"hematocrit": 30,
-						"hematocritunits": "mg/dl",
-						"hemoglobin": 16,
-						"hemoglobinunits": "mg/dl",
-						"mch": 31,
-						"mchunits": "pg",
-						"mchc": 41,
-						"mchcunits": "g/dL",
-						"mcv": 15,
-						"mcvunits": "fL",
-						"monocyte": 11,
-						"monocyteunits": "%",
-						"mpv": 8,
-						"mpvunits": "fL",
-						"plateletcount": 61,
-						"plateletcountunits": "x(10^9)/L",
-						"rbc": 8,
-						"rbcunits": "10^12/L",
-						"rcdw": 13,
-						"rcdwunits": "%",
-					};
 
+
+				
+                  // console.log(sampleValue.neutrophils)
 					// Check Neutrophils value against maxRange and minRange
 					const neutrophilsColor = sampleValue.neutrophils >= b[0].minRange && sampleValue.neutrophils <= b[0].maxRange ? 'green' : 'red';
 					// Check WBC value against maxRange and minRange
@@ -260,9 +215,9 @@
 					console.log(neutrophilsColor, wbcColor, lymColor, basoColor, eosiColor, hemaColor, hemoColor, mchColor, mchcColor, mcvColor, monoColor, mpvColor, plColor, rbcColor, rcdwColor);
 
 
-					const ctx = document.getElementById('myChart').getContext('2d');
+				
 
-					var chartData = {
+					var data = {
 						labels: ['Neutrophils', 'WBC', 'Lympocyte', 'Basophil', 'Eosinophil', 'Hematocrit', 'Hemoglobin', 'Mch', 'Mchc', 'Mcv', 'Monocyte', 'Mpv', 'Platelet Count', 'Rbc', 'Rcdw'],
 						datasets: [{
 							label: 'Blood Count',
@@ -324,19 +279,39 @@
 					};
 
 
+                     // config 
+            const config = {
+                type: 'bar',
+                data,
+                options: {
+                    maintainAspectRatio: false, // Set to false to make it responsive
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // render init block
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+
+            // Adjust container width dynamically based on the number of labels
+            const containerBody = document.querySelector('.containerBody');
+            const totalLabels = myChart.data.labels.length;
+
+            if (totalLabels > 7) {
+                const newWidth = 200 + ((totalLabels - 7) * 30)
+                containerBody.style.width = `${newWidth}%`;
+            }
 
 
-					var chartOptions = {
-						responsive: true,
-						maintainAspectRatio: false, // This prevents the chart from maintaining its aspect ratio
-					};
 
-					// Create the chart
-					var myChart = new Chart(ctx, {
-						type: 'bar',
-						data: chartData,
-						options: chartOptions
-					});
+
+					
 
 
 
@@ -347,22 +322,88 @@
 
 				});
 
-		});
+
+ });
+					   
+
+					});
+
+
+					}
 
 
 
 
 
 
+            @* // setup 
+            const data = {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Weekly Sales',
+                    data: [18, 12, 6, 9, 12, 3, 9, 18, 12, 6, 9, 12, 3, 9, 18, 12, 6, 9, 12, 3, 9],
+                    backgroundColor: [
+                        'rgba(255, 26, 104, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 26, 104, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(0, 0, 0, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
 
-	</script>
+            // config 
+            const config = {
+                type: 'bar',
+                data,
+                options: {
+                    maintainAspectRatio: false, // Set to false to make it responsive
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // render init block
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+
+            // Adjust container width dynamically based on the number of labels
+            const containerBody = document.querySelector('.containerBody');
+            const totalLabels = myChart.data.labels.length;
+
+            if (totalLabels > 7) {
+                const newWidth = 100 + ((totalLabels - 7) * 30)
+                containerBody.style.width = `${newWidth}%`;
+            } *@
+
+
+
+
+
+        });
+    </script>
 </body>
 
 </html>
-
-
 <style>
-	.sidebar-wrapper {
-		display: none;
-	}
+    .sidebar-wrapper {
+        display: none;
+    }
 </style>

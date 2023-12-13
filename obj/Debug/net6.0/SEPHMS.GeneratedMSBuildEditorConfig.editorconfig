@@ -459,6 +459,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVXNlclxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialUser/PartialViewHealthProfileAndSchedule/cardtable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxjYXJkdGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialUser/PartialViewHealthProfileAndSchedule/chart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxjaGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialUser/PartialViewHealthProfileAndSchedule/StudentHealthProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxTdHVkZW50SGVhbHRoUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialUser/PartialViewMedicine/modalDesc.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVXNlclxQYXJ0aWFsVmlld01lZGljaW5lXG1vZGFsRGVzYy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -473,6 +485,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialUser/studentformappointment.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVXNlclxzdHVkZW50Zm9ybWFwcG9pbnRtZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/practice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxwcmFjdGljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/_ViewImports.cshtml]

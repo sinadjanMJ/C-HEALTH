@@ -67,7 +67,8 @@
 
 
 <script>
-  $(document).ready(function () {
+  $(()=>{
+
     margin();
 
     function margin() {
@@ -82,44 +83,40 @@
     sessionStorage.clear()
 
 
-    @* $("#signin").click(e => {
+    $("#signin").click(e => {
       e.preventDefault()
       console.log("na clicck lagi ko")
 
-    var gmail = $(".gmail").val();
-     var pass = $(".password").val();
+      var gmail = $(".gmail").val();
+      var pass = $(".password").val();
 
-      $.ajax({
-        url: "../api/adminapi/getaccount",
-        method: "POST",
-        data: JSON.stringify({
-          "gmail": $(".gmail").val(),
-          "password": $(".password").val()
-        }),
-        contentType: "application/json",
-        success: res => {
+      if (gmail.trim() === "" || pass.trim() === "") {
+        // SweetAlert for validation
+      empty();
 
-          console.log(res)
-          console.log(res.AccFound)
 
-            if (res ==) {
-              sessionStorage.setItem("logged", true) *@
-              window.location.href = "https://localhost:7165/Admin/AdminCategory"
-            @* } else {
-              alert("Account not found!")
-            }
-
+      } else {
+        $.ajax({
+          url: "/api/adminapi/userlogin",
+          method: "POST",
+          data: {
+            "gmail": gmail,
+            "password": pass
           },
-          error: error => {
-            console.error(error)
+          success: res => {
+            sessionStorage.setItem("Logged", true)
+            location.href = '/Admin/AdminCategory';
+            console.log(res)
+          },
+
+          error: err => {
+            error();
           }
+        })
 
-      })
-    }) *@
+      }
 
-
-
-
+    })
 
 
 
@@ -136,7 +133,26 @@
 
 
 
+    function empty() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields!',
+        confirmButtonText: 'OK'
+        
+      });
+    }
 
+
+
+    function error() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Account not found',
+        text: 'Username or password is invalid!',
+        confirmButtonText: 'OK'
+      });
+    }
 
 
 

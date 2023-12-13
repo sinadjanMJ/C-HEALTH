@@ -30,6 +30,11 @@ var categoryList = {};
 var catname;
 
 
+if(sessionStorage.getItem("Logged") === undefined || sessionStorage.getItem("Logged") === null){
+      location.href = "https://localhost:7165";
+}
+
+
 $(document).ready(function () {
 
     getCategory();
@@ -40,7 +45,7 @@ $(document).ready(function () {
             .done(function (result) {
                 categoryList = result;
                 result.forEach(function (item) {
-                    console.log(item);
+                  //  console.log(item);
                     catname = item.categoryname;
                 });
 
