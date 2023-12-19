@@ -36,12 +36,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="ViewMed">Available Medicine</a>
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="ViewMed">Available
+                            Medicine</a>
                     </li>
 
 
-                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="ViewMed">View Health Profile</a>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="ViewMed">View Health
+                            Profile</a>
                     </li>
                 </ul>
             </div>
@@ -208,13 +210,13 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label name="" class="control-label">Select Date</label>
-                            <input type="date" name="Birthdate" id="inputMedicineName" class="form-control" required />
+                            <input type="date" name="Birthdate" id="customDate" class="form-control" required />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label name="" class="control-label">Select Time</label>
-                            <select id="" name="" class="form-select">
+                            <select id="selectime" name="" class="form-select">
 
                             </select>
 
@@ -227,10 +229,11 @@
                 </div>
 
 
-                
-                  <button type="button" class="btn btn-primary btn-width" id="createStudent" style="width: 100%;">Confirm</button>
 
-             
+                <button type="button" class="btn btn-primary btn-width" id="createStudent"
+                    style="width: 100%;">Confirm</button>
+
+
 
 
 
@@ -251,16 +254,145 @@
 </html>
 
 
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css" />
+<!-- Add dark theme CSS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
+    var dates = [];
+
+
     $(document).ready(function () {
         margin();
+        getDates();
+        getTime();
 
         function margin() {
 
             $(".page-content").removeClass();
             $(".container-fluid").removeClass();
         }
+
+        function getDates() {
+            $.ajax("../api/adminapi/getDateTime")
+                .done(function (result) {
+
+                    var allowedDates = [];
+
+
+
+                    result.forEach(obj => {
+
+                        //  console.log('obj',obj.avadate);
+                        // Check if the avadate property exists in the current object
+                        if (obj.avadate !== undefined) {
+                            // Push the value to the new array
+                            allowedDates.push(obj.avadate);
+                        }
+                    });
+
+                    var arrayWithoutDuplicates = [...new Set(allowedDates)];
+                    console.log('dupli', arrayWithoutDuplicates);
+
+                    //   var allowedDates = ["2023-12-30", "2023-11-05", "2023-12-23"];
+
+                    // Initialize flatpickr with options and dark theme
+                    flatpickr("#customDate", {
+                        altInput: true,
+                        altFormat: "F j, Y",
+                        dateFormat: "Y-m-d",
+                        enable: allowedDates,
+                        defaultDate: allowedDates[0],
+                        theme: "dark", // Apply dark theme
+                    });
+
+                });
+
+        }
+
+        function getTime() {
+            $.ajax("../api/adminapi/getDateTime")
+                .done(function (result) {
+
+                    // console.log( document.getElementById("customDate").value;)
+                    var avatimeArray = [];
+
+
+
+                    document.getElementById('customDate').addEventListener('input', function () {
+                        // Get the selected date value
+                        
+                        
+                        avatimeArray.length = 0; // clear the array first
+                        
+                        var selectedDate = this.value;
+
+
+                        console.log(selectedDate)
+
+
+                        result.forEach(obj => {
+                            // Check if the avadate property exists and is equal to the selected date
+                            if (obj.avadate !== undefined && obj.avadate === selectedDate) {
+                                // Push the avatime value to the array
+                                avatimeArray.push(obj.avatime);
+                            }
+                        });
+
+                        console.log('Avatime Array for Selected Date:', avatimeArray);
+
+
+
+
+
+                        // Get the select box element
+                        var selectTime = document.getElementById('selectime');
+                        // Clear existing options
+                        selectTime.innerHTML = '';
+
+
+                        // Populate the select box with options from the array
+                        avatimeArray.forEach(optionValue => {
+                            var option = document.createElement('option');
+                            // option.value = optionValue;
+                            option.text = optionValue;
+                            selectTime.appendChild(option);
+                        });
+
+
+
+
+
+
+                    }); // end of selecct date
+                });
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     });
 
@@ -271,7 +403,7 @@
     }
 
     .btn-width {
-       width: 1000px;
+        width: 1000px;
 
     }
 </style>

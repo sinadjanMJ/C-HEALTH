@@ -1,9 +1,14 @@
 
-
+<script>
+  // get the logged status  sessionStorage.getItem("Borrower") == "false" ||
+  if( sessionStorage.getItem("Admin/AdminCategory") == "false" || sessionStorage.getItem("Logged")==="false" || sessionStorage.getItem("Logged")==undefined || sessionStorage.getItem("Logged")==null){
+    location.href = '/Page/SIGN'
+  }
+</script>
 <button type="button" title="Create Category" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalCategoryCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
-    Add Category
+    Add New Category
 </button>
 
 
@@ -30,9 +35,6 @@ var categoryList = {};
 var catname;
 
 
-if(sessionStorage.getItem("Logged") === undefined || sessionStorage.getItem("Logged") === null){
-      location.href = "https://localhost:7165";
-}
 
 
 $(document).ready(function () {

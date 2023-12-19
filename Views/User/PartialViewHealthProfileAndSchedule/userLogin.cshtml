@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>FRV COLLEGE USER</title> 
+     </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        
+        <div class="title"><span>Login Form</span></div>
+        <form action="#">
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" class="gmail" placeholder="Email or Phone" required>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="password" placeholder="Password" required>
+          </div>
+          
+          <div class="row button">
+            <input id="signin" type="submit" value="Login">
+          </div>
+        
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(()=>{
+
+    margin();
+
+    function margin() {
+
+      $(".page-content").removeClass();
+      $(".container-fluid").removeClass();
+    }
+
+
+     sessionStorage.clear()
+
+
+    $("#signin").click(e => {
+      e.preventDefault()
+      console.log("na clicck lagi ko")
+
+      var gmail = $(".gmail").val();
+      var pass = $(".password").val();
+
+      if (gmail.trim() === "" || pass.trim() === "") {
+        // SweetAlert for validation
+      empty();
+
+
+      } else {
+        $.ajax({
+          url: "/api/adminapi/userlogin",
+          method: "POST",
+          data: {
+            "gmail": gmail,
+            "password": pass
+          },
+          success: res => {
+            sessionStorage.setItem("Logged", true)
+            location.href = '/User/StudentHealthProfile';
+            console.log(res)
+          },
+
+          error: err => {
+            error();
+          }
+        })
+
+      }
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+    function empty() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields!',
+        confirmButtonText: 'OK'
+        
+      });
+    }
+
+
+
+    function error() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Account not found',
+        text: 'Username or password is invalid!',
+        confirmButtonText: 'OK'
+      });
+    }
+
+
+
+
+
+
+
+
+
+    });//end of the document 
+</script>
+
+<style>
+
+    .sidebar-wrapper {
+        display: none;
+    }
+
+
+ @* body {
+  margin: 0;
+  padding: 0;
+  background-image: url('../../image/fins.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+} *@
+
+::selection{
+  background: rgba(26,188,156,0.3);
+}
+.container{
+  max-width: 440px;
+  padding: 0 20px;
+  margin: 170px auto;
+}
+.wrapper{
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.1);
+
+  
+  position: relative;
+}
+
+ 
+.wrapper .title{
+  height: 90px;
+  background: #68849d;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper form{
+  padding: 30px 25px 25px 25px;
+}
+.wrapper form .row{
+  height: 45px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.wrapper form .row input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 60px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+form .row input:focus{
+  border-color: #68849d;
+  box-shadow: inset 0px 0px 1px 1px #b0c5d7;
+}
+form .row input::placeholder{
+  color: #999;
+}
+.wrapper form .row i{
+  position: absolute;
+  width: 47px;
+  height: 100%;
+  color: #fff;
+  font-size: 18px;
+  background: #68849d;
+  border: 1px solid #68849d; 
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper form .button input{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 0px;
+  background: #68849d;
+  border: 1px solid #68849d;
+  cursor: pointer;
+}
+form .button input:hover{
+  background: #68849d;
+}
+
+</style>

@@ -17,25 +17,25 @@ namespace SEPHMS.Controllers
             return View();
         }
     
-          public ActionResult UserViewMedicine(){
-            return View("PartialUser/ViewMedicineIndex");
-        }
 
           public ActionResult UserStudentForm(){
-            return View("PartialUser/studentformappointment");
+            return View("studentformappointment");
         }
           public ActionResult  Appoint(){
-            return View("PartialUser/Appoint");
+            return View("PartialAppoint/Appoint");
         }
           public ActionResult Home(){
-            return View("PartialUser/Home");
+            return View("PartialHome/Home");
         }
           public ActionResult ViewMed(){
-            return View("PartialUser/PartialViewMedicine/ViewMidecine");
+            return View("PartialViewMedicine/ViewMidecine");
         }
 
          public ActionResult  StudentHealthProfile(){
-            return View("PartialUser/PartialViewHealthProfileAndSchedule/StudentHealthProfile");
+            return View("PartialViewHealthProfileAndSchedule/StudentHealthProfile");
+        }
+         public ActionResult  userLogin(){
+            return View("PartialViewHealthProfileAndSchedule/userLogin");
         }
 
           public ActionResult practice(){
