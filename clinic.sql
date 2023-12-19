@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2023 at 10:36 AM
+-- Generation Time: Dec 19, 2023 at 06:36 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `clinic`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE `account` (
+  `accountId` int(11) NOT NULL,
+  `firstname` varchar(250) NOT NULL,
+  `lastname` varchar(250) NOT NULL,
+  `middlename` varchar(250) DEFAULT NULL,
+  `gmail` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `fullname` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`accountId`, `firstname`, `lastname`, `middlename`, `gmail`, `password`, `fullname`) VALUES
+(1, 'Michael Jay', 'Sinadjan', 'Damas', 'sinadjanmichaeljay@gmail.com', '123', 'Michael Jay Damas Sinadjan');
 
 -- --------------------------------------------------------
 
@@ -61,7 +84,10 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`id`, `categoryname`) VALUES
 (43, 'Paracetamol'),
 (44, 'Amoxilin'),
-(45, 'v');
+(49, 'hahaha'),
+(50, 'arjhay'),
+(51, 'jupiter'),
+(52, 'lim');
 
 -- --------------------------------------------------------
 
@@ -84,7 +110,11 @@ INSERT INTO `coursestrandyear` (`CourseStrandYearId`, `CourseStrandYearName`, `d
 (2, 'STEM', 5),
 (3, 'GRADE-9', 3),
 (4, 'GRADE-7', 5),
-(5, 'GRADE-10', 6);
+(5, 'GRADE-10', 6),
+(6, 'nursing', 8),
+(7, 'pt', 8),
+(8, '4th year', 4),
+(9, 'kautugan', 10);
 
 -- --------------------------------------------------------
 
@@ -102,7 +132,10 @@ CREATE TABLE `date` (
 --
 
 INSERT INTO `date` (`dateID`, `avadate`) VALUES
-(13, '2023/12/30');
+(14, '2023-12-23'),
+(15, '2023-11-05'),
+(16, '2023-12-30'),
+(17, '2023-12-19');
 
 -- --------------------------------------------------------
 
@@ -124,7 +157,10 @@ INSERT INTO `department` (`departmentId`, `departmentName`) VALUES
 (3, 'CTE'),
 (4, 'CCS'),
 (5, 'SHS'),
-(6, 'HS');
+(6, 'HS'),
+(8, 'Medicine Field'),
+(9, 'arjhay'),
+(10, 'jupiter');
 
 -- --------------------------------------------------------
 
@@ -151,6 +187,59 @@ INSERT INTO `doctor` (`doctorId`, `doctorFirstName`, `doctorLastName`, `doctorAd
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employeehealthinformation`
+--
+
+CREATE TABLE `employeehealthinformation` (
+  `ephiId` int(11) NOT NULL,
+  `EPI_ID` int(11) NOT NULL,
+  `hospitalnumber` varchar(250) NOT NULL,
+  `cbcphysician` varchar(250) NOT NULL,
+  `cbcdatetimerequested` varchar(250) NOT NULL,
+  `cbcdrawdatetime` varchar(250) NOT NULL,
+  `wbc` float NOT NULL,
+  `wbcunits` varchar(250) NOT NULL,
+  `neutrophils` float NOT NULL,
+  `neutrophilsunits` varchar(250) NOT NULL,
+  `lymphocyte` float NOT NULL,
+  `lymphocyteunits` varchar(250) NOT NULL,
+  `monocyte` float NOT NULL,
+  `monocyteunits` varchar(250) NOT NULL,
+  `eosinophil` decimal(10,0) NOT NULL,
+  `eosinophilunits` varchar(250) NOT NULL,
+  `basophil` float NOT NULL,
+  `basophilunits` varchar(250) NOT NULL,
+  `hemoglobin` float NOT NULL,
+  `hemoglobinunits` varchar(250) NOT NULL,
+  `hematocrit` float NOT NULL,
+  `hematocritunits` varchar(250) NOT NULL,
+  `rbc` float NOT NULL,
+  `rbcunits` varchar(250) NOT NULL,
+  `mcv` float NOT NULL,
+  `mcvunits` varchar(250) NOT NULL,
+  `mch` float NOT NULL,
+  `mchunits` varchar(250) NOT NULL,
+  `mchc` float NOT NULL,
+  `mchcunits` varchar(250) NOT NULL,
+  `rcdw` float NOT NULL,
+  `rcdwunits` varchar(250) NOT NULL,
+  `plateletcount` float NOT NULL,
+  `plateletcountunits` varchar(250) NOT NULL,
+  `mpv` float NOT NULL,
+  `mpvunits` varchar(250) NOT NULL,
+  `datet` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employeehealthinformation`
+--
+
+INSERT INTO `employeehealthinformation` (`ephiId`, `EPI_ID`, `hospitalnumber`, `cbcphysician`, `cbcdatetimerequested`, `cbcdrawdatetime`, `wbc`, `wbcunits`, `neutrophils`, `neutrophilsunits`, `lymphocyte`, `lymphocyteunits`, `monocyte`, `monocyteunits`, `eosinophil`, `eosinophilunits`, `basophil`, `basophilunits`, `hemoglobin`, `hemoglobinunits`, `hematocrit`, `hematocritunits`, `rbc`, `rbcunits`, `mcv`, `mcvunits`, `mch`, `mchunits`, `mchc`, `mchcunits`, `rcdw`, `rcdwunits`, `plateletcount`, `plateletcountunits`, `mpv`, `mpvunits`, `datet`) VALUES
+(21, 20, '09701530736', ' mj damas sinadjan,  ALEX romero DAMAS', '12/6/2023, 3:17 PM', '12/6/2023, 3:20 PM', 122, 'x(10^22)/L', 122, '%', 122, '%', 122, '%', '122', '%', 122, '%', 122, 'mg/dl', 1222, 'mg/dl', 1222, '10^12/L', 1222, 'fL', 122, 'pg', 1222, 'g/dL', 1222, '%', 122, 'x(10^9)/L', 1222, 'fL', '2023-12-6');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employeepersonalinformation`
 --
 
@@ -158,7 +247,7 @@ CREATE TABLE `employeepersonalinformation` (
   `EPI_ID` int(11) NOT NULL,
   `firstname` varchar(250) NOT NULL,
   `lastname` varchar(250) NOT NULL,
-  `middlename` varchar(250) NOT NULL,
+  `middlename` varchar(250) DEFAULT NULL,
   `birthdate` varchar(250) NOT NULL,
   `gender` varchar(250) NOT NULL,
   `age` int(11) NOT NULL,
@@ -168,17 +257,20 @@ CREATE TABLE `employeepersonalinformation` (
   `addressProvince` varchar(250) NOT NULL,
   `addressMunicipality` varchar(250) NOT NULL,
   `addressBarangay` varchar(250) NOT NULL,
-  `addressPurok` varchar(250) NOT NULL
+  `addressPurok` varchar(250) NOT NULL,
+  `fullname` varchar(250) NOT NULL,
+  `courseStrandYearId` int(11) NOT NULL,
+  `departmentId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employeepersonalinformation`
 --
 
-INSERT INTO `employeepersonalinformation` (`EPI_ID`, `firstname`, `lastname`, `middlename`, `birthdate`, `gender`, `age`, `address`, `gmailaddress`, `EPI_CODE`, `addressProvince`, `addressMunicipality`, `addressBarangay`, `addressPurok`) VALUES
-(13, 'Michael Jay', 'Sinadjan', 'Damas', '2001-09-21', 'Male', 22, 'Purok Tugas, Malingin, City of Bogo, Cebu', 'as@gmail.com', 0, 'Cebu', 'City of Bogo', 'Malingin', 'Tugas'),
-(14, 'Kristie', 'Sala', 'Andrino', '1999-12-26', 'Female', 24, 'San Antonio Binabag', 'kristiesala@gmail.com', 0, '', '', '', ''),
-(18, 'markel', 'sinadjan', 'damas', '2004-02-22', 'Male', 19, 'Purok Tugas, Malingin, City of Bogo, Cebu', 'zcc', 18644737, 'Cebu', 'City of Bogo', 'Malingin', 'Tugas');
+INSERT INTO `employeepersonalinformation` (`EPI_ID`, `firstname`, `lastname`, `middlename`, `birthdate`, `gender`, `age`, `address`, `gmailaddress`, `EPI_CODE`, `addressProvince`, `addressMunicipality`, `addressBarangay`, `addressPurok`, `fullname`, `courseStrandYearId`, `departmentId`) VALUES
+(20, 'ALEX', 'DAMAS', 'xzcx', '1992-02-29', 'Male', 31, 'Purok zxc, Cabadiangan, Alcantara, Cebu', 'Purok Tugas, Malingin Bogo', 40299649, 'Cebu', 'Alcantara', 'Cabadiangan', 'zxc', ' ALEX  xzcx  DAMAS', 2, 5),
+(21, 'mj', 'sinadjan', 'damas', '1999-02-06', 'Male', 24, 'Purok asdss, Cabadiangan, Alcantara, Cebu', 'zcc', 84441082, 'Cebu', 'Alcantara', 'Cabadiangan', 'asdss', ' mj  damas  sinadjan', 5, 6),
+(22, 'arjhay', 'alarde', 'mapula', '2023-12-07', 'Male', 0, 'Purok chanel, Cayang, City of Bogo, Cebu', 'arjhayalarde06@gmail.com', 90558632, 'Cebu', 'City of Bogo', 'Cayang', 'chanel', ' arjhay  mapula  alarde', 2, 5);
 
 -- --------------------------------------------------------
 
@@ -226,8 +318,8 @@ CREATE TABLE `medicine` (
 --
 
 INSERT INTO `medicine` (`medicineId`, `medicineName`, `medicineStock`, `units`, `category`, `status`, `datepurchased`, `expirydate`, `description`, `dosage`) VALUES
-(36, 'dfffff', 1, '1', 43, 'Active', '2023-10-10', '2023-10-28', 'zccz', 'g'),
-(37, 'paracetamol for kids', 1, '5', 43, 'Expired', '2023-10-06', '2023-10-17', 'zccz', '');
+(39, 'biogesic', 210, '11', 43, 'Active', '2023-12-20', '2023-12-31', 'A trusted brand of paracetamol, Paracetamol (Biogesic) is a medication that is typically used to relieve mild to moderate pain such as headache, backache, menstrual cramps, muscular strain, minor arthritis pain, toothache, and reduce fevers caused by', 'tsp'),
+(41, 'paracetamol for kids', 13, '1', 43, 'Expired', '2023-12-25', '2023-11-29', 'para sa gihilantan nga bata', '');
 
 -- --------------------------------------------------------
 
@@ -323,7 +415,8 @@ INSERT INTO `medicinestockhistory` (`medicineStockId`, `medicineId`, `addedStock
 (93, 26, 1, '9/27/2023, 11:32:29 AM'),
 (94, 26, 1, '9/27/2023, 11:32:42 AM'),
 (95, 27, 5, '9/27/2023, 11:44:12 AM'),
-(96, 28, 7, '10/18/2023, 11:46:28 AM');
+(96, 28, 7, '10/18/2023, 11:46:28 AM'),
+(97, 38, 5, '12/7/2023, 12:28:30 PM');
 
 -- --------------------------------------------------------
 
@@ -361,8 +454,7 @@ INSERT INTO `normalrange` (`normalrangeId`, `test`, `MinRange`, `MaxRange`, `Uni
 (15, 'MCHC', 31, 36, 12, NULL, NULL, NULL),
 (16, 'RCDW', 11.6, 14.8, 7, NULL, NULL, NULL),
 (17, 'Platelet Count', 140, 440, 6, NULL, NULL, NULL),
-(18, 'MPV', 6.9, 11, 14, NULL, NULL, NULL),
-(19, 'WBC', 4, 10, 5, NULL, NULL, NULL);
+(18, 'MPV', 6.9, 11, 14, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -400,7 +492,10 @@ CREATE TABLE `physician` (
 
 INSERT INTO `physician` (`physicianId`, `lastname`, `middlename`, `fullname`, `firstname`, `gender`) VALUES
 (1, 'sinadjan', 'damas', ' mj damas sinadjan', 'mj', 'Male'),
-(2, 'DAMAS', 'romero', ' ALEX romero DAMAS', 'ALEX', 'Male');
+(2, 'DAMAS', 'romero', ' ALEX romero DAMAS', 'ALEX', 'Male'),
+(4, 'he', 'hi', ' ha hi he', 'ha', 'Male'),
+(5, 'alarde', 'mapula', ' arhay mapula alarde', 'arhay', 'Male'),
+(6, 'alarde', 'mapula', ' arhaysfsdf mapula alarde', 'arhaysfsdf', 'Male');
 
 -- --------------------------------------------------------
 
@@ -480,7 +575,7 @@ CREATE TABLE `studenthealthinformation` (
 INSERT INTO `studenthealthinformation` (`shiId`, `SPI_ID`, `hospitalnumber`, `cbcphysician`, `cbcdatetimerequested`, `cbcdrawdatetime`, `wbc`, `wbcunits`, `neutrophils`, `neutrophilsunits`, `lymphocyte`, `lymphocyteunits`, `monocyte`, `monocyteunits`, `eosinophil`, `eosinophilunits`, `basophil`, `basophilunits`, `hemoglobin`, `hemoglobinunits`, `hematocrit`, `hematocritunits`, `rbc`, `rbcunits`, `mcv`, `mcvunits`, `mch`, `mchunits`, `mchc`, `mchcunits`, `rcdw`, `rcdwunits`, `plateletcount`, `plateletcountunits`, `mpv`, `mpvunits`, `datet`) VALUES
 (11, 9, '09701530736', 'Dr Mj', '2023-11-29 7:31:20', '2023-11-29 7:31:20', 1, 'x(10^22)/L', 1, '%', 1, '%', 1, '%', '1', '%', 1, '%', 1, 'mg/dl', 1, 'mg/dl', 1, '10^12/L', 1, 'fL', 1, 'pg', 1, 'g/dL', 1, '%', 1, 'x(10^9)/L', 1, 'fL', '2023-11-23'),
 (16, 9, '09701530736', 'Dr Mj', '2023-12-3 16:0:14', '2023-12-3 16:0:14', 45, 'x(10^22)/L', 435, '%', 345, '%', 345, '%', '454', '%', 45, '%', 4, 'mg/dl', 4, 'mg/dl', 4, '10^12/L', 4, 'fL', 4, 'pg', 4, 'g/dL', 4, '%', 4, 'x(10^9)/L', 4, 'fL', '2023-12-3'),
-(20, 9, '09701530736', ' mj damas sinadjan,  ALEX romero DAMAS', '12/4/2023, 6:37 PM', '12/8/2023, 1:37 AM', 2, 'x(10^22)/L', 22, '%', 1, '%', 22, '%', '1', '%', 22, '%', 21, 'mg/dl', 22, 'mg/dl', 22, '10^12/L', 22, 'fL', 22, 'pg', 22, 'g/dL', 1, '%', 1, 'x(10^9)/L', 1, 'fL', '2023-12-4');
+(23, 15, '1231232', ' mj damas sinadjan,  ALEX romero DAMAS,  arhay mapula alarde', '12/13/2023, 7:46 AM', '1/3/2024, 7:48 AM', 8.5, 'x(10^9)/L', 50, '%', 35, '%', 12, '%', '31', '%', 15, '%', 41, 'mg/dl', 51, 'mg/dl', 21, '10^12/L', 1, 'fL', 61, 'pg', 71, 'g/dL', 21, '%', 31, 'x(10^9)/L', 21, 'fL', '2023-12-13');
 
 -- --------------------------------------------------------
 
@@ -492,7 +587,7 @@ CREATE TABLE `studentpersonalinformation` (
   `SPI_ID` int(11) NOT NULL,
   `firstname` varchar(250) NOT NULL,
   `lastname` varchar(250) NOT NULL,
-  `middlename` varchar(250) NOT NULL,
+  `middlename` varchar(250) DEFAULT NULL,
   `birthdate` varchar(250) NOT NULL,
   `gmailaddress` varchar(250) NOT NULL,
   `addressProvince` varchar(250) NOT NULL,
@@ -513,9 +608,13 @@ CREATE TABLE `studentpersonalinformation` (
 --
 
 INSERT INTO `studentpersonalinformation` (`SPI_ID`, `firstname`, `lastname`, `middlename`, `birthdate`, `gmailaddress`, `addressProvince`, `age`, `SPI_CODE`, `gender`, `addressMunicipality`, `addressBarangay`, `addressPurok`, `departmentId`, `courseStrandYearId`, `address`, `fullname`) VALUES
-(9, 'MICHELLE', 'Arcillas', 'Sinadjan', '2017-12-12', 'sss@gmail.com', 'Cebu', 6, 12345678, 'Female', 'City of Bogo', 'Gairan', 'Saint Paul', 4, 1, 'Purok Saint Paul, Gairan, City of Bogo, Cebu', ' MICHELLE  Sinadjan  Arcillas'),
+(9, 'MICHELLE', 'Arcillas', 'Sinadjan', '2017-12-12', 'sss@gmail.com', 'Cebu', 6, 12345678, 'Female', 'City of Bogo', 'Gairan', 'aagustin', 4, 1, 'Purok aagustin, Gairan, City of Bogo, Cebu', ' MICHELLE  Sinadjan  Arcillas'),
 (10, 'mj', 'sinadjan', 'damas', '2001-09-15', 'zcc@gmail.com', 'Cebu', 22, 52633195, 'Male', 'City of Bogo', 'Malingin', 'Tugas', 3, 3, 'Purok Tugas, Malingin, City of Bogo, Cebu', ' mj  damas  sinadjan'),
-(15, 'markel', 'sinadjan', 'damas', '2004-01-01', 'zcc', 'Cebu', 19, 22997760, 'Male', 'Alcantara', 'Cabadiangan', 'Tugas', 5, 2, 'Purok Tugas, Cabadiangan, Alcantara, Cebu', ' markel  damas  sinadjan');
+(15, 'markel', 'sinadjan', 'damas', '2004-01-01', 'zcc', 'Cebu', 19, 22997760, 'Male', 'Alcantara', 'Cabadiangan', 'Tugas', 5, 2, 'Purok Tugas, Cabadiangan, Alcantara, Cebu', ' markel  damas  sinadjan'),
+(16, 'bridget', 'mendoza', 'abacial', '2001-08-21', 'bridgetclairemendoza@gmail.com', 'Cebu', 22, 31733203, 'Female', 'City of Bogo', 'Cayang', 'mh del pilar', 8, 6, 'Purok mh del pilar, Cayang, City of Bogo, Cebu', ' bridget  abacial  mendoza'),
+(17, 'arjhay', 'alarde', 'mapula', '2023-12-07', 'arjhayalarde06@gmail.com', 'Cebu', 0, 77479345, 'Male', 'City of Bogo', 'San Vicente (Pob.)', 'chanel', 8, 7, 'Purok chanel, San Vicente (Pob.), City of Bogo, Cebu', ' arjhay  mapula  alarde'),
+(18, 'jade', 'alarde', 'mapula', '2023-12-07', 'jadeaaaaalarde06@gmail.com', 'Cebu', 0, 93439652, 'Male', 'City of Bogo', 'Malingin', 'chanel', 3, 3, 'Purok chanel, Malingin, City of Bogo, Cebu', ' jade  mapula  alarde'),
+(19, 'jupiter', 'balbero', 'sumanting', '2001-02-19', 'jupiter06@gmail.com', 'Cebu', 22, 25257610, 'Male', 'City of Bogo', 'Banban', 'LPC', 10, 9, 'Purok LPC, Banban, City of Bogo, Cebu', ' jupiter  sumanting  balbero');
 
 -- --------------------------------------------------------
 
@@ -541,7 +640,11 @@ INSERT INTO `time` (`timeID`, `dateId`, `avatime`) VALUES
 (13, 13, '9:29 PM'),
 (16, 13, '6:10 PM'),
 (17, 13, '1:05 PM'),
-(18, 13, '2:22 AM');
+(18, 13, '2:22 AM'),
+(19, 15, '3:35 AM'),
+(20, 14, '3:32 AM'),
+(21, 14, '11:48 PM'),
+(22, 17, '1:17 PM');
 
 -- --------------------------------------------------------
 
@@ -568,11 +671,18 @@ INSERT INTO `unit` (`unitId`, `unitname`) VALUES
 (12, 'g/dL'),
 (13, '10^12/L'),
 (14, 'fL'),
-(15, 'pg');
+(15, 'pg'),
+(16, 'palautog');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`accountId`);
 
 --
 -- Indexes for table `adminaccount`
@@ -609,6 +719,12 @@ ALTER TABLE `department`
 --
 ALTER TABLE `doctor`
   ADD PRIMARY KEY (`doctorId`);
+
+--
+-- Indexes for table `employeehealthinformation`
+--
+ALTER TABLE `employeehealthinformation`
+  ADD PRIMARY KEY (`ephiId`);
 
 --
 -- Indexes for table `employeepersonalinformation`
@@ -687,6 +803,12 @@ ALTER TABLE `unit`
 --
 
 --
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `adminaccount`
 --
 ALTER TABLE `adminaccount`
@@ -696,25 +818,25 @@ ALTER TABLE `adminaccount`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `coursestrandyear`
 --
 ALTER TABLE `coursestrandyear`
-  MODIFY `CourseStrandYearId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `CourseStrandYearId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `date`
 --
 ALTER TABLE `date`
-  MODIFY `dateID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `dateID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `departmentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `departmentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `doctor`
@@ -723,10 +845,16 @@ ALTER TABLE `doctor`
   MODIFY `doctorId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `employeehealthinformation`
+--
+ALTER TABLE `employeehealthinformation`
+  MODIFY `ephiId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT for table `employeepersonalinformation`
 --
 ALTER TABLE `employeepersonalinformation`
-  MODIFY `EPI_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `EPI_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `equipment`
@@ -738,19 +866,19 @@ ALTER TABLE `equipment`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `medicineId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `medicineId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `medicinestockhistory`
 --
 ALTER TABLE `medicinestockhistory`
-  MODIFY `medicineStockId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `medicineStockId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `normalrange`
 --
 ALTER TABLE `normalrange`
-  MODIFY `normalrangeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `normalrangeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `nurse`
@@ -762,7 +890,7 @@ ALTER TABLE `nurse`
 -- AUTO_INCREMENT for table `physician`
 --
 ALTER TABLE `physician`
-  MODIFY `physicianId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `physicianId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `signup`
@@ -774,25 +902,25 @@ ALTER TABLE `signup`
 -- AUTO_INCREMENT for table `studenthealthinformation`
 --
 ALTER TABLE `studenthealthinformation`
-  MODIFY `shiId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `shiId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `studentpersonalinformation`
 --
 ALTER TABLE `studentpersonalinformation`
-  MODIFY `SPI_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `SPI_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `time`
 --
 ALTER TABLE `time`
-  MODIFY `timeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `timeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `unit`
 --
 ALTER TABLE `unit`
-  MODIFY `unitId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `unitId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
