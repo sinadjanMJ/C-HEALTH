@@ -2,9 +2,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-body d-flex justify-content-center">
-          <h5 class="modal-title" id="exampleModalLabel">Update Student</h5>
-        </div>
+        @* <div class="modal-body d-flex justify-content-center"> *@
+          <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Update Student</h5>
+        @* </div> *@
         <button type="button" id="modalStudentUpdateClose" class="btn-close btn-light" data-bs-dismiss="modal"
           aria-label="Close"></button>
       </div>
@@ -124,7 +124,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                   
-                                    @* <label name="" class="control-label">Select Department</label> *@
+                                    <label name="" class="control-label">Select Department</label>
                                     <select id="DepartmentUpdate" name="DepartmentId" class="form-select">
                                          <option value="" disabled selected>Select a department</option>
                                     </select >
@@ -136,7 +136,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                   
+                                    <label name="" class="control-label">Select Course/Year</label>
+                            
                                     <select id="CourseUpdate" name="CourseStrandYearId" class="form-select">
                                     
                                     </select>
@@ -153,9 +154,9 @@
       </div>
 
       <div class="modal-footer">
-        <div class="modal-body d-flex justify-content-center">
-          <button type="button" class="btn btn-primary" id="updateStudent">Confirm</button>
-        </div>
+        
+          <button type="button" class="btn btn-info" id="updateStudent">Confirm</button>
+    
       </div>
 
     </div>

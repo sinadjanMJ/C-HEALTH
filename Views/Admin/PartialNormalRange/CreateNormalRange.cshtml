@@ -9,9 +9,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-body d-flex justify-content-center">
-          <h5 class="modal-title" id="exampleModalLabel">Add Normal Range</h5>
-        </div>
+        @* <div class="modal-body d-flex justify-content-center"> *@
+        <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Add New Normal Range</h5>
+        @* </div> *@
         <button type="button" id="modalNRCreateClose" class="btn-close btn-light" data-bs-dismiss="modal"
           aria-label="Close"></button>
       </div>
@@ -21,26 +21,32 @@
 
 
           <form id="createNRForm">
-            
 
-            <div class="form-group">
-              <label name="" class="control-label">Test Name</label>
-              <input type="text" name="Test" id="inputDate" class="form-control" required />
-              
-            </div>
-            <div class="form-group">
-              <label name="" class="control-label">Min Range</label>
-              <input type="text" name="MinRange" id="inputDate" class="form-control" required />
+           <div class="row">
+
+              <div class="form-group">
+                <label name="" class="control-label" style="font-weight: bold;">Test Name</label>
+                <input type="text" name="Test" id="inputDate" class="form-control" placeholder="Input Test Name"required />
+              </div>
+           
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label name="" class="control-label" style="font-weight: bold;">Min Range</label>
+                <input type="text" name="MinRange" id="inputDate" class="form-control" required />
+              </div>
             </div>
 
+             <div class="col-sm-6">
             <div class="form-group">
-              <label name="" class="control-label">Max Range</label>
+              <label name="" class="control-label" style="font-weight: bold;">Max Range</label>
               <input type="text" name="MaxRange" id="inputDate" class="form-control" required />
             </div>
+             </div>
 
 
             <div class="form-group">
-              <label name="" class="control-label">Select Gender</label>
+              <label name="" class="control-label" style="font-weight: bold;">Select Gender</label>
               <select name="Gender" class="form-select">
                 <option disabled selected value="">Select Gender</option>
                 <option>Male</option>
@@ -48,34 +54,36 @@
               </select>
             </div>
 
-
+             <div class="col-sm-6">
             <div class="form-group">
-              <label name="" class="control-label">Min Age</label>
-              <input type="number" name="MinAge" id="inputDate"  class="form-control" required />
+              <label name="" class="control-label" style="font-weight: bold;">Min Age</label>
+              <input type="number" name="MinAge" id="inputDate" class="form-control" required />
             </div>
-
+             </div>
+              <div class="col-sm-6">
             <div class="form-group">
-              <label name="" class="control-label">Max Age</label>
-              <input type="number" name="MaxAge" id="inputDate"  class="form-control" required />
+              <label name="" class="control-label" style="font-weight: bold;">Max Age</label>
+              <input type="number" name="MaxAge" id="inputDate" class="form-control" required />
             </div>
+              </div>
 
             <div class="form-group">
-              <label name="" class="control-label">Select Unit</label>
+              <label name="" class="control-label" style="font-weight: bold;">Select Unit</label>
               <select id="catSelect" name="UnitId" class="form-select"></select>
             </div>
 
 
 
-
+      </div>
           </form>
 
 
         </div>
       </div>
       <div class="modal-footer">
-        <div class="modal-body d-flex justify-content-center">
-          <button type="button" class="btn btn-primary" id="createNR">Confirm</button>
-        </div>
+        @* <div class="modal-body d-flex justify-content-center"> *@
+        <button type="button" class="btn btn-success" id="createNR">Confirm</button>
+        @* </div> *@
       </div>
 
 

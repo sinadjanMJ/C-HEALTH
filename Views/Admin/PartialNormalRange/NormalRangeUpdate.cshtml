@@ -1,11 +1,10 @@
-
 <div class="modal fade" id="modalNRUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <div class="modal-body d-flex justify-content-center">
-        <h5 class="modal-title" id="exampleModalLabel">Update Normal Ranges</h5>
-        </div>
+        @* <div class="modal-body d-flex justify-content-center"> *@
+        <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Update Normal Ranges</h5>
+        @* </div> *@
         <button type="button" id="modalNRUpdateClose" class="btn-close btn-light" data-bs-dismiss="modal"
           aria-label="Close"></button>
       </div>
@@ -14,47 +13,54 @@
           <div>
 
             <form id="updateNRForm">
-             <div class="form-group">
-              <label name="" class="control-label">Test Name</label>
-              <input type="text" name="Test" id="inputDate" class="form-control" required />
-            </div>
-            <div class="form-group">
-              <label name="" class="control-label">Min Range</label>
-              <input type="text" name="MinRange" id="inputDate" class="form-control" required />
-            </div>
+              <div class="row">
+                <div class="form-group">
+                  <label name="" class="control-label" style="font-weight: bold;">Test Name</label>
+                  <input type="text" name="Test" id="inputDate" class="form-control" required />
+                </div>
 
-            <div class="form-group">
-              <label name="" class="control-label">Max Range</label>
-              <input type="text" name="MaxRange" id="inputDate" class="form-control" required />
-            </div>
-
-
-            <div class="form-group">
-              <label name="" class="control-label">Select Gender</label>
-              <select name="Gender" class="form-select">
-                <option disabled selected value="">Select Gender</option>
-                <option>Male</option>
-                <option>Fenale</option>
-              </select>
-            </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label name="" class="control-label" style="font-weight: bold;">Min Range</label>
+                    <input type="number" name="MinRange" id="inputDate" class="form-control" required />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label name="" class="control-label" style="font-weight: bold;">Max Range</label>
+                    <input type="text" name="MaxRange" id="inputDate" class="form-control" required />
+                  </div>
+                </div>
 
 
-            <div class="form-group">
-              <label name="" class="control-label">Min Age</label>
-              <input type="number" name="MinAge" id="inputDate"  class="form-control" required />
-            </div>
+                <div class="form-group">
+                  <label name="" class="control-label" style="font-weight: bold;">Select Gender</label>
+                  <select name="Gender" class="form-select">
+                    <option disabled selected value="">Select Gender</option>
+                    <option>Male</option>
+                    <option>Fenale</option>
+                  </select>
+                </div>
 
-            <div class="form-group">
-              <label name="" class="control-label">Max Age</label>
-              <input type="number" name="MaxAge" id="inputDate"  class="form-control" required />
-            </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label name="" class="control-label" style="font-weight: bold;">Min Age</label>
+                    <input type="number" name="MinAge" id="inputDate" class="form-control" required />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label name="" class="control-label" style="font-weight: bold;">Max Age</label>
+                    <input type="number" name="MaxAge" id="inputDate" class="form-control" required />
+                  </div>
+                </div>
 
-            <div class="form-group">
-              <label name="" class="control-label">Select Unit</label>
-              <select id="catSelect" name="UnitId" class="form-select"></select>
-            </div>
+                <div class="form-group">
+                  <label name="" class="control-label" style="font-weight: bold;">Select Unit</label>
+                  <select id="catSelect" name="UnitId" class="form-select"></select>
+                </div>
 
-            
+              </div>
             </form>
 
           </div>
@@ -62,9 +68,9 @@
       </div>
 
       <div class="modal-footer">
-        <div class="modal-body d-flex justify-content-center">
-          <button type="button" class="btn btn-primary" id="updateNR">Confirm</button>
-        </div>
+        @* <div class="modal-body d-flex justify-content-center"> *@
+        <button type="button" class="btn btn-info" id="updateNR">Confirm</button>
+        @* </div> *@
       </div>
 
     </div>

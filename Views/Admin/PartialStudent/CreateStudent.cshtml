@@ -20,9 +20,9 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-body d-flex justify-content-center" >
-                    <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
-                </div>
+                @* <div class="modal-body d-flex justify-content-center" > *@
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Add New Student</h5>
+                @* </div> *@
                 <button type="button" id="modalStudentCreateClose" class="btn-close btn-light" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -129,7 +129,7 @@
                             <div class="address">Department Course Or Year</div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    @* <label name="" class="control-label">Select Department</label> *@
+                                    <label name="" class="control-label">Select Department</label>
                                     <select id="Department" name="DepartmentId" class="form-select">
                                          <option value="" disabled selected>Select a department</option>
                                     </select>
@@ -138,7 +138,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                   
+                                    <label name="" class="control-label">Select Course/Year</label>
+                            
                                     <select id="Course" name="CourseStrandYearId" class="form-select">
                                     
                                     </select>
@@ -154,9 +155,9 @@
 
             </div>
             <div class="modal-footer">
-                <div class="modal-body d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary" id="createStudent">Confirm</button>
-                </div>
+             
+                    <button type="button" class="btn btn-success" id="createStudent">Confirm</button>
+            
               
             </div>
         </div>
@@ -171,11 +172,11 @@
         font-weight: bolder;
         padding-bottom: 20px;
     }
-  .modal-header{
+  @* .modal-header{
     background-color: #6c7b88;
     color: #ffffff;
     
-  }
+  } *@
   .modal-title{
     font-size: 25px;
   }

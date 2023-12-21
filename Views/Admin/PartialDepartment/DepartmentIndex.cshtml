@@ -121,8 +121,10 @@ $(document).ready(function () {
     }
 
     function btnAddDepartment(departmentId) {
-        return "<center><a class='btn btn-success DepartmentUpdate' data-departmentId=" + departmentId + "><i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i></a> | <a class='btn btn-danger DepartmentDelete' data-departmentId=" + departmentId + "><i class='fa-solid fa-trash' style='color : #ffffff;'></i></a></center>"
+        return "<center><a class='btn btn-info DepartmentUpdate' data-departmentId=" + departmentId + " style='color: white;'>Update</a> &emsp; <a class='btn btn-danger DepartmentDelete' data-departmentId=" + departmentId + " style='color: white;'>Delete</a></center>"
     }
+
+    //<i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i>
 
      $("tbody").delegate(".DepartmentUpdate", "click", function (e) {
         console.log("I was clicked");

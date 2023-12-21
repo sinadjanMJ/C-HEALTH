@@ -2,9 +2,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <div class="modal-body d-flex justify-content-center">
-        <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
-        </div>
+          @* <div class="modal-body d-flex justify-content-center"> *@
+        <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Update Category</h5>
+        @* </div> *@
         <button type="button" id="modalUnitUpdateClose" class="btn-close btn-light" data-bs-dismiss="modal"
           aria-label="Close"></button>
       </div>
@@ -14,7 +14,7 @@
 
             <form id="updateUnitForm">
               <div class="form-group">
-                <label name="" class="control-label">Unit Name</label>
+                <label name="" class="control-label" style="font-weight: bold;">Unit Name</label>
                 <input type="text" name="Unitname" id="inputCategoryNameUpdate" class="form-control" required />
               </div>
             </form>
@@ -24,9 +24,9 @@
       </div>
 
       <div class="modal-footer">
-        <div class="modal-body d-flex justify-content-center">
-          <button type="button" class="btn btn-primary" id="updateUnit">Confirm</button>
-        </div>
+        @* <div class="modal-body d-flex justify-content-center"> *@
+          <button type="button" class="btn btn-info" id="updateUnit">Confirm</button>
+        @* </div> *@
       </div>
 
     </div>

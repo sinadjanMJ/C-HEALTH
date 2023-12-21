@@ -102,7 +102,7 @@
                     });
 
                     LowStockMedicines = result.filter(function (item) {
-                        return item.stock < 10 && item.expiryDate >= formattedDate;
+                        return item.stock < 10;
                     });
 
                      $("#lowstock").html(LowStockMedicines.length );
