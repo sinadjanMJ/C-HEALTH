@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRV COLLEGE USER</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            width: 300px;
+        }
+
+        .form {
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form button,
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .signup-label {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .form:not(:first-child) {
+            display: none;
+        }
+
+        .sidebar-wrapper {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <!-- Combined Form -->
+            <div class="form" id="combinedForm">
+                <header>Choose User</header>
+                <form action="#" id="chooseUserForm">
+                    <button class="btn btn-success" onclick="toggleStudentForms()">STUDENT</button>
+                    <button class="btn btn-success" onclick="toggleEmployeeForms()">EMPLOYEE</button>
+                </form>
+                <label class="signup-label" id="signup" data-bs-toggle="modal"
+                    data-bs-target="#modalStudentCreate">Don't have an account? Signup</label>
+            </div>
+
+            <!-- Student Signup Form -->
+            <div class="form" id="signinStudentForm" style="display: none;">
+                <header>Login</header>
+                <form action="#">
+                    <input type="text" id="gmail" placeholder="Enter your email">
+                    <input type="password" id="pass" placeholder="Enter a password">
+                    <input type="button" id="SFORM" class="button" value="Login">
+                </form>
+                <label class="signup-label" onclick="back()">Back</label>
+            </div>
+
+            <!-- Employee Signup Form -->
+            <div class="form" id="signinEmployeeForm" style="display: none;">
+                <header>Login</header>
+                <form action="#">
+                    <input type="text" id="gmailadd" placeholder="Enter your email">
+                    <input type="password" id="password" placeholder="Enter a password">
+                    <input type="button" id="EFORM" class="button" value="Login">
+                </form>
+                <label class="signup-label" onclick="back()">Back</label>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("PartialLogin/signupCreate")
+
+    <script>
+        function toggleStudentForms() {
+            document.getElementById("combinedForm").style.display = "none";
+            document.getElementById("signinStudentForm").style.display = "block";
+            document.getElementById("signinEmployeeForm").style.display = "none";
+        }
+
+        function toggleEmployeeForms() {
+            document.getElementById("combinedForm").style.display = "none";
+            document.getElementById("signinStudentForm").style.display = "none";
+            document.getElementById("signinEmployeeForm").style.display = "block";
+        }
+
+
+        function back() {
+            document.getElementById("combinedForm").style.display = "block";
+            document.getElementById("signinStudentForm").style.display = "none";
+            document.getElementById("signinEmployeeForm").style.display = "none";
+        }
+
+    </script>
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    var gmailAdd;
+    var StudentList = {};
+    var selectedStudent;
+
+    $(() => {
+       getStudent();
+        AddSelectDepartment();
+        AddSelectPrabens();
+        address();
+        margin();
+       
+
+        function margin() {
+
+            $(".page-content").removeClass();
+            $(".container-fluid").removeClass();
+        }
+
+
+
+        function getStudent() {
+            $.ajax("../api/adminapi/getStudents")
+                .done(function (result) {
+
+                    StudentList = result;
+
+                    var gmailaddress = [];
+                    result.forEach(item => {
+                        gmailaddress.push(item.gmailaddress);
+                    });
+
+                    gmailAdd = [... new Set(gmailaddress)];
+                });
+        }
+       
+
+
+        $("#SFORM").click(e => {
+            e.preventDefault()
+
+
+            var gmail = $("#gmail").val();
+            var pass = $("#pass").val();
+
+
+
+            console.log(gmail + '' + pass)
+            if (gmail.trim() === "" || pass.trim() === "") {
+                // SweetAlert for validation
+                empty();
+
+
+            } else {
+
+                $.ajax({
+                    url: "/api/adminapi/loginuser",
+                    method: "POST",
+                    data: {
+                        "gmail": gmail,
+                        "pass": pass
+                    },
+                    success: res => {
+
+                     console.log("success")
+                  //   console.log(StudentList);
+                  //  console.log("result",filteredUserData)
+
+                        var filterUserData = (gmail, pass) => StudentList.filter(user => user.gmailaddress == gmail && user.spiCode == pass);
+
+                        var filteredUserData = filterUserData(gmail, pass);
+                    
+                        sessionStorage.setItem("Logged", true)
+                        localStorage.setItem('userData', JSON.stringify(filteredUserData));
+                      
+                        location.href = '/User/StudentHealthProfile';
+
+                     
+
+                       
+                    },
+
+                    error: err => {
+                        error();
+                    }
+                })
+
+            }
+
+        });
+
+
+
+
+        //////calculate number of years 
+        function calculateYearsDifference(userDateInput) {
+            var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+            if (dateRegex.test(userDateInput)) {
+                var yearsDifference = new Date().getFullYear() - parseInt(userDateInput.slice(0, 4));
+                console.log(yearsDifference);
+                return yearsDifference;
+            } else {
+                return "Invalid date format. Please enter a date in the format YYYY-MM-DD.";
+            }
+        }
+
+
+
+        $("#createStudent").click((e) => {
+
+            console.log("yehey na click jyud ko");
+            // console.log(equipname);
+
+            var arrData = {}; //ayaw ni tan dug kani dre nga line
+            var formelements = $("#createStudentForm .form-group");
+
+
+
+            //getting the data from the form
+            var formInputs = $("#createStudentForm").serializeArray();
+            formInputs.forEach(function (item) {
+                arrData[item.name] = item.value;
+
+
+            });
+
+
+
+
+
+
+
+
+
+            //////// function random number
+            var random8DigitNumber = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
+            console.log(random8DigitNumber);
+
+
+            // Example usage:
+            var userDateInput = formInputs[3].value; // Replace with the user's input
+            var result = calculateYearsDifference(userDateInput);
+            console.log("mao nis siya ang result" + result); // This will either print the years difference or an error message
+
+
+
+
+            if (formInputs.length === formelements.length && formInputs[0].value !== '' && formInputs[3].value !== '') {
+                // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
+
+                if (!gmailAdd.includes(formInputs[4].value)) {
+
+
+                    /// pagkuha sa data instead value  ang text kuhaon
+
+                    var prabens = $('#prabens option:selected').text();
+                    var muni = $('#muni option:selected').text();
+                    var barang = $('#barang option:selected').text();
+
+                    $.ajax
+                        ({
+                            url: "../api/adminapi/AddStudent",
+                            type: "POST",
+                            data:
+                            {
+                                addStudent: arrData,
+                                randompass: random8DigitNumber,
+                                age: result,
+                                province: prabens,
+                                municipal: muni,
+                                baranggay: barang,
+
+                                fullname: ` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`,
+
+
+                                address: `Purok ${arrData.AddressPurok}, ${barang}, ${muni}, ${prabens}`
+
+
+
+                            },
+                        })
+                        .done(function () {
+
+                            $("#createStudentForm")[0].reset();
+                            $("#modalStudentCreate").modal("toggle");
+
+                            displaySavedProgress();
+                            // displayStudentData();
+
+
+                        });
+
+
+
+                } else {
+                    vol1();
+                }
+
+
+            }
+            else {
+                alertError();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function AddSelectDepartment() {
+
+            $.ajax("../api/adminapi/getDepartment")
+                .done(function (result) {
+
+
+
+                    var template = document.querySelector("template#departmentOptionTemplate");
+                    var parent = document.querySelectorAll("#Department");
+
+
+                    for (i = 0; i < parent.length; i++) {
+                        result.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.departmentId;
+                            cloned.querySelector("option").innerText = item.departmentName;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+                });
+        }
+
+
+        const depSelect = document.querySelector("#Department");
+        const courseSelect = document.querySelector("#Course");
+
+        // Function to populate the result select with data
+        function populateResultSelect(selectedValue) {
+
+
+            $.ajax("../api/adminapi/getCourse")
+                .done(function (data) {
+
+
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.departmentId == selectedValue);
+
+                    // Clear the existing options in the result select
+                    courseSelect.innerHTML = "";
+
+                    // Populate the result select with the filtered data
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.courseStrandYearId;
+                        option.innerText = item.courseStrandYearName;
+                        courseSelect.appendChild(option);
+                    });
+
+
+                });
+        }
+
+        // Initial population of the result select based on the default selected value
+        populateResultSelect(depSelect.value);
+
+        // Event listener to update the result select when the category select changes
+        depSelect.addEventListener("change", function () {
+            const selectedValue = this.value;
+            populateResultSelect(selectedValue);
+        });
+
+
+
+
+
+
+
+
+
+
+
+        function AddSelectPrabens() {
+
+            fetch("../../js/provinceFinal.js")
+                .then(response => response.json())
+                .then(result => {
+
+
+
+                    var template = document.querySelector("template#prabensOptionTemplate");
+                    var parent = document.querySelectorAll("#prabens");
+
+
+                    for (i = 0; i < parent.length; i++) {
+                        result.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.code;
+                            cloned.querySelector("option").innerText = item.name;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+                });
+        }
+
+
+        function address() {
+
+
+            const munSelect = document.querySelector("#muni");
+            const barSelect = document.querySelector("#barang");
+
+            // Function to populate the result select with data
+            function populateResultSelects(selectedValues) {
+
+
+
+
+                fetch("../../js/baranggay.js")
+                    .then(response => response.json())
+                    .then(data => {
+
+
+
+
+                        // Filter the data based on the selected category
+                        const datos = data.filter(item => item.municipalityCode == selectedValues || item.cityCode == selectedValues);
+
+                        // Clear the existing options in the result select
+                        barSelect.innerHTML = "";
+
+
+
+                        // Populate the result select with the filtered data
+                        datos.forEach((item) => {
+                            const option = document.createElement("option");
+                            option.value = item.code;
+                            option.innerText = item.name;
+                            barSelect.appendChild(option);
+                        });
+
+
+                    });
+            }
+
+
+
+            // Initial population of the result select based on the default selected value
+            populateResultSelects(munSelect.value);
+
+            // Event listener to update the result select when the category select changes
+            munSelect.addEventListener("change", function () {
+                const selectedValues = this.value;
+                populateResultSelects(selectedValues);
+            });
+
+
+            const depSelect = document.querySelector("#prabens");
+            const courseSelect = document.querySelector("#muni");
+
+            // Function to populate the result select with data
+            function populateResultSelect(selectedValue) {
+
+
+                fetch("../../js/municipality.js")
+                    .then(response => response.json())
+                    .then(data => {
+
+
+                        // Filter the data based on the selected category
+                        const datos = data.filter(item => item.provinceCode == selectedValue);
+
+                        // Clear the existing options in the result select
+                        courseSelect.innerHTML = "";
+
+                        // Populate the result select with the filtered data
+                        datos.forEach((item) => {
+                            const option = document.createElement("option");
+                            option.value = item.code;
+                            option.innerText = item.name;
+                            courseSelect.appendChild(option);
+                        });
+
+
+                    });
+            }
+
+
+
+            // Initial population of the result select based on the default selected value
+            populateResultSelect(depSelect.value);
+
+            // Event listener to update the result select when the category select changes
+            depSelect.addEventListener("change", function () {
+                const selectedValue = this.value;
+                populateResultSelect(selectedValue);
+            });
+
+        }
+
+
+
+
+        function empty() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Please fill in all required fields!',
+                confirmButtonText: 'OK'
+
+            });
+        }
+
+
+
+        function error() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Account not found',
+                text: 'Username or password is invalid!',
+                confirmButtonText: 'OK'
+            });
+        }
+
+
+        function vol1() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Inputted Email is already Existed!!',
+            })
+        }
+        function alertError() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Input the necessary elements!',
+            })
+        }
+
+        function displaySavedProgress() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+        }
+
+
+
+
+    });
+
+</script>

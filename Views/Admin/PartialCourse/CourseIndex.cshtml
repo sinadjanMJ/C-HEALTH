@@ -1,5 +1,3 @@
-<h1>Course Data</h1>
-
 <button type="button" title="Create Time" class="btn btn-success" style="color: #ffffff;" data-bs-toggle="modal"
     data-bs-target="#modalCourseCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
@@ -23,31 +21,40 @@
     var selectedCourse;
     var selectedCourseId;
     var CourseList = {};
+    var CNAME = [];
 
 
     $(document).ready(function () {
-     
-
-     getCourse();
-     getDepartment();
-     displayCourseData();
 
 
+        getCourse();
+        getDepartment();
+        displayCourseData();
 
-    function getCourse() {
+
+
+        function getCourse() {
             $.ajax("../api/adminapi/getCourse")
                 .done(function (result) {
-                   CourseList = result;
-                   console.log(result);
-                    result.forEach(function (item) {
-                  //   console.log(item);
+                    CourseList = result;
+    @* //  console.log(result);
+                        var course = [];
+                        result.forEach(function (item) {
+                        //   console.log(item);
+                        course.push(item.courseStrandYearName && item.departmentName)
 
-                    });
+                        }); *@
+
+
+
+                        CNAME =[...new Set(result)];
+                    console.log('cn', CNAME);
+
 
                 });
         }
 
-    function getDepartment() {
+        function getDepartment() {
             $.ajax("../api/adminapi/getDepartment")
                 .done(function (result) {
 
@@ -93,38 +100,61 @@
 
 
 
-                //AJAX ADD Equipment
-                console.log(formInputs);
-                $.ajax
-                    ({
-                        url: "../api/adminapi/AddCourse",
-                        type: "POST",
-                        data:
-                        {
-                            addCor: arrData
-                        },
+
+
+                if (CourseList.length > 0) {
+
+                    var hasMatch = CourseList.some(item => {
+                        return item.departmentId == formInputs[0].value && item.courseStrandYearName == formInputs[1].value;
                     })
-                    .done(function () {
 
-                        $("#createCourseForm")[0].reset();
-                        $("#modalCourseCreate").modal("toggle");
-                       
-                       
-                        getCourse();
-                        displaySavedProgress();
-                        displayCourseData();
+                    console.log(hasMatch)
 
-                    });
+                    if (hasMatch == false) {
+                        //  console.log('DepartmentId and CourseStrandYearName are not equal to the inputted values.');
 
-            }
-            else {
+
+                        $.ajax
+                            ({
+                                url: "../api/adminapi/AddCourse",
+                                type: "POST",
+                                data:
+                                {
+                                    addCor: arrData
+                                },
+                            })
+                            .done(function () {
+
+                                $("#createCourseForm")[0].reset();
+                                $("#modalCourseCreate").modal("toggle");
+
+
+                                getCourse();
+                                displaySavedProgress();
+                                displayCourseData();
+
+                            });
+                    } else {
+                        vol1();
+                    }
+
+                } else {
+                    console.log('No data found.');
+                }
+
+
+
+            } else {
                 alertError();
             }
+
+
+
         });
 
 
 
-       function displayCourseData() {
+        function displayCourseData() {
             $('#CourseData').DataTable().destroy();
             if (!$.fn.DataTable.isDataTable('#CourseData')) {
                 $('#CourseData').DataTable({
@@ -147,7 +177,7 @@
                 });
             }
             getCourse();
-           
+
         }
 
         function btnAddCourse(courseStrandYearId) {
@@ -232,29 +262,35 @@
 
 
 
-            if (formInputs[0].value !== '') {
+            if (formInputs[1].value !== '') {
 
-                $.ajax
-                    ({
-                        url: "../api/adminapi/updateCourse",
-                        type: "POST",
-                        data:
-                        {
-                            upCor: arrData
-                        },
-                    })
-                    .done(function () {
-                        // document.querySelector(".parent").innerHTML ="";
-                     
-                         $("#updateCourseForm")[0].reset();
-                         $("#modalCourseUpdate").modal("toggle");
+                if (!CNAME.includes(formInputs[1].value)) {
+
+                    $.ajax
+                        ({
+                            url: "../api/adminapi/updateCourse",
+                            type: "POST",
+                            data:
+                            {
+                                upCor: arrData
+                            },
+                        })
+                        .done(function () {
+                            // document.querySelector(".parent").innerHTML ="";
+
+                            $("#updateCourseForm")[0].reset();
+                            $("#modalCourseUpdate").modal("toggle");
 
 
-                        displayCourseData();
-                        displaySavedProgress();
-                        getCourse();
+                            displayCourseData();
+                            displaySavedProgress();
+                            getCourse();
 
-                    });
+                        });
+
+                } else {
+                    vol1();
+                }
 
 
             } else {
@@ -265,14 +301,6 @@
 
         }
 
-        
-
-
-
-
-    
-    
-    
 
 
 
@@ -281,7 +309,20 @@
 
 
 
-     function alertDeleteInfo() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function alertDeleteInfo() {
             Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
@@ -314,15 +355,11 @@
             })
 
         }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     });//end of this function dont touch it
 </script>
-
-
-
-

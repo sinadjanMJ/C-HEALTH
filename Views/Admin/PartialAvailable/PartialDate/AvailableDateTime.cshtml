@@ -1,7 +1,7 @@
 <h1>Available Date Data</h1>
 
-<button type="button" title="Create Date" class="btn btn-success" style="color: #ffffff; margin-bottom: 20px;" data-bs-toggle="modal"
-    data-bs-target="#modalDateCreate">
+<button type="button" title="Create Date" class="btn btn-success" style="color: #ffffff; margin-bottom: 20px;"
+    data-bs-toggle="modal" data-bs-target="#modalDateCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
     Add New Date
 </button>
@@ -15,8 +15,8 @@
 
 <h1>Available Time Data</h1>
 
-<button type="button" title="Create Time" class="btn btn-success" style="color: #ffffff; margin-bottom: 20px;" data-bs-toggle="modal"
-    data-bs-target="#modalDateTimeCreate">
+<button type="button" title="Create Time" class="btn btn-success" style="color: #ffffff; margin-bottom: 20px;"
+    data-bs-toggle="modal" data-bs-target="#modalDateTimeCreate">
     <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
     Add New Time
 </button>
@@ -70,10 +70,13 @@
             $.ajax("../api/adminapi/getDate")
                 .done(function (result) {
                     DateList = result;
+                    var dates_in = [];
                     result.forEach(function (item) {
                         //   console.log(item);
-                        datesame = item.avadate;
+                        dates_in.push(item.avadate);
                     });
+
+                    datesame = [... new Set(dates_in)];
 
                 });
         }
@@ -81,17 +84,15 @@
             $.ajax("../api/adminapi/getDateTime")
                 .done(function (result) {
                     DateTimeList = result;
-                    result.forEach(function (item) {
-                        //   console.log(item);
 
-                    });
+                    console.log(DateTimeList)
 
                 });
         }
 
 
 
-    
+
 
 
 
@@ -117,7 +118,7 @@
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
 
-                if (formInputs[0].value != datesame) {
+                if (!datesame.includes(formInputs[0].value)) {
                     //AJAX ADD DEPARTMENT
                     $.ajax
                         ({
@@ -161,7 +162,7 @@
                     },
                     columns:
                         [
-                          
+
                             { data: 'avadate' },
                             {
                                 data: 'dateId',
@@ -195,10 +196,10 @@
                 oFormObject = document.forms["updateDateForm"];
                 initForm(oFormObject, selectedDate);
 
-@*              // result 2002/03/1
-                var parts = selectedDate.avadate.split('/');
-                var formattedDate = parts.join('-');
-                document.getElementById("inputDateUpdate").value = formattedDate; *@
+    @*              // result 2002/03/1
+                    var parts = selectedDate.avadate.split('/');
+                    var formattedDate = parts.join('-');
+                    document.getElementById("inputDateUpdate").value = formattedDate; *@
             }
         });
 
@@ -244,22 +245,22 @@
             arrData.dateId = selectedDateId;
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
-                if (formInputs[0].value != datesame) {
+                if (!datesame.includes(formInputs[0].value)) {
 
 
 
 
 
-                    @* 
-                     // result 2002/03/1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
-                    
-                    var parts = arrData.Avadate.split('-');
-                    var formattedDate = parts.join('/');
+    @*
+                        // result 2002/03/1zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
-                    arrData.Avadate = formattedDate; *@
+                        var parts = arrData.Avadate.split('-');
+                        var formattedDate = parts.join('/');
+
+                        arrData.Avadate = formattedDate; *@
 
 
-                    proceedUpdateDATOS(arrData);
+                        proceedUpdateDATOS(arrData);
                     console.log("gi click lagi ko " + arrData);
                 } else {
                     vol1();
@@ -361,9 +362,9 @@
                             var cloned = template.content.cloneNode(true);
                             cloned.querySelector("option").value = item.dateId;
                             cloned.querySelector("option").innerText = item.avadate;
-                            @* console.log(item.avadate) *@
+    @* console.log(item.avadate) *@
 
-                            parent[i].prepend(cloned);
+                                parent[i].prepend(cloned);
                         });
                     }
 
@@ -393,44 +394,61 @@
             const convertTimeTo12HourFormat = time24 => new Date("2000-01-01 " + time24).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
             // Example usage
-            const time24Hour =  arrData.Avatime;
+            const time24Hour = arrData.Avatime;
             const time12Hour = convertTimeTo12HourFormat(time24Hour);
             //console.log(time12Hour); // Output: 1:05 PM
 
             arrData.Avatime = time12Hour;
-
+  
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
 
+                if (DateTimeList.length > 0) {
 
-
-                //AJAX ADD Equipment
-                //  console.log(formInputs);
-                $.ajax
-                    ({
-                        url: "../api/adminapi/AddDateTime",
-                        type: "POST",
-                        data:
-                        {
-                            adddatetime: arrData
-                        },
+                    var hasMatch = DateTimeList.some(item => {
+            
+                        return item.dateId == formInputs[0].value && item.avatime == arrData.Avatime;
                     })
-                    .done(function () {
 
-                        $("#createDateTimeForm")[0].reset();
-                        $("#modalDateTimeCreate").modal("toggle");
-                        getDate();
-                        getDates();
+                    console.log(hasMatch)
 
-                        displaySavedProgress();
-                        displayDateTimeData();
+                    if (hasMatch == false) {
 
-                    });
+                        $.ajax
+                            ({
+                                url: "../api/adminapi/AddDateTime",
+                                type: "POST",
+                                data:
+                                {
+                                    adddatetime: arrData
+                                },
+                            })
+                            .done(function () {
 
-            }
-            else {
+                                $("#createDateTimeForm")[0].reset();
+                                $("#modalDateTimeCreate").modal("toggle");
+                                getDate();
+                                getDates();
+
+                                displaySavedProgress();
+                                displayDateTimeData();
+
+                            });
+
+                } else {
+                 vol1();
+                }
+
+                } else {
+                    console.log('No data found.');
+                }
+
+
+
+            } else {
                 alertError();
             }
+
         });
 
 
@@ -444,7 +462,7 @@
                     },
                     columns:
                         [
-                           
+
                             { data: 'avadate' },
                             { data: 'avatime' },
                             {
@@ -474,20 +492,20 @@
                 selectedDateTimeId = i;
                 selectedDateTime = DateTimeList.find(element => element.timeId == i);
 
-             //   console.log(selectedDateTime);
+                //   console.log(selectedDateTime);
 
                 oFormObject = document.forms["updateDateTimeForm"];
                 initForm(oFormObject, selectedDateTime);
 
-              
-               
+
+
                 const convertTimeTo24HourFormat = time12 => new Date("2000-01-01 " + time12).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
 
                 // Example usage
                 const time12Hour = selectedDateTime.avatime;
                 const time24Hour = convertTimeTo24HourFormat(time12Hour);
-             //   console.log(time24Hour); // Output: 13:23
+                //   console.log(time24Hour); // Output: 13:23
 
 
                 document.getElementById("updatetime").value = time24Hour;
@@ -559,20 +577,20 @@
             var formelements = $("#updateDateTimeForm .form-group");
 
             var formInputs = $("#updateDateTimeForm").serializeArray();
-          //  console.log(formInputs);
+            //  console.log(formInputs);
             formInputs.forEach(function (item) {
                 arrData[item.name] = item.value;
             });
 
             //attempts to give value to the data
             arrData.timeId = selectedDateTimeId;
-          //  console.log(arrData);
+            //  console.log(arrData);
 
 
-             const convertTimeTo12HourFormat = time24 => new Date("2000-01-01 " + time24).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+            const convertTimeTo12HourFormat = time24 => new Date("2000-01-01 " + time24).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
             // Example usage
-            const time24Hour =  arrData.Avatime;
+            const time24Hour = arrData.Avatime;
             const time12Hour = convertTimeTo12HourFormat(time24Hour);
             //console.log(time12Hour); // Output: 1:05 PM
 
@@ -595,17 +613,17 @@
                         // document.querySelector(".parent").innerHTML ="";
                         $("#updateDateTimeForm")[0].reset();
                         $("#modalDateTimeUpdate").modal("toggle");
-                      
 
-                        @* getDates(); *@
-                        getDateTime();
+
+    @* getDates(); *@
+                            getDateTime();
                         displayDateTimeData();
                         displaySavedProgress();
-                        
+
 
                     });
 
-                    
+
 
             } else {
                 alertError();
@@ -735,4 +753,3 @@
 
 
 </script>
-

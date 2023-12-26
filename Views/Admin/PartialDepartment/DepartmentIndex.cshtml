@@ -23,7 +23,8 @@
     var selectedDepartment;
 var selectedDepartmentId;
 var DepartmentList = {};
-var Departmentname;
+var DNAME = [];
+
 
 
 $(document).ready(function () {
@@ -35,10 +36,16 @@ $(document).ready(function () {
         $.ajax("../api/adminapi/getDepartment")
             .done(function (result) {
                 DepartmentList = result;
+                var Departmentname = [];
+
                 result.forEach(function (item) {
-                    console.log(item);
-                    Departmentname = item.departmentname;
+                  //  console.log(item);
+                   Departmentname.push(item.departmentName);
                 });
+
+                DNAME = [...new Set(Departmentname)];
+                
+              //  console.log(DNAME);
 
             });
     }
@@ -62,7 +69,7 @@ $(document).ready(function () {
 
         if (formInputs.length === formelements.length && formInputs[0].value !== '') {
 
-            if (formInputs[0].value != Departmentname) {
+            if (!DNAME.includes(formInputs[0].value)) {
                 //AJAX ADD DEPARTMENT
                 $.ajax
                     ({
@@ -185,7 +192,7 @@ $(document).ready(function () {
         arrData.departmentId = selectedDepartmentId;
 
         if (formInputs.length === formelements.length && formInputs[0].value !== '') {
-             if (formInputs[0].value != Departmentname) {
+             if (!DNAME.includes(formInputs[0].value)) {
               proceedUpdate(arrData);
              console.log("gi click lagi ko " + arrData);
              }else{

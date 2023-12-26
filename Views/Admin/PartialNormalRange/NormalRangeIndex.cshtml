@@ -35,13 +35,13 @@ $(document).ready(function () {
 function getNR() {
         $.ajax("../api/adminapi/getNR")
             .done(function (result) {
-               NRList = result;
-             
-              console.log(result);
-                result.forEach(function (item) {
-              //   console.log(item);
+            
 
-                });
+                NRList = [...new Set(result)];
+                     console.log('cn',NRList);
+             
+              @* console.log("nr",NRList); *@
+         
 
             });
     }
@@ -81,19 +81,22 @@ function getUnit() {
 
         var arrData = {}; //ayaw ni tan dug kani dre nga line
         var formelements = $("#createNRForm .form-group");
+        
 
         //getting the data from the form
         var formInputs = $("#createNRForm").serializeArray();
         formInputs.forEach(function (item) {
             arrData[item.name] = item.value;
         });
+  
+
 
        
 
 
 
-            //AJAX ADD Equipment
-            console.log(formInputs);
+        
+          
             $.ajax
                 ({
                     url: "../api/adminapi/AddNR",
@@ -114,6 +117,8 @@ function getUnit() {
                    displayNRData();
 
                 });
+
+                
 
       
        
@@ -339,7 +344,7 @@ function getUnit() {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Inputted name is already in the data',
+            text: 'Inputted Test and Unit is already existed',
         })
     }
     function alertError() {

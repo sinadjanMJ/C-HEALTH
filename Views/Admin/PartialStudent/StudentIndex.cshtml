@@ -26,7 +26,7 @@
     var selectedStudentId;
     var StudentList = {};
     var arr = {};
-    var gmailaddress;
+    var gmail = [];
 
     $(document).ready(function () {
 
@@ -48,7 +48,7 @@
         new MultiSelectTag('physicians')  // id
 
 
-        function getUnits() {
+    function getUnits() {
             $.ajax("../api/adminapi/getNR")
                 .done(function (result) {
 
@@ -432,11 +432,13 @@
             });
 
 
-            const depSelect = document.querySelector("#prabens");
-            const courseSelect = document.querySelector("#muni");
+            var depSelect = document.querySelector("#prabens");
+            var courseSelect = document.querySelector("#muni");
+
+
 
             // Function to populate the result select with data
-            function populateResultSelect(selectedValue) {
+            
 
 
                 fetch("../../js/municipality.js")
@@ -445,7 +447,7 @@
 
 
                         // Filter the data based on the selected category
-                        const datos = data.filter(item => item.provinceCode == selectedValue);
+                        const datos = data.filter(item => item.provinceCode == depSelect.value);
 
                         // Clear the existing options in the result select
                         courseSelect.innerHTML = "";
@@ -460,18 +462,7 @@
 
 
                     });
-            }
-
-
-
-            // Initial population of the result select based on the default selected value
-            populateResultSelect(depSelect.value);
-
-            // Event listener to update the result select when the category select changes
-            depSelect.addEventListener("change", function () {
-                const selectedValue = this.value;
-                populateResultSelect(selectedValue);
-            });
+        
 
         }
 
@@ -625,17 +616,19 @@
             $.ajax("../api/adminapi/getStudents")
                 .done(function (result) {
                     StudentList = result;
-                    console.log(result);
+                    @* console.log(result); *@
 
-
+                    var gmailaddress = [];
                     result.forEach(function (item) {
-                        gmailaddress = item.gmailaddress;
-
-                        arr = item;
-                        //    console.log(arr.age);
-                        //   console.log(arr.spiCode);
+                          gmailaddress.push(item.gmailaddress);
 
                     });
+
+                    gmail = [... new Set(gmailaddress)];
+
+
+
+
 
 
 
@@ -734,10 +727,10 @@
 
 
 
-            if (formInputs.length === formelements.length && formInputs[0].value !== '') {
+            if (formInputs.length === formelements.length && formInputs[0].value !== '' && formInputs[3].value !== '') {
                 // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
-
-                if (formInputs[0].value != gmailaddress) {
+     
+                if (!gmail.includes(formInputs[4].value)) {
 
 
                     /// pagkuha sa data instead value  ang text kuhaon
@@ -1505,7 +1498,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Inputted name is already in the data',
+                text: 'Inputted Email is already in the data',
             })
         }
         function alertError() {

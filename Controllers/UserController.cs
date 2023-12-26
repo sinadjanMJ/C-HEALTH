@@ -35,7 +35,15 @@ namespace SEPHMS.Controllers
             return View("PartialViewHealthProfileAndSchedule/StudentHealthProfile");
         }
          public ActionResult  userLogin(){
-            return View("PartialViewHealthProfileAndSchedule/userLogin");
+            return View("PartialLogin/userLogin");
+        }
+
+         public ActionResult  practlogin(){
+            return View("PartialLogin/practLogin");
+        }
+
+        public ActionResult  userProfile(){
+            return View("PartialProfile/userprofile");
         }
 
           public ActionResult practice(){

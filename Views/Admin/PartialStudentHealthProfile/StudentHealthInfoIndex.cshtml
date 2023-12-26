@@ -671,7 +671,7 @@
 
 
                             var data = {
-                                labels: ['Neutrophils', 'WBC', 'Lympocyte', 'Basophil', 'Eosinophil', 'Hematocrit', 'Hemoglobin', 'Mch', 'Mchc', 'Mcv', 'Monocyte', 'Mpv', 'Platelet Count', 'Rbc', 'Rcdw'],
+                                labels: ['Neutrophils 47-80', 'WBC 4.1-10.9', 'Lympocyte 13-40', 'Basophil 0-2', 'Eosinophil 0-5', 'Hematocrit 36-46', 'Hemoglobin 12-16', 'Mch 26-34', 'Mchc 31-36', 'Mcv 80-100', 'Monocyte 2-11', 'Mpv 6.9-11', 'Platelet Count 140-440', 'Rbc 4.5-9.5', 'Rcdw 11.6-14.8'],
                                 datasets: [{
                                     label: 'Blood Count',
 
@@ -841,7 +841,7 @@
 
 
 
-        function initForm(form, data) {
+    function initForm(form, data) {
 
             Object.getOwnPropertyNames(data).forEach(function (item) {
                 var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];

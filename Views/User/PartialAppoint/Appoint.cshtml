@@ -20,7 +20,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="Home">Home</a>
+            <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="Appoint">Appointment</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,22 +28,20 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Appoint">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="ViewMed">Available
-                            Medicine</a>
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="userProfile">Profile</a>
                     </li>
 
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="ViewMed">View Health
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Health
                             Profile</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Home">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -54,192 +52,22 @@
             <div class="schedule">
                 <!-- Your appointment schedule content goes here -->
                 <h2>Appointment Schedule</h2>
-                <p>This is a placeholder for your appointment schedule content.</p>
 
-                <div class="names">
-                    <h5>Fill up Name</h5>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">First Name</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter First name"
-                                class="form-control" required />
-                        </div>
-                    </div>
+                <p>What : &emsp;Medical Test</p>
+                <p>Where : &emsp;At FRV College Clotilde Hills Dakit, Bogo City, Cebu</p>
+                <p>When :&emsp; Date Provided in the Select Box </p>
+                <p>How :&emsp; Appoint an schedule below</p>
 
 
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Middle Name</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter Middle name"
-                                class="form-control" required />
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Last Name</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter Last name"
-                                class="form-control" required />
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="address">
-                    <h5>Fill up Address</h5>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Province</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter Province"
-                                class="form-control" required />
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Municipality</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter Municipality"
-                                class="form-control" required />
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Barangay</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter Barangay"
-                                class="form-control" required />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Purok</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter Purok"
-                                class="form-control" required />
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="address">
-                    <h5>Fill up Credentials</h5>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Birthdate</label>
-                            <input type="date" name="Gmailaddress" id="inputUnit" class="form-control" required />
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Email Address</label>
-                            <input type="text" name="Gmailaddress" id="inputUnit" placeholder="Enter Email Address"
-                                class="form-control" required />
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Select Gender</label>
-                            <select name="Gender" class="form-select">
-                                <option>Male</option>
-                                <option>Female</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="address">
-                    <h5>Fill up Department, Course & Strand</h5>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            @* <label name="" class="control-label">Select Department</label> *@
-                            <select id="Department" name="DepartmentId" class="form-select">
-                                <option value="" disabled selected>Select a department</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-
-                            <select id="Course" name="CourseStrandYearId" class="form-select">
-
-                            </select>
-
-                        </div>
-                    </div>
-
-                </div>
 
                 <div class="address">
                     <h5>Appoint A Schedule Date</h5>
                 </div>
 
-                <div class="row">
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Select Date</label>
-                            <input type="date" name="Birthdate" id="customDate" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label name="" class="control-label">Select Time</label>
-                            <select id="selectime" name="" class="form-select">
-
-                            </select>
-
-                        </div>
-                    </div>
-
-
-
-
-                </div>
-
-
-
-                <button type="button" class="btn btn-primary btn-width" id="createStudent"
-                    style="width: 100%;">Confirm</button>
-
-
-
-
-
-
-
-
+               <button type="button" data-toggle="modal" data-target="#confirmModal" class="btn btn-primary btn-width"  style="width: 100%;">Confirm</button>
+               @Html.Partial("PartialAppoint/modalAppoint")
+               @Html.Partial("PartialAppoint/modalPreview")
+            
 
 
             </div>
@@ -256,14 +84,18 @@
 
 
 
+
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css" />
 <!-- Add dark theme CSS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
     var dates = [];
+    var userId;
 
 
     $(document).ready(function () {
@@ -271,11 +103,17 @@
         getDates();
         getTime();
 
+
+
         function margin() {
 
             $(".page-content").removeClass();
             $(".container-fluid").removeClass();
         }
+
+
+
+
 
         function getDates() {
             $.ajax("../api/adminapi/getDateTime")
@@ -325,10 +163,10 @@
 
                     document.getElementById('customDate').addEventListener('input', function () {
                         // Get the selected date value
-                        
-                        
+
+
                         avatimeArray.length = 0; // clear the array first
-                        
+
                         var selectedDate = this.value;
 
 
@@ -373,6 +211,91 @@
 
         }
 
+        $("#appoint").click((e) => {
+
+          
+
+            var selectedValue = document.getElementById('selectime').value;
+            var DateValue = document.getElementById('customDate').value;
+            // Check if the selected value is not null or empty
+            if (selectedValue.trim()) {
+
+                $('[data-dismiss="modal"]').click();
+                console.log('Selected option value:', selectedValue);
+                $('#appoint').attr('data-toggle', 'modal').attr('data-target', '#exampleModal');
+
+
+
+                $('.D').html('Date: &emsp;' + DateValue);
+
+                $('.T').html('Time: &emsp;' + selectedValue);
+
+
+                var retrievedArray = JSON.parse(localStorage.getItem('userData'));
+                retrievedArray.forEach(function (item) {
+                    userId = item.spiId;
+                });
+
+                $("#saveApp").click((e) => {
+
+                    var appData = {
+
+                        DateApp: DateValue,
+                        TimeApp: selectedValue,
+                        StudentId: userId,
+
+                    };
+
+
+
+                    //  console.log(appData);
+                    //  console.log("yes im clicked");
+
+
+                    $.ajax
+                        ({
+                            url: "../api/adminapi/AddAppointSchedule",
+                            type: "POST",
+                            data:
+                            {
+                                appoint: appData
+                            },
+                        })
+                        .done(function () {
+                          
+                          
+                            displaySavedProgress();
+                             window.location.reload();
+
+                          
+
+                         
+
+                        });
+
+           
+            });
+
+    } else {
+        console.log('No option selected');
+        alertError();
+    }
+
+
+      $("#back").click((e) => {
+       $('#back').attr('data-toggle', 'modal').attr('data-target', '#confirmModal');
+      });
+
+
+
+
+
+
+
+
+
+
+       });//end of the add appoint function
 
 
 
@@ -387,6 +310,23 @@
 
 
 
+    function alertError() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Select Date And Time First!',
+        })
+    }
+
+    function displaySavedProgress() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Appointment has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+    }
 
 
 
@@ -394,7 +334,7 @@
 
 
 
-    });
+    });//end of ajax jquery
 
 </script>
 <style>
@@ -405,5 +345,9 @@
     .btn-width {
         width: 1000px;
 
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
     }
 </style>

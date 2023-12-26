@@ -358,7 +358,7 @@ $(document).ready(function () {
 
     function AddSelectPrabens() {
 
-        fetch("../../js/province.js")
+        fetch("../../js/provinceFinal.js")
             .then(response => response.json())
             .then(result => {
 
@@ -433,11 +433,11 @@ $(document).ready(function () {
         });
 
 
-        const depSelect = document.querySelector("#prabens");
-        const courseSelect = document.querySelector("#muni");
+        const prabens = document.querySelector("#prabens");
+        const muni = document.querySelector("#muni");
 
         // Function to populate the result select with data
-        function populateResultSelect(selectedValue) {
+     
 
 
             fetch("../../js/municipality.js")
@@ -446,17 +446,17 @@ $(document).ready(function () {
 
 
                     // Filter the data based on the selected category
-                    const datos = data.filter(item => item.provinceCode == selectedValue);
+                    const datos = data.filter(item => item.provinceCode == prabens.value);
 
                     // Clear the existing options in the result select
-                    courseSelect.innerHTML = "";
+                    muni.innerHTML = "";
 
                     // Populate the result select with the filtered data
                     datos.forEach((item) => {
                         const option = document.createElement("option");
                         option.value = item.code;
                         option.innerText = item.name;
-                        courseSelect.appendChild(option);
+                        muni.appendChild(option);
                     });
 
 
@@ -465,16 +465,8 @@ $(document).ready(function () {
 
 
 
-        // Initial population of the result select based on the default selected value
-        populateResultSelect(depSelect.value);
 
-        // Event listener to update the result select when the category select changes
-        depSelect.addEventListener("change", function () {
-            const selectedValue = this.value;
-            populateResultSelect(selectedValue);
-        });
-
-    }
+    
 
 
 

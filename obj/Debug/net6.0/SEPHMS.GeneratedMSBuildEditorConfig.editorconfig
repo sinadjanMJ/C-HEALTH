@@ -451,8 +451,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsQXBwb2ludFxBcHBvaW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialAppoint/modalAppoint.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsQXBwb2ludFxtb2RhbEFwcG9pbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialAppoint/modalPreview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsQXBwb2ludFxtb2RhbFByZXZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialHome/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsSG9tZVxIb21lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialLogin/practLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsTG9naW5ccHJhY3RMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialLogin/signupCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsTG9naW5cc2lnbnVwQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialLogin/userLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsTG9naW5cdXNlckxvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialProfile/userprofile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsUHJvZmlsZVx1c2VycHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewHealthProfileAndSchedule/cardtable.cshtml]
@@ -465,10 +489,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewHealthProfileAndSchedule/StudentHealthProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxTdHVkZW50SGVhbHRoUHJvZmlsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewHealthProfileAndSchedule/userLogin.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVx1c2VyTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewMedicine/modalDesc.cshtml]

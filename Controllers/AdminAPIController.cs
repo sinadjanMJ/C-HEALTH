@@ -1312,7 +1312,17 @@ namespace SEPHMS.Controllers
 
 
        [HttpPost]
-        public async Task<IActionResult> userlogin(string gmail, string password){
+        public async Task<IActionResult> loginuser(string gmail, int pass){
+            var user = await _context.Studentpersonalinformations.FirstOrDefaultAsync(b=>b.Gmailaddress ==gmail && b.SpiCode==pass);
+            if(user != null){
+                return Ok();
+            }
+            return new BadRequestObjectResult("Account not found");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> userloginAdmin(string gmail, string password){
             var user = await _context.Accounts.FirstOrDefaultAsync(b=>b.Gmail ==gmail && b.Password==password);
             if(user != null){
                 return Ok();
@@ -1320,6 +1330,13 @@ namespace SEPHMS.Controllers
             return new BadRequestObjectResult("Account not found");
         }
 
+         public IActionResult AddAppointSchedule(Appointment appoint)
+        {
+          _context.Appointments.Add(appoint);
+            _context.SaveChanges();
+
+            return Ok();
+        }
 
  
 

@@ -18,6 +18,7 @@ namespace SEPHMS.Entities
 
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Adminaccount> Adminaccounts { get; set; }
+        public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Coursestrandyear> Coursestrandyears { get; set; }
         public virtual DbSet<Date> Dates { get; set; }
@@ -121,6 +122,29 @@ namespace SEPHMS.Entities
                     .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("password");
+            });
+
+            modelBuilder.Entity<Appointment>(entity =>
+            {
+                entity.ToTable("appointment");
+
+                entity.Property(e => e.AppointmentId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("appointmentId");
+
+                entity.Property(e => e.DateApp)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("dateApp");
+
+                entity.Property(e => e.StudentId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("studentId");
+
+                entity.Property(e => e.TimeApp)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("timeApp");
             });
 
             modelBuilder.Entity<Category>(entity =>

@@ -23,16 +23,17 @@
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
 <script>
-
-    var selectedCategory;
+var selectedCategory;
 var selectedCategoryId;
 var categoryList = {};
-var catname;
+var ctgyname = [];
+
 
 
 
@@ -41,18 +42,26 @@ $(document).ready(function () {
 
     getCategory();
     displayCategoryData(); 
-
+   ///console.log(catname);
     function getCategory() {
         $.ajax("../api/adminapi/getCategory")
             .done(function (result) {
                 categoryList = result;
+                var catname = [];
+                
                 result.forEach(function (item) {
-                  //  console.log(item);
-                    catname = item.categoryname;
+                    @* console.log(item); *@
+                    catname.push(item.categoryname);
+                    
                 });
+
+                 ctgyname = [...new Set(catname)];
+                console.log('arr',ctgyname);
+               
 
             });
     }
+      
 
 
     $("#createCategory").click((e) => {
@@ -70,8 +79,10 @@ $(document).ready(function () {
         });
 
         if (formInputs.length === formelements.length && formInputs[0].value !== '') {
+ 
 
-            if (formInputs[0].value != catname) {
+   // console.log('value',formInputs[0].value)
+            if (!ctgyname.includes(formInputs[0].value)) {
                 //AJAX ADD DEPARTMENT
                 $.ajax
                     ({
@@ -191,7 +202,7 @@ $(document).ready(function () {
         arrData.id = selectedCategoryId;
 
         if (formInputs.length === formelements.length && formInputs[0].value !== '') {
-             if (formInputs[0].value != catname) {
+             if (!ctgyname.includes(formInputs[0].value)) {
               proceedUpdate(arrData);
              console.log("gi click lagi ko " + arrData);
              }else{

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRV COLLEGE USER</title>
+  <style>
+    /* Add your custom styles here */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    @*height:100vh;*@
+    }
+
+    .form-container {
+      width: 300px;
+    }
+
+    .form {
+      background-color: #fff;
+      padding: 20px;
+
+    }
+
+    header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .signup-label {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-container">
+      <!-- Combined Form -->
+      <div class="form" id="combinedForm">
+        <header>Login</header>
+        <form action="#" id="signinForm">
+          <input class="gmail" type="text" placeholder="Enter your email" required>
+          <input class="password" type="password" placeholder="Enter your password" required>
+          <a href="#">Forgot password?</a>
+          <input type="submit" name="signin" id="signin" class="btn btn-primary" value="Log in" />
+        </form>
+        <label class="signup-label" id="signup" data-bs-toggle="modal" data-bs-target="#modalStudentCreate">Don't have
+          an account? Signup</label>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</body>
+
+</html>
+
+@Html.Partial("PartialLogin/signupCreate")
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  var gmailaddress = [];
+  $(() => {
+
+    margin();
+    AddSelectDepartment();
+    AddSelectPrabens();
+    address();
+    gmailvalidation();
+
+    function margin() {
+
+      $(".page-content").removeClass();
+      $(".container-fluid").removeClass();
+    }
+
+
+    sessionStorage.clear()
+
+
+
+
+
+    $("#signin").click(e => {
+      e.preventDefault()
+      console.log("na clicck lagi ko")
+
+      var gmail = $(".gmail").val();
+      var pass = $(".password").val();
+
+
+
+
+      if (gmail.trim() === "" || pass.trim() === "") {
+        // SweetAlert for validation
+        empty();
+
+
+      } else {
+        $.ajax({
+          url: "/api/adminapi/loginUser",
+          method: "POST",
+          data: {
+            "gmail": gmail,
+            "pass": pass
+          },
+          success: res => {
+            sessionStorage.setItem("Logged", true)
+            location.href = '/User/StudentHealthProfile';
+            console.log(res)
+          },
+
+          error: err => {
+            error();
+          }
+        })
+
+      }
+
+    })
+
+ //console.log(gmailaddress)
+
+    function gmailvalidation() {
+      $.ajax("../api/adminapi/getStudents")
+        .done(function (result) {
+
+
+          result.forEach(obj => {
+              gmailaddress.push(obj.gmailaddress);
+             
+          });
+
+        });
+
+    }
+
+
+
+
+    $("#createStudent").click((e) => {
+
+      console.log("yehey na click jyud ko");
+      // console.log(equipname);
+
+      var arrData = {}; //ayaw ni tan dug kani dre nga line
+      var formelements = $("#createStudentForm .form-group");
+
+
+
+      //getting the data from the form
+      var formInputs = $("#createStudentForm").serializeArray();
+      formInputs.forEach(function (item) {
+        arrData[item.name] = item.value;
+
+
+      });
+
+
+
+
+
+
+
+
+
+      //////// function random number
+      var random8DigitNumber = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
+      console.log(random8DigitNumber);
+
+
+      // Example usage:
+      var userDateInput = formInputs[3].value; // Replace with the user's input
+      var result = calculateYearsDifference(userDateInput);
+      console.log("mao nis siya ang result" + result); // This will either print the years difference or an error message
+
+
+
+      console.log(formInputs)
+      if (formInputs.length === formelements.length && formInputs[0].value !== '') {
+        // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
+
+        if (formInputs[0].value != gmailaddress) {
+
+
+          /// pagkuha sa data instead value  ang text kuhaon
+
+          var prabens = $('#prabens option:selected').text();
+          var muni = $('#muni option:selected').text();
+          var barang = $('#barang option:selected').text();
+
+
+
+
+          $.ajax
+            ({
+              url: "../api/adminapi/AddStudent",
+              type: "POST",
+              data:
+              {
+                addStudent: arrData,
+                randompass: random8DigitNumber,
+                age: result,
+                province: prabens,
+                municipal: muni,
+                baranggay: barang,
+
+                fullname: ` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`,
+
+
+                address: `Purok ${arrData.AddressPurok}, ${barang}, ${muni}, ${prabens}`
+
+
+
+              },
+            })
+            .done(function () {
+
+              $("#createStudentForm")[0].reset();
+              $("#modalStudentCreate").modal("toggle");
+
+              displaySavedProgress();
+
+
+
+            });
+        } else {
+          vol1();
+        }
+
+
+      }
+      else {
+        alertError();
+      }
+    });
+
+
+    //////calculate number of years 
+    function calculateYearsDifference(userDateInput) {
+      var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+      if (dateRegex.test(userDateInput)) {
+        var yearsDifference = new Date().getFullYear() - parseInt(userDateInput.slice(0, 4));
+        console.log(yearsDifference);
+        return yearsDifference;
+      } else {
+        return "Invalid date format. Please enter a date in the format YYYY-MM-DD.";
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function AddSelectDepartment() {
+
+      $.ajax("../api/adminapi/getDepartment")
+        .done(function (result) {
+
+
+
+          var template = document.querySelector("template#departmentOptionTemplate");
+          var parent = document.querySelectorAll("#Department");
+
+
+          for (i = 0; i < parent.length; i++) {
+            result.forEach(function (item) {
+              var cloned = template.content.cloneNode(true);
+              cloned.querySelector("option").value = item.departmentId;
+              cloned.querySelector("option").innerText = item.departmentName;
+
+              parent[i].prepend(cloned);
+            });
+          }
+
+        });
+    }
+
+
+    const depSelect = document.querySelector("#Department");
+    const courseSelect = document.querySelector("#Course");
+
+    // Function to populate the result select with data
+    function populateResultSelect(selectedValue) {
+
+
+      $.ajax("../api/adminapi/getCourse")
+        .done(function (data) {
+
+
+          // Filter the data based on the selected category
+          const datos = data.filter(item => item.departmentId == selectedValue);
+
+          // Clear the existing options in the result select
+          courseSelect.innerHTML = "";
+
+          // Populate the result select with the filtered data
+          datos.forEach((item) => {
+            const option = document.createElement("option");
+            option.value = item.courseStrandYearId;
+            option.innerText = item.courseStrandYearName;
+            courseSelect.appendChild(option);
+          });
+
+
+        });
+    }
+
+    // Initial population of the result select based on the default selected value
+    populateResultSelect(depSelect.value);
+
+    // Event listener to update the result select when the category select changes
+    depSelect.addEventListener("change", function () {
+      const selectedValue = this.value;
+      populateResultSelect(selectedValue);
+    });
+
+
+
+
+
+
+
+
+
+
+
+    function AddSelectPrabens() {
+
+      fetch("../../js/provinceFinal.js")
+        .then(response => response.json())
+        .then(result => {
+
+
+
+          var template = document.querySelector("template#prabensOptionTemplate");
+          var parent = document.querySelectorAll("#prabens");
+
+
+          for (i = 0; i < parent.length; i++) {
+            result.forEach(function (item) {
+              var cloned = template.content.cloneNode(true);
+              cloned.querySelector("option").value = item.code;
+              cloned.querySelector("option").innerText = item.name;
+
+              parent[i].prepend(cloned);
+            });
+          }
+
+        });
+    }
+
+
+    function address() {
+
+
+      const munSelect = document.querySelector("#muni");
+      const barSelect = document.querySelector("#barang");
+
+      // Function to populate the result select with data
+      function populateResultSelects(selectedValues) {
+
+
+
+
+        fetch("../../js/baranggay.js")
+          .then(response => response.json())
+          .then(data => {
+
+
+
+
+            // Filter the data based on the selected category
+            const datos = data.filter(item => item.municipalityCode == selectedValues || item.cityCode == selectedValues);
+
+            // Clear the existing options in the result select
+            barSelect.innerHTML = "";
+
+
+
+            // Populate the result select with the filtered data
+            datos.forEach((item) => {
+              const option = document.createElement("option");
+              option.value = item.code;
+              option.innerText = item.name;
+              barSelect.appendChild(option);
+            });
+
+
+          });
+      }
+
+
+
+      // Initial population of the result select based on the default selected value
+      populateResultSelects(munSelect.value);
+
+      // Event listener to update the result select when the category select changes
+      munSelect.addEventListener("change", function () {
+        const selectedValues = this.value;
+        populateResultSelects(selectedValues);
+      });
+
+
+      const depSelect = document.querySelector("#prabens");
+      const courseSelect = document.querySelector("#muni");
+
+      // Function to populate the result select with data
+      function populateResultSelect(selectedValue) {
+
+
+        fetch("../../js/municipality.js")
+          .then(response => response.json())
+          .then(data => {
+
+
+            // Filter the data based on the selected category
+            const datos = data.filter(item => item.provinceCode == selectedValue);
+
+            // Clear the existing options in the result select
+            courseSelect.innerHTML = "";
+
+            // Populate the result select with the filtered data
+            datos.forEach((item) => {
+              const option = document.createElement("option");
+              option.value = item.code;
+              option.innerText = item.name;
+              courseSelect.appendChild(option);
+            });
+
+
+          });
+      }
+
+
+
+      // Initial population of the result select based on the default selected value
+      populateResultSelect(depSelect.value);
+
+      // Event listener to update the result select when the category select changes
+      depSelect.addEventListener("change", function () {
+        const selectedValue = this.value;
+        populateResultSelect(selectedValue);
+      });
+
+    }
+
+
+
+
+
+
+
+
+
+    function empty() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields!',
+        confirmButtonText: 'OK'
+
+      });
+    }
+
+
+
+    function error() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Account not found',
+        text: 'Username or password is invalid!',
+        confirmButtonText: 'OK'
+      });
+    }
+
+
+    function vol1() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Inputted name is already in the data',
+      })
+    }
+    function alertError() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Input the necessary elements!',
+      })
+    }
+
+    function displaySavedProgress() {
+      Swal.fire({
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+
+    }
+
+
+
+
+
+
+
+
+
+  });//end of the document 
+</script>
+
+<style>
+  .sidebar-wrapper {
+    display: none;
+  }
+
+
+  @*body{margin:0;padding:0;background-image:url('../../image/fins.jpg');background-size:cover;background-repeat:no-repeat;background-position:centercenter;}*@::selection {
+    background: rgba(26, 188, 156, 0.3);
+  }
+
+  .container {
+    max-width: 440px;
+    padding: 0 20px;
+    margin: 170px auto;
+  }
+
+  .wrapper {
+    width: 100%;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+
+
+    position: relative;
+  }
+
+
+  .wrapper .title {
+    height: 90px;
+    background: #68849d;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wrapper form {
+    padding: 30px 25px 25px 25px;
+  }
+
+  .wrapper form .row {
+    height: 45px;
+    margin-bottom: 15px;
+    position: relative;
+  }
+
+  .wrapper form .row input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    padding-left: 60px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  form .row input:focus {
+    border-color: #68849d;
+    box-shadow: inset 0px 0px 1px 1px #b0c5d7;
+  }
+
+  form .row input::placeholder {
+    color: #999;
+  }
+
+  .wrapper form .row i {
+    position: absolute;
+    width: 47px;
+    height: 100%;
+    color: #fff;
+    font-size: 18px;
+    background: #68849d;
+    border: 1px solid #68849d;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wrapper form .button input {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 0px;
+    background: #68849d;
+    border: 1px solid #68849d;
+    cursor: pointer;
+  }
+
+  form .button input:hover {
+    background: #68849d;
+  }
+</style>

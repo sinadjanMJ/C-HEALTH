@@ -36,10 +36,15 @@ $(document).ready(function () {
         $.ajax("../api/adminapi/getUnit")
             .done(function (result) {
                 UnitList = result;
+                var unit = [];
                 result.forEach(function (item) {
                   //  console.log(item);
-                    unitsname = item.unitname;
+                    unit.push(item.unitname);
                 });
+
+                unitsname = [... new Set(unit)];
+
+                console.log("unit",unitsname)
 
             });
     }
@@ -61,7 +66,7 @@ $(document).ready(function () {
 
         if (formInputs.length === formelements.length && formInputs[0].value !== '') {
 
-            if (formInputs[0].value != unitsname) {
+            if (!unitsname.includes(formInputs[0].value)) {
                 //AJAX ADD DEPARTMENT
                 $.ajax
                     ({
@@ -179,7 +184,7 @@ $(document).ready(function () {
         arrData.unitId = selectedUnitId;
 
         if (formInputs.length === formelements.length && formInputs[0].value !== '') {
-             if (formInputs[0].value != unitsname) {
+             if (!unitsname.includes(formInputs[0].value)) {
               proceedUpdate(arrData);
              console.log("gi click lagi ko " + arrData);
              }else{

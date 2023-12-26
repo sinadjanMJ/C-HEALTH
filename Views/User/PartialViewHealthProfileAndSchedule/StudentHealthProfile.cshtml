@@ -24,29 +24,30 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Health Profile</a>
+            <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Health
+                Profile</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
+
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Schedule
-                            Date</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" asp-area="" asp-controller="User" 
+                          asp-action="userProfile">Profile</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="User"
-                            asp-action="studenthealthprofile">Available
-                            Medicine</a>
+                            asp-action="Appoint">Appoint Schedule</a>
                     </li>
+                  
 
+                
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Logout</a>
+                        <a class="nav-link" asp-area="" asp-controller="User"
+                            asp-action="Home">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -59,8 +60,8 @@
 
                 @Html.Partial("PartialViewHealthProfileAndSchedule/cardtable")
                 <center>
-                <h2>Complete Blood Count</h2>
-                <h2>Test</h2>
+                    <h2>Complete Blood Count</h2>
+                    <h2>Test</h2>
                 </center>
 
                 @Html.Partial("PartialViewHealthProfileAndSchedule/chart")
@@ -110,13 +111,18 @@
 
                     //   dateComp = data;
                     //  StudentHIList = data;
-                    selectedStudentHIId = 15;
+                    //   selectedStudentHIId = 9;
+                   
+                    var retrievedArray = JSON.parse(localStorage.getItem('userData'));
+                    retrievedArray.forEach(function (item) {
+                       selectedStudentHIId = item.spiId;
+                    });
 
                     dateComp = result.filter(function (item) {
                         return item.spiId == selectedStudentHIId;
                     });
 
-                    console.log("dateComp", dateComp)
+                 //   console.log("dateComp", dateComp)
 
                     document.querySelector(".parent").innerHTML = "";
 
@@ -344,7 +350,7 @@
 
 
                             var data = {
-                                labels: ['Neutrophils', 'WBC', 'Lympocyte', 'Basophil', 'Eosinophil', 'Hematocrit', 'Hemoglobin', 'Mch', 'Mchc', 'Mcv', 'Monocyte', 'Mpv', 'Platelet Count', 'Rbc', 'Rcdw'],
+                                labels: ['Neutrophils 47-80', 'WBC 4.1-10.9', 'Lympocyte 13-40', 'Basophil 0-2', 'Eosinophil 0-5', 'Hematocrit 36-46', 'Hemoglobin 12-16', 'Mch 26-34', 'Mchc 31-36', 'Mcv 80-100', 'Monocyte 2-11', 'Mpv 6.9-11', 'Platelet Count 140-440', 'Rbc 4.5-9.5', 'Rcdw 11.6-14.8'],
                                 datasets: [{
                                     label: 'Blood Count',
 
@@ -443,10 +449,10 @@
                                 containerBody.style.width = `${newWidth}%`;
                             }
 
-                            @* // Assuming myChart is your Chart.js instance
-                            if (myChart) {
+    @* // Assuming myChart is your Chart.js instance
+                                if (myChart) {
                                 myChart.destroy();
-                            } *@
+                                } *@
 
 
 
@@ -491,93 +497,6 @@
             }
 
         });// end of selecting date record
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
