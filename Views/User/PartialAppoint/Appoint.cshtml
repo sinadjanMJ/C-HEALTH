@@ -50,24 +50,18 @@
     <section class="s1">
         <div class="container">
             <div class="schedule">
-                <!-- Your appointment schedule content goes here -->
-                <h2>Appointment Schedule</h2>
-
-                <p>What : &emsp;Medical Test</p>
-                <p>Where : &emsp;At FRV College Clotilde Hills Dakit, Bogo City, Cebu</p>
-                <p>When :&emsp; Date Provided in the Select Box </p>
-                <p>How :&emsp; Appoint an schedule below</p>
+                    
+                    <center>
+                    <button type="button" data-toggle="modal" data-target="#confirmModal"
+                        class="btn btn-primary btn-width m-2">Appoint schedule now!!</button>
+                    </center>
 
 
 
-                <div class="address">
-                    <h5>Appoint A Schedule Date</h5>
-                </div>
+                @Html.Partial("PartialAppoint/displayschedule")
+                @Html.Partial("PartialAppoint/modalAppoint")
+                @Html.Partial("PartialAppoint/modalPreview")
 
-               <button type="button" data-toggle="modal" data-target="#confirmModal" class="btn btn-primary btn-width"  style="width: 100%;">Confirm</button>
-               @Html.Partial("PartialAppoint/modalAppoint")
-               @Html.Partial("PartialAppoint/modalPreview")
-            
 
 
             </div>
@@ -213,7 +207,7 @@
 
         $("#appoint").click((e) => {
 
-          
+
 
             var selectedValue = document.getElementById('selectime').value;
             var DateValue = document.getElementById('customDate').value;
@@ -262,29 +256,30 @@
                             },
                         })
                         .done(function () {
-                          
-                          
+
+
                             displaySavedProgress();
-                             window.location.reload();
+                            window.location.reload();
 
-                          
 
-                         
+
+
 
                         });
 
-           
+
+                });
+
+            } else {
+                console.log('No option selected');
+                alertError();
+            }
+
+
+            $("#back").click((e) => {
+                $('#back').attr('data-toggle', 'modal').attr('data-target', '#confirmModal');
             });
 
-    } else {
-        console.log('No option selected');
-        alertError();
-    }
-
-
-      $("#back").click((e) => {
-       $('#back').attr('data-toggle', 'modal').attr('data-target', '#confirmModal');
-      });
 
 
 
@@ -294,8 +289,7 @@
 
 
 
-
-       });//end of the add appoint function
+        });//end of the add appoint function
 
 
 
@@ -310,23 +304,23 @@
 
 
 
-    function alertError() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Select Date And Time First!',
-        })
-    }
+        function alertError() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Select Date And Time First!',
+            })
+        }
 
-    function displaySavedProgress() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Appointment has been saved',
-            showConfirmButton: false,
-            timer: 1500
-        })
+        function displaySavedProgress() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Appointment has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
 
-    }
+        }
 
 
 
@@ -340,11 +334,6 @@
 <style>
     .sidebar-wrapper {
         display: none;
-    }
-
-    .btn-width {
-        width: 1000px;
-
     }
 
     body {

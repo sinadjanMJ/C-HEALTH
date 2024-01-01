@@ -1,37 +1,70 @@
-
-
 <div class="input-group rounded">
-  <input type="search" name="Asearchbar"   id="AsearchText" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <input type="search" name="Asearchbar" id="AsearchText" class="form-control rounded" placeholder="Search"
+    aria-label="Search" aria-describedby="search-addon" />
   <span class="input-group-text border-0 backer" id="search-addon">
     <i class="fas fa-search"></i>
   </span>
 </div>
 
-<template id="card-container" >
-    <div class="card">
-        <div class="card-body datecard">
-            
-            <h5 class="card-title">Card title</h5>
 
-        </div>
+<template id="card-container">
+  <div class="card">
+    <div class="card-body datecard" title="Click this to view your health profile">
+      <img src="~/image/folder.png" alt="Folder Icon" class="folder-icon">
+      <h5 class="card-title">Folder Name</h5>
     </div>
+  </div>
 </template>
 <div class="parent"></div>
 
 <style>
+  
+
+.parent {
+    display: flex;
+    display: inline-block;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    }
+
+  
+  .card {
+    display: flex;
+    display: inline-block;
    
-  .card{
+     margin: 5px 5px 0px 10px;
+     width: 150px;
+    /* Set the width as needed */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+
+
+  }
+
+
+
+  .folder-icon {
+    width: 100px;
+    /* Set the width of the folder icon */
+    height: 100px;
+    /* Set the height of the folder icon */
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 16px;
+  }
+
+
+  .rounded {
     margin-bottom: 20px;
+
   }
 
-  .rounded{
-     margin-bottom: 20px;
- 
-  }
-
-  .backer{
+  .backer {
     background-color: rgb(63, 99, 130);
     color: aliceblue;
   }
-   
 </style>

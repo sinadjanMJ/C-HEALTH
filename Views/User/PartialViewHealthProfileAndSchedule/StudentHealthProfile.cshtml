@@ -34,20 +34,17 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" 
-                          asp-action="userProfile">Profile</a>
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="userProfile">Profile</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User"
-                            asp-action="Appoint">Appoint Schedule</a>
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Appoint">Appoint Schedule</a>
                     </li>
-                  
 
-                
+
+
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User"
-                            asp-action="Home">Logout</a>
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Home">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -59,14 +56,13 @@
             <div class="schedule">
 
                 @Html.Partial("PartialViewHealthProfileAndSchedule/cardtable")
+
                 <center>
-                    <h2>Complete Blood Count</h2>
-                    <h2>Test</h2>
+                    <p style="margin-top: 50px; font-weight: bold; font-size: 30px;">See your previous and present
+                        health profile</p>
                 </center>
-
-                @Html.Partial("PartialViewHealthProfileAndSchedule/chart")
-
-
+                @Html.Partial("PartialViewHealthProfileAndSchedule/Comparechart")
+                @Html.Partial("PartialViewHealthProfileAndSchedule/modalHealthProfile")
             </div>
         </div>
     </section>
@@ -83,8 +79,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
-    var selectedStudentHI;
-    var selectedStudentHIId;
+    var sampleValueHI;
+    var sampleValueHIId;
     var StudentHIList = {};
     var arr = {};
     var disdate = {};
@@ -92,6 +88,7 @@
     var dateComp = {};
     var selectedID;
     var filteredData = {};
+    var Comp = {};
 
 
     $(document).ready(function () {
@@ -111,18 +108,19 @@
 
                     //   dateComp = data;
                     //  StudentHIList = data;
-                    //   selectedStudentHIId = 9;
-                   
+                    //   sampleValueHIId = 9;
+
                     var retrievedArray = JSON.parse(localStorage.getItem('userData'));
                     retrievedArray.forEach(function (item) {
-                       selectedStudentHIId = item.spiId;
+                        sampleValueHIId = item.spiId;
                     });
 
                     dateComp = result.filter(function (item) {
-                        return item.spiId == selectedStudentHIId;
+                        return item.spiId == sampleValueHIId;
                     });
 
-                 //   console.log("dateComp", dateComp)
+                    console.log("dateComp", dateComp)
+                   Compare(dateComp);
 
                     document.querySelector(".parent").innerHTML = "";
 
@@ -137,6 +135,12 @@
                             uniqueData.push(entry);
                         }
                     });
+
+                
+
+
+
+
 
                     // Display unique data
                     //   console.log(uniqueData);
@@ -162,7 +166,220 @@
                     });
                 });
 
+
+        
+
+
+
         }// end of funcction populate
+
+
+       
+    const Compare = datecomp => {
+
+        
+
+      var labels = ['Neutrophils 47-80', 'WBC 4.1-10.9', 'Lympocyte 13-40', 'Basophil 0-2', 'Eosinophil 0-5', 'Hematocrit 36-46', 'Hemoglobin 12-16', 'Mch 26-34', 'Mchc 31-36', 'Mcv 80-100', 'Monocyte 2-11', 'Mpv 6.9-11', 'Platelet Count 140-440', 'Rbc 4.5-9.5', 'Rcdw 11.6-14.8'];
+    
+
+          $.ajax("../api/adminapi/getNR")
+                        .done(function (result) {
+
+                            var b = [];
+
+                            b = result.filter(function (item) {
+                                return item.test === "Neutrophils" && item.unitname === "%";
+                            });
+                            
+
+                            var c = [];
+
+                            c = result.filter(function (item) {
+                                return item.test === "WBC" && item.unitname === "x(10^9)/L";
+                            });
+
+                            var d = [];
+
+                            d = result.filter(function (item) {
+                                return item.test === "Lymphocyte" && item.unitname === "%";
+                            });
+
+                            console.log('detriot',d)
+
+
+                            var e = [];
+
+                            e = result.filter(function (item) {
+                                return item.test === "Basophil" && item.unitname === "%";
+                            });
+
+                            var f = [];
+
+                            f = result.filter(function (item) {
+                                return item.test === "Eosinophil" && item.unitname === "%";
+                            });
+
+                            var g = [];
+
+                            g = result.filter(function (item) {
+                                return item.test === "Hematocrit" && item.unitname === "mg/dl";
+                            });
+
+
+                            var h = [];
+
+                            h = result.filter(function (item) {
+                                return item.test === "Hemoglobin" && item.unitname === "mg/dl";
+                            });
+
+
+                            var i = [];
+
+                            i = result.filter(function (item) {
+                                return item.test === "MCH" && item.unitname === "pg";
+                            });
+
+                            var j = [];
+
+                            j = result.filter(function (item) {
+                                return item.test === "MCHC" && item.unitname === "g/dL";
+                            });
+
+                            var k = [];
+
+                            k = result.filter(function (item) {
+                                return item.test === "MCV" && item.unitname === "fL";
+                            });
+
+                            var l = [];
+
+                            l = result.filter(function (item) {
+                                return item.test === "Monocyte" && item.unitname === "%";
+                            });
+
+
+                            var m = [];
+
+                            m = result.filter(function (item) {
+                                return item.test === "MPV" && item.unitname === "fL";
+                            });
+
+                            var n = [];
+
+                            n = result.filter(function (item) {
+                                return item.test === "Platelet Count" && item.unitname === "x(10^9)/L";
+                            });
+
+                            var o = [];
+
+                            o = result.filter(function (item) {
+                                return item.test === "RBC" && item.unitname === "10^12/L";
+                            });
+
+                            var p = [];
+
+                            p = result.filter(function (item) {
+                                return item.test === "RCDW" && item.unitname === "%";
+                            });
+
+
+
+                         
+
+
+
+                  var chartData = datecomp.map(function (data, index) {
+
+
+                    console.log('sir lim',data.lymphocyte)
+
+        
+                            // console.log(sampleValue.neutrophils)
+                            // Check Neutrophils value against maxRange and minRange
+                            const neutrophilsColors = data.neutrophils >= b[0].minRange && data.neutrophils <= b[0].maxRange ? 'green' : 'red';
+                            // Check WBC value against maxRange and minRange
+                            const wbcColors = data.wbc >= c[0].minRange && data.wbc <= c[0].maxRange ? 'green' : 'red';
+                            const lymColors = data.lymphocyte >= d[0].minRange && data.lymphocyte <= d[0].maxRange ? 'green' : 'red';
+                            const basoColors = data.basophil >= e[0].minRange && data.basophil <= e[0].maxRange ? 'green' : 'red';
+                            const eosiColors = data.eosinophil >= f[0].minRange && data.eosinophil <= f[0].maxRange ? 'green' : 'red';
+                            const hemaColors = data.hematocrit >= g[0].minRange && data.hematocrit <= g[0].maxRange ? 'green' : 'red';
+                            const hemoColors = data.hemoglobin >= h[0].minRange && data.hemoglobin <= h[0].maxRange ? 'green' : 'red';
+                            const mchColors = data.mch >= i[0].minRange && data.mch <= i[0].maxRange ? 'green' : 'red';
+                            const mchcColors = data.mchc >= j[0].minRange && data.mchc <= j[0].maxRange ? 'green' : 'red';
+                            const mcvColors = data.mcv >= k[0].minRange && data.mcv <= k[0].maxRange ? 'green' : 'red';
+                            const monoColors = data.monocyte >= l[0].minRange && data.monocyte <= l[0].maxRange ? 'green' : 'red';
+                            const mpvColors = data.mpv >= m[0].minRange && data.mpv <= m[0].maxRange ? 'green' : 'red';
+                            const plColors = data.plateletcount >= n[0].minRange && data.plateletcount <= n[0].maxRange ? 'green' : 'red';
+                            const rbcColors = data.rbc >= o[0].minRange && data.rbc <= o[0].maxRange ? 'green' : 'red';
+                            const rcdwColors = data.rcdw >= p[0].minRange && data.rcdw <= p[0].maxRange ? 'green' : 'red';
+
+
+                            console.log(Chart.version);
+                            console.log(neutrophilsColors, wbcColors, lymColors, basoColors, eosiColors, hemaColors, hemoColors, mchColors, mchcColors, mcvColors, monoColors, mpvColors, plColors, rbcColors, rcdwColors);
+
+
+
+
+      //  alert(data.neutrophils)
+        var backgroundColor =  [neutrophilsColors,wbcColors,lymColors,basoColors,eosiColors,hemaColors,hemoColors,mchColors,mchcColors,mcvColors,monoColors,mpvColors,plColors,rbcColors,rcdwColors];
+        var borderColor = [neutrophilsColors,wbcColors,lymColors,basoColors,eosiColors,hemaColors,hemoColors,mchColors,mchcColors,mcvColors,monoColors,mpvColors,plColors,rbcColors,rcdwColors];
+      
+        return {
+          label: data.datet,
+          backgroundColor: backgroundColor,
+          borderColor: borderColor,
+          borderWidth: 1,
+          data: [data.neutrophils, data.wbc, data.lymphocyte,data.basophil,data.eosinophil,data.hematocrit,data.hemoglobin,data.mch,data.mchc,data.mcv,data.monocyte,data.mpv,data.plateletcount,data.rbc,data.rcdw],
+        };
+      });
+      
+      
+        // Chart.js configuration
+      var data = {
+        labels: labels,
+        datasets: chartData,
+      };
+
+      const configCom = {
+        type: "bar",
+        data,
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      };
+
+      // Render the chart
+      const myComChart = new Chart(document.getElementById("comChart"), configCom);
+
+     // Adjust container width dynamically based on the number of labels
+      const ComcontainerBody = document.querySelector(".comcontainerBody");
+      const ComtotalLabels = myComChart.data.labels.length;
+
+      if (ComtotalLabels > 7) {
+        const ComnewWidth = 700 + (ComtotalLabels - 7) * 30;
+        ComcontainerBody.style.width = `${ComnewWidth}px`;
+      }
+
+      
+      
+      
+      
+      });
+
+
+
+    };
+
+
+
+
+
+
 
 
 
@@ -194,19 +411,33 @@
         });//end offuncction search
 
 
+        $("#modalStudentHealthInfoClose").click(function () {
+            location.href = '/user/StudentHealthProfile';
+        });
+
+
+
+
+
 
 
 
         $(".parent").delegate(".datecard", "click", function (e) {
+
+
+
+            $("#modalStudentHealthInfo").modal("toggle");
 
             // console.log("na click najyud");
             var i = e.target.closest("div").getAttribute("data-datet");
 
             console.log("salamat sa pag click", i);
 
+
+
             if (i != null) {
                 dateClick = i;
-                //    console.log(dateClick + "mao ni siya");
+                console.log(dateClick + "mao ni siya");
 
 
                 //filtere data that have th same value on selected date
@@ -218,6 +449,19 @@
                 console.log("filter", filteredData);
 
                 filteredData.forEach(function (sampleValue) {
+
+                    //    console.log(selectedStudent);
+                    $(".cardInfo .info-Name").html('Name :' + sampleValue.fullname);
+                    $(".cardInfo .info-AgeGender").html('Age/Gender : ' + sampleValue.age + '&nbsp;Year / ' + sampleValue.gender);
+                    $(".cardInfo .info-Birthdate").html('Birthdate : &emsp;' + sampleValue.birthdate);
+                    $(".cardInfo .info-HN").html('Hospital No. ' + sampleValue.hospitalnumber);
+                    $(".cardInfo .info-SPID").html('Specimen ID :' + sampleValue.shiId);
+                    $(".cardInfo .info-Physician").html('Physician: &emsp;' + sampleValue.cbcphysician);
+                    $(".cardInfo .info-requested").html('Date Time Requested :&emsp;' + sampleValue.cbcdatetimerequested);
+                    $(".cardInfo .info-draw").html('Draw Date & Time : &emsp;' + sampleValue.cbcdrawdatetime);
+
+
+
 
                     $.ajax("../api/adminapi/getNR")
                         .done(function (result) {
@@ -337,10 +581,10 @@
                             const mchcColor = sampleValue.mchc >= j[0].minRange && sampleValue.mchc <= j[0].maxRange ? 'green' : 'red';
                             const mcvColor = sampleValue.mcv >= k[0].minRange && sampleValue.mcv <= k[0].maxRange ? 'green' : 'red';
                             const monoColor = sampleValue.monocyte >= l[0].minRange && sampleValue.monocyte <= l[0].maxRange ? 'green' : 'red';
-                            const mpvColor = sampleValue.mpv >= l[0].minRange && sampleValue.mpv <= l[0].maxRange ? 'green' : 'red';
-                            const plColor = sampleValue.plateletcount >= l[0].minRange && sampleValue.plateletcount <= l[0].maxRange ? 'green' : 'red';
-                            const rbcColor = sampleValue.rbc >= l[0].minRange && sampleValue.rbc <= l[0].maxRange ? 'green' : 'red';
-                            const rcdwColor = sampleValue.rcdw >= l[0].minRange && sampleValue.rcdw <= l[0].maxRange ? 'green' : 'red';
+                            const mpvColor = sampleValue.mpv >= m[0].minRange && sampleValue.mpv <= m[0].maxRange ? 'green' : 'red';
+                            const plColor = sampleValue.plateletcount >= n[0].minRange && sampleValue.plateletcount <= n[0].maxRange ? 'green' : 'red';
+                            const rbcColor = sampleValue.rbc >= o[0].minRange && sampleValue.rbc <= o[0].maxRange ? 'green' : 'red';
+                            const rcdwColor = sampleValue.rcdw >= p[0].minRange && sampleValue.rcdw <= p[0].maxRange ? 'green' : 'red';
 
 
                             console.log(Chart.version);
@@ -354,57 +598,9 @@
                                 datasets: [{
                                     label: 'Blood Count',
 
-                                    data: [sampleValue.neutrophils,
-                                    sampleValue.wbc,
-                                    sampleValue.lymphocyte,
-                                    sampleValue.basophil,
-                                    sampleValue.eosinophil,
-                                    sampleValue.hematocrit,
-                                    sampleValue.hemoglobin,
-                                    sampleValue.mch,
-                                    sampleValue.mchc,
-                                    sampleValue.mcv,
-                                    sampleValue.monocyte,
-                                    sampleValue.mpv,
-                                    sampleValue.plateletcount,
-                                    sampleValue.rbc,
-                                    sampleValue.rcdw],
-
-
-
-                                    backgroundColor: [
-                                        neutrophilsColor,
-                                        wbcColor,
-                                        lymColor,
-                                        basoColor,
-                                        eosiColor,
-                                        hemaColor,
-                                        hemoColor,
-                                        mchColor,
-                                        mchcColor,
-                                        mcvColor,
-                                        monoColor,
-                                        mpvColor,
-                                        plColor,
-                                        rbcColor,
-                                        rcdwColor,
-                                    ],
-                                    borderColor: [
-                                        neutrophilsColor,
-                                        wbcColor,
-                                        lymColor,
-                                        basoColor,
-                                        eosiColor,
-                                        hemaColor,
-                                        hemoColor,
-                                        mchColor,
-                                        mchcColor,
-                                        mcvColor,
-                                        monoColor,
-                                        mpvColor,
-                                        plColor,
-                                        rbcColor,
-                                        rcdwColor,
+                                  
+                                    backgroundColor: [neutrophilsColor,wbcColor,lymColor,basoColor,eosiColor,hemaColor,hemoColor,mchColor,mchcColor,mcvColor,monoColor,mpvColor,plColor,rbcColor,rcdwColor,],
+                                    borderColor: [neutrophilsColor,wbcColor,lymColor,basoColor,eosiColor,hemaColor,hemoColor,mchColor,mchcColor,mcvColor,monoColor,mpvColor,plColor,rbcColor,rcdwColor,
                                     ],
                                     borderWidth: 1
                                 }]
@@ -445,46 +641,15 @@
 
 
                             if (totalLabels > 7) {
-                                const newWidth = 300 + ((totalLabels - 7) * 30)
+                                const newWidth = 700 + ((totalLabels - 7) * 30)
                                 containerBody.style.width = `${newWidth}%`;
                             }
 
-    @* // Assuming myChart is your Chart.js instance
-                                if (myChart) {
-                                myChart.destroy();
-                                } *@
 
 
 
 
                         });//end f the funcction
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

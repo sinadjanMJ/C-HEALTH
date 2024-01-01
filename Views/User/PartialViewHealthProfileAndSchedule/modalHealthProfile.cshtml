@@ -1,0 +1,90 @@
+<div class="modal fade" id="modalStudentHealthInfo" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog custom-modal-dialog">
+        <div class="modal-content" id="cardwidth">
+            <div class="modal-header">
+                <div class="modal-body">
+                    <h5 class="modal-title" id="exampleModalLabel">Health Information</h5>
+                </div>
+                <button type="button" id="modalStudentHealthInfoClose" class="btn-close btn-light"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body StudentHealthInfo d-flex justify-content-center">
+                <div class="cardInfo">
+
+
+
+                    <div class="info-Name"></div>
+                    <div class="info-AgeGender"></div>
+                    <div class="info-Birthdate"></div>
+                    <div class="info-HN"></div>
+                    <div class="info-SPID"></div>
+                    <div class="info-Physician"></div>
+                    <div class="info-draw"></div>
+                    <div class="info-requested"></div>
+
+                    <hr />
+                    <center>
+                        <h2>Complete Blood Count</h2>
+                    </center>
+                    
+
+
+                    <br>
+                    <br>
+                    <div class="chartCard">
+                        <div class="chartBoxModal">
+                            <div class="containerChart">
+                                <div class="containerBody">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+<style>
+    .chartCard {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px;
+    }
+
+    .chartBoxModal {
+        width: 100%;
+        max-width: 320px;
+      border-radius: 5px;
+      border: solid 3px rgba(54, 162, 235, 1);
+        background: white;
+    }
+
+    .containerChart {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .containerBody {
+        height: 250px;
+        /* Set a specific height for the chart container */
+        margin: auto;
+    }
+</style>

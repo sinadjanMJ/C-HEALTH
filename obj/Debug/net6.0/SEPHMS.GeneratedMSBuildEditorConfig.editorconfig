@@ -451,6 +451,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsQXBwb2ludFxBcHBvaW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialAppoint/displayschedule.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsQXBwb2ludFxkaXNwbGF5c2NoZWR1bGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialAppoint/modalAppoint.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsQXBwb2ludFxtb2RhbEFwcG9pbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -483,8 +487,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxjYXJkdGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewHealthProfileAndSchedule/chart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxjaGFydC5jc2h0bWw=
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewHealthProfileAndSchedule/Comparechart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxDb21wYXJlY2hhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewHealthProfileAndSchedule/modalHealthProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXJ0aWFsVmlld0hlYWx0aFByb2ZpbGVBbmRTY2hlZHVsZVxtb2RhbEhlYWx0aFByb2ZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Student And Employee Profiling and Health Monitoring System/SEPHMS/Views/User/PartialViewHealthProfileAndSchedule/StudentHealthProfile.cshtml]
