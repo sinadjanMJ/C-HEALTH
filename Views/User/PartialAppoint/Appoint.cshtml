@@ -90,10 +90,13 @@
 <script>
     var dates = [];
     var userId;
+    var appointmentList = {};
 
 
     $(document).ready(function () {
         margin();
+        getUserID();
+        getAppointmentList();
         getDates();
         getTime();
 
@@ -105,7 +108,24 @@
             $(".container-fluid").removeClass();
         }
 
+        function getUserID()
+        {
+            var retrievedArray = JSON.parse(localStorage.getItem('userData'));
+            retrievedArray.forEach(function (item) {
+                userId = item.spiId;
+            });
+        }
 
+
+        function getAppointmentList()
+        {
+            //getting the appointment list first.
+            $.ajax("../api/adminapi/getAppointmentList")
+            .done(function(result){
+                appointmentList = result;
+                console.log("Appointment List : ", appointmentList);
+            });
+        }
 
 
 
@@ -122,8 +142,21 @@
                         //  console.log('obj',obj.avadate);
                         // Check if the avadate property exists in the current object
                         if (obj.avadate !== undefined) {
-                            // Push the value to the new array
-                            allowedDates.push(obj.avadate);
+
+                            //Check if the appointment list has the data of student id inside the Date
+                            const matchingAppointments = appointmentList.filter(appointment => 
+                                appointment.dateApp === obj.avadate && appointment.studentId === userId
+                            );
+
+                            console.log(matchingAppointments.length);
+
+                            //If there is no student id within that date then push the value
+                            if(matchingAppointments.length <= 0)
+                            {
+                                // Push the value to the new array
+                                allowedDates.push(obj.avadate);
+                            }
+
                         }
                     });
 
@@ -153,6 +186,8 @@
                     // console.log( document.getElementById("customDate").value;)
                     var avatimeArray = [];
 
+                    //Making the gate time list inside the result
+                    var getDateTimeList = result;
 
 
                     document.getElementById('customDate').addEventListener('input', function () {
@@ -166,20 +201,26 @@
 
                         console.log(selectedDate)
 
+                        console.log("Date time list : ", getDateTimeList);
+                        getDateTimeList.forEach(obj => {
+                        // Check if the avadate property exists and is equal to the selected date
+                        if (obj.avadate !== undefined && obj.avadate === selectedDate) {
 
-                        result.forEach(obj => {
-                            // Check if the avadate property exists and is equal to the selected date
-                            if (obj.avadate !== undefined && obj.avadate === selectedDate) {
+                            //count the number of appointments based on the avadate and selecteddate
+                            const matchingAppointments = appointmentList.filter(appointment => 
+                                appointment.dateApp === selectedDate && appointment.timeApp === obj.avatime
+                            );
+
+                            //if the number of appointments are less than the time slot then push the time.
+                            if(matchingAppointments.length < obj.timeSlot)
+                            {
                                 // Push the avatime value to the array
                                 avatimeArray.push(obj.avatime);
                             }
-                        });
+                        }
+                    });
 
                         console.log('Avatime Array for Selected Date:', avatimeArray);
-
-
-
-
 
                         // Get the select box element
                         var selectTime = document.getElementById('selectime');
@@ -201,6 +242,7 @@
 
 
                     }); // end of selecct date
+
                 });
 
         }
@@ -224,11 +266,6 @@
 
                 $('.T').html('Time: &emsp;' + selectedValue);
 
-
-                var retrievedArray = JSON.parse(localStorage.getItem('userData'));
-                retrievedArray.forEach(function (item) {
-                    userId = item.spiId;
-                });
 
                 $("#saveApp").click((e) => {
 

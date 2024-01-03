@@ -943,6 +943,10 @@ namespace SEPHMS.Entities
                 entity.Property(e => e.DateId)
                     .HasColumnType("int(11)")
                     .HasColumnName("dateId");
+
+                entity.Property(e => e.TimeSlot)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("timeSlot");
             });
 
             modelBuilder.Entity<Unit>(entity =>

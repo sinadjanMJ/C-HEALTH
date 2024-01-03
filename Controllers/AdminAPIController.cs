@@ -291,12 +291,11 @@ namespace SEPHMS.Controllers
 
                 select new DateTimeViewModel
                 {
-
                      TimeId = t.TimeId,     
                      DateId = d.DateId,      
                      Avadate = d.Avadate,    
-                     Avatime = t.Avatime      
-    
+                     Avatime = t.Avatime,    
+                     TimeSlot = t.TimeSlot
                 }
 
 
@@ -1336,6 +1335,13 @@ namespace SEPHMS.Controllers
             _context.SaveChanges();
 
             return Ok();
+        }
+
+        public ActionResult<List<Appointment>> getAppointmentList()
+        {
+            var res = _context.Appointments.ToList();
+
+            return Ok(res);
         }
 
  

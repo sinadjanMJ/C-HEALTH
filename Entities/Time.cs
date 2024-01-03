@@ -8,5 +8,6 @@ namespace SEPHMS.Entities
         public int TimeId { get; set; }
         public int DateId { get; set; }
         public string Avatime { get; set; }
+        public int TimeSlot { get; set; }
     }
 }
