@@ -8,11 +8,16 @@
   <title>Login & Registration Form</title>
   <!---Custom CSS File--->
   <link rel="stylesheet" href="~/css/login.css">
+  
 </head>
 
 <body class="body">
+
   <div class="container">
+    <img src="~/image/logo.png" alt="" class="image">
     <input type="checkbox" id="check">
+
+
 
 
 
@@ -21,9 +26,8 @@
       <form action="#" id="signinForm">
         <input class="gmail" type="text" placeholder="Enter your email" required>
         <input class="password" type="password" placeholder="Enter your password" required>
-        <a href="#">Forgot password?</a>
-        @* <input asp-area="" asp-controller="Admin" asp-action="AdminStudent" type="button" class="button"
-        value="Login"> *@
+
+
         <input type="submit" name="signin" id="signin" class="button" value="Log in" />
 
       </form>
@@ -31,22 +35,21 @@
 
 
       <div class="signup">
-        <span class="signup">Don't have an account?
-          <label for="check">Signup</label>
+        <span class="signup">Forgot your password?
+          <label for="check">Click Here !!!</label>
         </span>
       </div>
     </div>
     <div class="registration form">
-      <header>Signup</header>
+      <header style="font-size: 20px; margin-right: 50px;">Recover Password</header>
       <form action="#" id="signupForm">
-        <input type="text" placeholder="Enter your email">
-        <input type="password" placeholder="Create a password">
-        <input type="password" placeholder="Confirm your password">
-        <input type="button" class="button" value="Signup">
+        <input type="text" class="inputrecover" placeholder="Enter your email">
+
+        <input type="button" id="buttonRecover" class="button" value="Recover">
       </form>
       <div class="signup">
-        <span class="signup">Already have an account?
-          <label for="check">Login</label>
+        <span class="signup">Have a password already!!
+          <label for="check">Back</label>
         </span>
       </div>
     </div>
@@ -62,14 +65,31 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script src="~/lib/emailjs/dist/email.min.js"></script>
 
 
 
 <script>
-  $(()=>{
+  var AdminList = {};
+  var gmailAdd = {};
+  $(() => {
+
+    var userType = sessionStorage.getItem('userType');
+
+    if (userType !== null) {
+      if (userType === "patient") {
+        window.location.href = "/User/StudentHealthProfile";
+      }
+      else if (userType === "admin") {
+        window.location.href = "/Admin/AdminCategory";
+      }
+    }
 
     margin();
+    getAdminAcc();
 
     function margin() {
 
@@ -77,10 +97,25 @@
       $(".container-fluid").removeClass();
     }
 
+    function getAdminAcc() {
+      $.ajax("../api/adminapi/getAdminAccount")
+        .done(function (result) {
+
+          AdminList = result;
+
+          var gmailaddress = [];
+          result.forEach(item => {
+            gmailaddress.push(item.gmail);
+           // console.log(gmailaddress)
+          });
+
+          gmailAdd = [... new Set(gmailaddress)];
+
+        console.log("gmailaddress",gmailAdd)
+        });
+    }
 
 
-
-    sessionStorage.clear()
 
 
     $("#signin").click(e => {
@@ -92,7 +127,7 @@
 
       if (gmail.trim() === "" || pass.trim() === "") {
         // SweetAlert for validation
-      empty();
+        empty();
 
 
       } else {
@@ -105,8 +140,20 @@
           },
           success: res => {
             sessionStorage.setItem("Logged", true)
-            location.href = '/Admin/AdminCategory';
-            console.log(res)
+            sessionStorage.setItem('userType', 'admin');
+
+
+
+            var filterUserData = (gmail, pass) => AdminList.filter(user => user.gmail == gmail && user.password == pass);
+            var filteredUserData = filterUserData(gmail, pass);
+
+
+            sessionStorage.setItem('adminData', JSON.stringify(filteredUserData));
+
+
+              location.href = '/Admin/AdminCategory';
+
+
           },
 
           error: err => {
@@ -117,6 +164,71 @@
       }
 
     })
+
+
+
+
+    $("#buttonRecover").click(e => {
+      e.preventDefault()
+
+
+      var email = $(".inputrecover").val();
+
+      if (email.trim() === "") {
+        // SweetAlert for validation
+        empty();
+
+
+      } else {
+
+        if(gmailAdd.includes(email)){
+
+          
+
+        console.log("naa ras database")
+
+
+        var filterUserData =  AdminList.filter(user => user.gmail == email);
+        console.log('filter',filterUserData)
+
+        filterUserData.forEach(item =>{
+         // console.log(item.password);
+        
+
+        
+         emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
+        
+
+        var params = {
+          sendername: "mj",
+          to: item.gmail,
+          subject: "health alerts",
+          replyto: "angkol mj",
+          message:  item.password,
+        };
+
+        var serviceID = "service_wt1byeb"; // Email Service ID
+        var templateID = "template_w3eqpec"; // Email Template ID
+
+        emailjs.send(serviceID, templateID, params)
+        .then( res => {
+            alert("Email sent successfully!!")
+        })
+        .catch(
+     
+        ); 
+      });
+
+
+
+        }else{
+        error();
+        }
+
+        }
+
+
+      });
 
 
 
@@ -139,7 +251,7 @@
         title: 'Validation Error',
         text: 'Please fill in all required fields!',
         confirmButtonText: 'OK'
-        
+
       });
     }
 
@@ -148,8 +260,8 @@
     function error() {
       Swal.fire({
         icon: 'error',
-        title: 'Account not found',
-        text: 'Username or password is invalid!',
+        title: 'Email Account not found',
+        text: 'Email is invalid!',
         confirmButtonText: 'OK'
       });
     }

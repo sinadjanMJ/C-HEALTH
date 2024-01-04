@@ -102,7 +102,7 @@
 
             <!-- Employee Signup Form -->
             <div class="form" id="signinEmployeeForm" style="display: none;">
-                <header>Login</header>
+                <header>Employee</header>
                 <form action="#">
                     <input type="text" id="gmailadd" placeholder="Enter your email">
                     <input type="password" id="password" placeholder="Enter a password">
@@ -152,7 +152,21 @@
         AddSelectPrabens();
         address();
         margin();
-       
+
+        var userType = sessionStorage.getItem('userType');
+
+        if(userType !== null)
+        {
+            if(userType === "patient")
+            {
+                window.location.href = "/User/StudentHealthProfile";
+            }
+            else if(userType === "admin")
+            {
+                window.location.href = "/Admin/AdminCategory";
+            }
+        }
+            
 
         function margin() {
 
@@ -214,13 +228,12 @@
                         var filteredUserData = filterUserData(gmail, pass);
                     
                         sessionStorage.setItem("Logged", true)
+                        sessionStorage.setItem('userType', 'patient');
                         localStorage.setItem('userData', JSON.stringify(filteredUserData));
                       
                         location.href = '/User/StudentHealthProfile';
 
-                     
-
-                       
+                        
                     },
 
                     error: err => {
@@ -264,8 +277,6 @@
             var formInputs = $("#createStudentForm").serializeArray();
             formInputs.forEach(function (item) {
                 arrData[item.name] = item.value;
-
-
             });
 
 

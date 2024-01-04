@@ -30,6 +30,15 @@
 
     $(document).ready(function () {
 
+        var userType = sessionStorage.getItem('userType');
+        if (userType === null) {
+            window.location.href = "/Page/SIGN";
+        }
+        else {
+            if (userType === "patient") {
+                window.location.href = "/User/StudentHealthProfile";
+            }
+        }
 
         getStudent();
         displayStudentData();
@@ -38,17 +47,17 @@
         AddSelectDepartment();
         UpdateSelectDepartments();
         getUnits();
-       
+
 
 
         AddSelectPrabens();
         address();
 
-       
+
         new MultiSelectTag('physicians')  // id
 
 
-    function getUnits() {
+        function getUnits() {
             $.ajax("../api/adminapi/getNR")
                 .done(function (result) {
 
@@ -438,31 +447,31 @@
 
 
             // Function to populate the result select with data
-            
 
 
-                fetch("../../js/municipality.js")
-                    .then(response => response.json())
-                    .then(data => {
+
+            fetch("../../js/municipality.js")
+                .then(response => response.json())
+                .then(data => {
 
 
-                        // Filter the data based on the selected category
-                        const datos = data.filter(item => item.provinceCode == depSelect.value);
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.provinceCode == depSelect.value);
 
-                        // Clear the existing options in the result select
-                        courseSelect.innerHTML = "";
+                    // Clear the existing options in the result select
+                    courseSelect.innerHTML = "";
 
-                        // Populate the result select with the filtered data
-                        datos.forEach((item) => {
-                            const option = document.createElement("option");
-                            option.value = item.code;
-                            option.innerText = item.name;
-                            courseSelect.appendChild(option);
-                        });
-
-
+                    // Populate the result select with the filtered data
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.code;
+                        option.innerText = item.name;
+                        courseSelect.appendChild(option);
                     });
-        
+
+
+                });
+
 
         }
 
@@ -616,11 +625,11 @@
             $.ajax("../api/adminapi/getStudents")
                 .done(function (result) {
                     StudentList = result;
-                    @* console.log(result); *@
+    @* console.log(result); *@
 
                     var gmailaddress = [];
                     result.forEach(function (item) {
-                          gmailaddress.push(item.gmailaddress);
+                        gmailaddress.push(item.gmailaddress);
 
                     });
 
@@ -729,7 +738,7 @@
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '' && formInputs[3].value !== '') {
                 // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
-     
+
                 if (!gmail.includes(formInputs[4].value)) {
 
 
@@ -759,7 +768,7 @@
 
 
                                 address: `Purok ${arrData.AddressPurok}, ${barang}, ${muni}, ${prabens}`
-               
+
 
 
                             },
@@ -1197,14 +1206,14 @@
             var ddt = $('#ddt').val();
             var phy = $('#physicians').val();
 
-             let res = phy.join(', ');
+            let res = phy.join(', ');
 
 
-        
-           arrData.Cbcphysician = res;
-          
-     
-         
+
+            arrData.Cbcphysician = res;
+
+
+
 
 
             var dateTimeRequested = formatDateTime(dtr);
@@ -1231,40 +1240,40 @@
 
 
 
-    
-        console.log(formInputs.length);
-           console.log(formelements.length);
 
-                if (formelements.length === 34) {
+            console.log(formInputs.length);
+            console.log(formelements.length);
+
+            if (formelements.length === 34) {
 
 
 
                 //AJAX ADD DEPARTMENT
                 $.ajax
-                ({
-                url: "../api/adminapi/AddStudentHealth",
-                type: "POST",
-                data:
-                {
-                shi: arrData,
- 
-                },
-                })
-                .done(function () {
+                    ({
+                        url: "../api/adminapi/AddStudentHealth",
+                        type: "POST",
+                        data:
+                        {
+                            shi: arrData,
 
-                $("#addStudentHealthInfoForm")[0].reset();
-                $("#modalStudentHealthInfo").modal("toggle");
-                // getNR();
-                displaySavedProgress();
-                //  displayNRData();
+                        },
+                    })
+                    .done(function () {
 
-                });
+                        $("#addStudentHealthInfoForm")[0].reset();
+                        $("#modalStudentHealthInfo").modal("toggle");
+                        // getNR();
+                        displaySavedProgress();
+                        //  displayNRData();
+
+                    });
 
 
-                }
-                else {
+            }
+            else {
                 alertError();
-                }
+            }
 
 
         });

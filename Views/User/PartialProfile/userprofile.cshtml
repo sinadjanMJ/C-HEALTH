@@ -90,6 +90,21 @@
 
 
     $(document).ready(function () {
+
+        var userType = sessionStorage.getItem('userType');
+
+        if(userType === null)
+        {
+            window.location.href = "/User/practLogin";
+        }
+        else
+        {
+            if(userType === "admin")
+            {
+                window.location.href = "/Page/SIGN";
+            }
+        }
+
         margin();
 
 

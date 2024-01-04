@@ -42,8 +42,8 @@ namespace SEPHMS.Controllers
             return Ok();
         }
         
-        public ActionResult<List<Adminaccount>> getAdminAccount(){
-            return _context.Adminaccounts.ToList();
+        public ActionResult<List<Account>> getAdminAccount(){
+            return _context.Accounts.ToList();
         }
 
           public IActionResult updateAdminAccount(Adminaccount upadmin)
@@ -1343,6 +1343,10 @@ namespace SEPHMS.Controllers
 
             return Ok(res);
         }
+
+        
+     
+
 
  
 

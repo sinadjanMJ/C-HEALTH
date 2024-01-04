@@ -52,7 +52,18 @@
 
     $(document).ready(function () {
 
-
+        var userType = sessionStorage.getItem('userType');
+        if(userType === null)
+        {
+            window.location.href = "/Page/SIGN";
+        }
+        else
+        {
+            if(userType === "patient")
+            {
+                window.location.href = "/User/StudentHealthProfile";
+            }
+        }
 
 
 

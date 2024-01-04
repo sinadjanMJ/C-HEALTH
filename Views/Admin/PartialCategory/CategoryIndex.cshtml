@@ -40,8 +40,23 @@ var ctgyname = [];
 
 $(document).ready(function () {
 
+    var userType = sessionStorage.getItem('userType');
+    if(userType === null)
+    {
+        window.location.href = "/Page/SIGN";
+    }
+    else
+    {
+        if(userType === "patient")
+        {
+            window.location.href = "/User/StudentHealthProfile";
+        }
+    }
+
     getCategory();
     displayCategoryData(); 
+
+   
    ///console.log(catname);
     function getCategory() {
         $.ajax("../api/adminapi/getCategory")
@@ -61,6 +76,11 @@ $(document).ready(function () {
 
             });
     }
+
+    
+    
+      
+            
       
 
 

@@ -1,9 +1,7 @@
- 
- 
- @Html.Partial("PartialEmployeeHealthProfile/cardtable") 
- @Html.Partial("PartialEmployeeHealthProfile/EmployeeHealthInformationTable")
-  @Html.Partial("PartialEmployeeHealthProfile/updateEmployeeHealth")
-  @Html.Partial("PartialEmployeeHealthProfile/EmployeeHealthInfo") 
+@Html.Partial("PartialEmployeeHealthProfile/cardtable")
+@Html.Partial("PartialEmployeeHealthProfile/EmployeeHealthInformationTable")
+@Html.Partial("PartialEmployeeHealthProfile/updateEmployeeHealth")
+@Html.Partial("PartialEmployeeHealthProfile/EmployeeHealthInfo")
 
 
 
@@ -15,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-  var selectedEmployeeHI;
+    var selectedEmployeeHI;
     var selectedEmployeeHIId;
     var EmployeeHIList = {};
     var arr = {};
@@ -26,10 +24,20 @@
 
     $(document).ready(function () {
 
+        var userType = sessionStorage.getItem('userType');
+        if (userType === null) {
+            window.location.href = "/Page/SIGN";
+        }
+        else {
+            if (userType === "patient") {
+                window.location.href = "/User/StudentHealthProfile";
+            }
+        }
+
         populateIndex();
         getUnits();
 
-    function getUnits() {
+        function getUnits() {
             $.ajax("../api/adminapi/getNR")
                 .done(function (result) {
 
@@ -445,7 +453,7 @@
                     return entry.datet === dateClick;
                 });
 
-                   console.log(filteredData);
+                console.log(filteredData);
 
                 //para dili magka duplicate ang mga value
                 table.clear().draw();
@@ -491,7 +499,7 @@
         // Function to populate the table with data
         function populateTable(data) {
 
-            console.log("data",data)
+            console.log("data", data)
             $.each(data, function (index, item) {
                 table.row.add(item).draw(false);
             });
@@ -499,18 +507,18 @@
 
 
 
-         $("tbody").delegate(".EmployeeHIInfo", "click", function (e) {
+        $("tbody").delegate(".EmployeeHIInfo", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-ephiId");
             console.log("salamat sa pag click");
 
             if (i != null) {
                 selectedEmployeeHIId = i;
                 selectedEmployeeHI = EmployeeHIList.find(element => element.ephiId == i);
-               
-               console.log("gawas inatay")
+
+                console.log("gawas inatay")
                 $("#modalEmployeeHealthInfo").modal("toggle");
 
-                
+
 
                 //    console.log(selectedStudent);
                 $(".cardInfo .info-Name").html('Name &emsp;&emsp;&emsp;: &emsp;' + selectedEmployeeHI.fullname + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Date Time Requested : &emsp;' + selectedEmployeeHI.cbcdatetimerequested);
@@ -542,7 +550,7 @@
 
 
 
-        
+
         $("tbody").delegate(".EmployeeHIUpdate", "click", function (e) {
 
             var i = e.target.closest("a").getAttribute("data-ephiId");
@@ -582,7 +590,7 @@
             }
         });
 
-          function initForm(form, data) {
+        function initForm(form, data) {
 
             Object.getOwnPropertyNames(data).forEach(function (item) {
                 var currentElem = form.elements[item.charAt(0).toUpperCase() + item.slice(1)];
@@ -832,7 +840,7 @@
 
 
 
-        
+
         $("#updateEmployeeHealth").click(function () {
             alertSaveChanges();
         });
@@ -885,10 +893,10 @@
             var mpv = $('#mpv option:selected').text();
 
 
-          
-           
 
-          
+
+
+
 
             arrData.EphiId = selectedEmployeeHIId;
             arrData.Wbcunits = wbc;
@@ -912,25 +920,25 @@
             arrData.EpiId = selectedEmployeeHI.epiId;
 
 
-          
+
 
 
             console.log('checking', arrData);
-              var dtr = $('#dtr').val();
+            var dtr = $('#dtr').val();
             var ddt = $('#ddt').val();
 
             var dateTimeRequested = formatDateTime(dtr);
             var drawDateTime = formatDateTime(ddt);
 
 
-            
-             arrData.Cbcdatetimerequested = dateTimeRequested;
-            arrData.Cbcdrawdatetime  = drawDateTime;
+
+            arrData.Cbcdatetimerequested = dateTimeRequested;
+            arrData.Cbcdrawdatetime = drawDateTime;
 
             //  console.log( arrData.Cbcdatetimerequested);
 
 
-              function formatDateTime(dateTime) {
+            function formatDateTime(dateTime) {
                 return new Date(dateTime).toLocaleDateString('en-US', {
                     year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'
                 });
@@ -941,7 +949,7 @@
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
 
                 proceedUpdate(arrData);
-             console.log(arrData)
+                console.log(arrData)
 
             } else {
                 alertError();
@@ -975,7 +983,7 @@
         }
 
 
-            $("tbody").delegate(".EmployeeHIDelete", "click", function (e) {
+        $("tbody").delegate(".EmployeeHIDelete", "click", function (e) {
             var i = e.target.closest("a").getAttribute("data-ephiId");
             if (i != null) {
                 //Insert code here for the delete
@@ -1035,7 +1043,7 @@
 
 
 
-       
+
 
 
 
@@ -1116,4 +1124,3 @@
 
     });// end of this do not touch it
 </script>
-

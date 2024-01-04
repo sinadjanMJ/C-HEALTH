@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QP5x6c3axAqyeMxxVegNVkRHAC/QzORZjZ/gp6YnULI=",
+  "Hash": "82O6G491ewXOme0ms2TQbTc+BtOPoMOyNhlTLyWyS7s=",
   "Source": "SEPHMS",
   "BasePath": "_content/SEPHMS",
   "Mode": "Default",
@@ -1870,6 +1870,23 @@
       "OriginalItemSpec": "wwwroot\\image\\frvsignin.jpg"
     },
     {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\frvtatak.jpg",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "image/frvtatak.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\frvtatak.jpg"
+    },
+    {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\icons8-folder-100.png",
       "SourceId": "SEPHMS",
       "SourceType": "Discovered",
@@ -1902,6 +1919,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\icons8-folder-48.png"
+    },
+    {
+      "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\logo.png",
+      "SourceId": "SEPHMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\",
+      "BasePath": "_content/SEPHMS",
+      "RelativePath": "image/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\logo.png"
     },
     {
       "Identity": "C:\\Student And Employee Profiling and Health Monitoring System\\SEPHMS\\wwwroot\\image\\SAMPLEletter.jpg",

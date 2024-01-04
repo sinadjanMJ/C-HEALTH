@@ -44,7 +44,8 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Home">Logout</a>
+                        @* <a class="nav-link" asp-area="" asp-controller="User" asp-action="Home">Logout</a> *@
+                        <button class="btnLogout">Logout</button>
                     </li>
                 </ul>
             </div>
@@ -95,8 +96,24 @@
         margin();
         populateIndex();
 
+        var userType = sessionStorage.getItem('userType');
 
+        if(userType === null)
+        {
+            window.location.href = "/User/practLogin";
+        }
+        else
+        {
+            if(userType === "admin")
+            {
+                window.location.href = "/Admin/AdminCategory";
+            }
+        }
 
+        $(".btnLogout").click((e) => {
+            sessionStorage.clear();
+            window.location.href = "/User/practLogin";
+        });
 
 
         function populateIndex() {
