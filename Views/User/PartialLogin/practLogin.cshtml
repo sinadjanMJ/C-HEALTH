@@ -85,18 +85,22 @@
                     <button class="btn btn-success" onclick="toggleStudentForms()">STUDENT</button>
                     <button class="btn btn-success" onclick="toggleEmployeeForms()">EMPLOYEE</button>
                 </form>
-                <label class="signup-label" id="signup" data-bs-toggle="modal"
-                    data-bs-target="#modalStudentCreate">Don't have an account? Signup</label>
+                
             </div>
 
             <!-- Student Signup Form -->
             <div class="form" id="signinStudentForm" style="display: none;">
-                <header>Login</header>
+                <header>Student</header>
                 <form action="#">
                     <input type="text" id="gmail" placeholder="Enter your email">
                     <input type="password" id="pass" placeholder="Enter a password">
+                    <a  href="" id="ForST" title="Click this if you forgot your password!!!" style="text-decoration:none; margin-right: 100px; margin-top: -10px;">
+                    Forgot password??</a>
+
                     <input type="button" id="SFORM" class="button" value="Login">
                 </form>
+                <label class="signup-label" id="signup" data-bs-toggle="modal"
+                    data-bs-target="#modalStudentCreate" title="Click this to make an account!!!" style="text-decoration:none; margin-top: -20px;">Don't have an account? Signup</label>
                 <label class="signup-label" onclick="back()">Back</label>
             </div>
 
@@ -109,12 +113,16 @@
                     
                     <input type="button" id="EFORM" class="button" value="Login">
                 </form>
+                
+                <label class="signup-label" id="signup" data-bs-toggle="modal"
+                    data-bs-target="#modalStudentCreate" title="Click this to make an account!!!">Don't have an account? Signup</label>
                 <label class="signup-label" onclick="back()">Back</label>
             </div>
         </div>
     </div>
 
     @Html.Partial("PartialLogin/signupCreate")
+    @Html.Partial("PartialLogin/modalstudentRetrieve")
 
     <script>
         function toggleStudentForms() {
@@ -140,6 +148,7 @@
 </body>
 
 </html>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/lib/emailjs/dist/email.min.js"></script>
@@ -210,6 +219,19 @@
                     EmpgmailAdd = [... new Set(gmailaddress)];
                 });
         }
+
+
+
+
+         $("#ForST").click(e => {
+            e.preventDefault()
+
+             forgotPasswordstudent();
+         })
+
+
+       
+
 
 
 
@@ -355,13 +377,6 @@
             formInputs.forEach(function (item) {
                 arrData[item.name] = item.value;
             });
-
-
-
-
-
-
-
 
 
             //////// function random number
@@ -679,6 +694,26 @@
             });
 
         }
+
+
+
+    function forgotPasswordstudent() {
+        Swal.fire({
+            title: 'Do you want to recover your password?',
+            input: 'text',
+            inputAttributes: {
+                id: 'myInputField',
+                class: 'custom-input-class',
+                placeholder: 'Input your Gmail Account'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+        }).then((result) => {
+            if (result.isConfirmed) {
+               
+            }
+        });
+    }
 
 
 
