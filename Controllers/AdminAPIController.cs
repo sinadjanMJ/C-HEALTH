@@ -1319,6 +1319,15 @@ namespace SEPHMS.Controllers
             return new BadRequestObjectResult("Account not found");
         }
 
+         [HttpPost]
+        public async Task<IActionResult> loginEmployee(string gmail, int pass){
+            var user = await _context.Employeepersonalinformations.FirstOrDefaultAsync(b=>b.Gmailaddress ==gmail && b.EpiCode==pass);
+            if(user != null){
+                return Ok();
+            }
+            return new BadRequestObjectResult("Account not found");
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> userloginAdmin(string gmail, string password){

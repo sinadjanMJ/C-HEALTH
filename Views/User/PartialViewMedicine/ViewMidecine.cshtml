@@ -54,16 +54,11 @@
             <div class="schedule">
                 <!-- Your appointment schedule content goes here -->
                 <h2>Available Medicine</h2>
-                <p>This is a placeholder for your appointment schedule content.</p>
+                @* <p>Jupiter And takata</p> *@
 
              
-                <div class="input-group rounded" style="margin-bottom: 20px;">
-                    <input type="search" name="Asearchbar" id="AsearchText" class="form-control rounded"
-                        placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <span class="input-group-text border-0" id="search-addon" style="color: white; background-color: #00A5BA;">
-                        <i class="fas fa-search"></i>
-                    </span>
-                </div>
+                       <input type="search" name="Asearchbar" id="AsearchText" class="form-control rounded"
+                        placeholder="Search" aria-label="Search" aria-describedby="search-addon" style="margin-bottom: 20px;"/>
 
                 @Html.Partial("PartialViewMedicine/viewMedtable")
                 @Html.Partial("PartialViewMedicine/modalDesc")
@@ -221,38 +216,6 @@
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     });
 

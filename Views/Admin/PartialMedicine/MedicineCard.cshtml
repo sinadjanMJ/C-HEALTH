@@ -3,7 +3,7 @@
 
  <script src="~/lib/jquery/dist/jquery.js"></script> *@
 
-<h1>Active Medicine List</h1>
+<center><h1 style="color: #818896;">Active Medicine List</h1></center>
 
 <div class="input-group rounded">
   <input type="search" name="Asearchbar"   id="AsearchText" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
@@ -46,12 +46,12 @@
                <i class="fa-solid fa-boxes-stacked " style="color: #ffffff;"></i>
             </a>
             
-              <a class="btn btn-warning stockHistory" title="View added stock history">
-                <i class="fa-solid fa-clipboard"></i>
+              <a class="btn btn-primary stockHistory" title="View added stock history">
+                <i class="fa-solid fa-clipboard " style="color: #ffffff;"></i>
             </a>
 
-            <a class="btn btn-danger deleteMed" title="Delete">
-                <i class="fa-solid fa-trash"></i>
+            <a class="deleteMed" title="Delete">
+                @* <i class="fa-solid fa-trash"></i> *@
             </a>
             
             </center>
@@ -66,7 +66,8 @@
         padding-top: 20px;
     }
     .card-body{
-        color: #060606;
+        color: #353639;
+        background-color: rgb(255, 255, 255);
     }
     .card{
          display: flex; 

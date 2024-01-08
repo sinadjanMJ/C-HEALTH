@@ -104,8 +104,9 @@
             <div class="form" id="signinEmployeeForm" style="display: none;">
                 <header>Employee</header>
                 <form action="#">
-                    <input type="text" id="gmailadd" placeholder="Enter your email">
-                    <input type="password" id="password" placeholder="Enter a password">
+                    <input type="text" id="Empgmailadd" placeholder="Enter your email">
+                    <input type="password" id="Emppassword" placeholder="Enter a password">
+                    
                     <input type="button" id="EFORM" class="button" value="Login">
                 </form>
                 <label class="signup-label" onclick="back()">Back</label>
@@ -141,13 +142,19 @@
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/lib/emailjs/dist/email.min.js"></script>
 <script>
     var gmailAdd;
     var StudentList = {};
     var selectedStudent;
 
+    var EmpgmailAdd;
+    var EmployeeList = {};
+    var selectedEmployee;
+
     $(() => {
-       getStudent();
+        getStudent();
+        getEmployee();
         AddSelectDepartment();
         AddSelectPrabens();
         address();
@@ -155,18 +162,15 @@
 
         var userType = sessionStorage.getItem('userType');
 
-        if(userType !== null)
-        {
-            if(userType === "patient")
-            {
+        if (userType !== null) {
+            if (userType === "patient") {
                 window.location.href = "/User/StudentHealthProfile";
             }
-            else if(userType === "admin")
-            {
+            else if (userType === "admin") {
                 window.location.href = "/Admin/AdminCategory";
             }
         }
-            
+
 
         function margin() {
 
@@ -190,7 +194,23 @@
                     gmailAdd = [... new Set(gmailaddress)];
                 });
         }
-       
+
+        
+        function getEmployee() {
+            $.ajax("../api/adminapi/getEmployee")
+                .done(function (result) {
+
+                    EmployeeList = result;
+
+                    var gmailaddress = [];
+                    result.forEach(item => {
+                        gmailaddress.push(item.gmailaddress);
+                    });
+
+                    EmpgmailAdd = [... new Set(gmailaddress)];
+                });
+        }
+
 
 
         $("#SFORM").click(e => {
@@ -219,21 +239,21 @@
                     },
                     success: res => {
 
-                     console.log("success")
-                  //   console.log(StudentList);
-                  //  console.log("result",filteredUserData)
+                        console.log("success")
+                        //   console.log(StudentList);
+                        //  console.log("result",filteredUserData)
 
                         var filterUserData = (gmail, pass) => StudentList.filter(user => user.gmailaddress == gmail && user.spiCode == pass);
 
                         var filteredUserData = filterUserData(gmail, pass);
-                    
+
                         sessionStorage.setItem("Logged", true)
                         sessionStorage.setItem('userType', 'patient');
                         localStorage.setItem('userData', JSON.stringify(filteredUserData));
-                      
+
                         location.href = '/User/StudentHealthProfile';
 
-                        
+
                     },
 
                     error: err => {
@@ -244,6 +264,63 @@
             }
 
         });
+
+
+
+        /////employee
+          $("#EFORM").click(e => {
+            e.preventDefault()
+
+
+            var gmail = $("#Empgmailadd").val();
+            var pass = $("#Emppassword").val();
+
+
+
+            console.log(gmail + '' + pass)
+            if (gmail.trim() === "" || pass.trim() === "") {
+                // SweetAlert for validation
+                empty();
+
+
+            } else {
+
+                $.ajax({
+                    url: "/api/adminapi/loginEmployee",
+                    method: "POST",
+                    data: {
+                        "gmail": gmail,
+                        "pass": pass
+                    },
+                    success: res => {
+
+                        console.log("success")
+                        //   console.log(StudentList);
+                        //  console.log("result",filteredUserData)
+
+                        var filterUserData = (gmail, pass) => EmployeeList.filter(user => user.gmailaddress == gmail && user.epiCode == pass);
+
+                        var filteredUserData = filterUserData(gmail, pass);
+
+                        sessionStorage.setItem("Logged", true)
+                        sessionStorage.setItem('userType', 'patient');
+                        localStorage.setItem('userData', JSON.stringify(filteredUserData));
+
+                        location.href = '/User/StudentHealthProfile';
+
+
+                    },
+
+                    error: err => {
+                        error();
+                    }
+                })
+
+            }
+
+        });
+
+
 
 
 
@@ -306,6 +383,29 @@
                 if (!gmailAdd.includes(formInputs[4].value)) {
 
 
+                     emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
+
+
+                            var params = {
+                                sendername: "FRV COLLEGE",
+                                to: arrData.Gmailaddress,
+                                subject: "C: HEALTH",
+                                replyto: arrData.Gmailaddress,
+                                message: arrData.SpiCode,
+                            };
+
+                            var serviceID = "service_wt1byeb"; // Email Service ID
+                            var templateID = "template_w3eqpec"; // Email Template ID
+
+                            emailjs.send(serviceID, templateID, params)
+                                .then(res => {
+                                    alert("Email sent successfully!!")
+                                })
+                                .catch(
+
+                            );
+
+
                     /// pagkuha sa data instead value  ang text kuhaon
 
                     var prabens = $('#prabens option:selected').text();
@@ -340,6 +440,9 @@
                             $("#modalStudentCreate").modal("toggle");
 
                             displaySavedProgress();
+
+
+                           
                             // displayStudentData();
 
 

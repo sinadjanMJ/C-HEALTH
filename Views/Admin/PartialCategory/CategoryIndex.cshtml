@@ -158,7 +158,9 @@ $(document).ready(function () {
     }
 
     function btnAddCategory(id) {
-        return "<center><a class='btn btn-info CategoryUpdate' style='color : #ffffff;'  data-id=" + id + ">Update</a> &emsp; <a class='btn btn-danger CategoryDelete' data-id=" + id + "  style='color : #ffffff;'>Delete</a></center>"
+        return "<center><a class='btn btn-info CategoryUpdate' style='color : #ffffff;'  data-id=" + id + ">Update</a> &emsp; <a class='CategoryDelete' data-id=" + id + "  style='color : #ffffff;'></a></center>"
+      //sample <a class='btn btn-danger CategoryDelete' data-id=" + id + "  style='color : #ffffff;'>Delete</a>
+    
     }
 
     //<i class='fa-solid fa-pen-to-square' style='color : #ffffff;'></i>
