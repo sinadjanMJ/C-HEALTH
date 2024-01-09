@@ -85,7 +85,7 @@
                     <button class="btn btn-success" onclick="toggleStudentForms()">STUDENT</button>
                     <button class="btn btn-success" onclick="toggleEmployeeForms()">EMPLOYEE</button>
                 </form>
-                
+
             </div>
 
             <!-- Student Signup Form -->
@@ -94,13 +94,15 @@
                 <form action="#">
                     <input type="text" id="gmail" placeholder="Enter your email">
                     <input type="password" id="pass" placeholder="Enter a password">
-                    <a  href="" id="ForST" title="Click this if you forgot your password!!!" style="text-decoration:none; margin-right: 100px; margin-top: -10px;">
-                    Forgot password??</a>
+                    <a href="" id="ForST" title="Click this if you forgot your password!!!"
+                        style="text-decoration:none; margin-right: 100px; margin-top: -10px;">
+                        Forgot password??</a>
 
                     <input type="button" id="SFORM" class="button" value="Login">
                 </form>
-                <label class="signup-label" id="signup" data-bs-toggle="modal"
-                    data-bs-target="#modalStudentCreate" title="Click this to make an account!!!" style="text-decoration:none; margin-top: -20px;">Don't have an account? Signup</label>
+                <label class="signup-label" id="signup" data-bs-toggle="modal" data-bs-target="#modalStudentCreate"
+                    title="Click this to make an account!!!" style="text-decoration:none; margin-top: -20px;">Don't have
+                    an account? Signup</label>
                 <label class="signup-label" onclick="back()">Back</label>
             </div>
 
@@ -110,19 +112,21 @@
                 <form action="#">
                     <input type="text" id="Empgmailadd" placeholder="Enter your email">
                     <input type="password" id="Emppassword" placeholder="Enter a password">
-                    
+                    <a href="" id="ForEmp" title="Click this if you forgot your password!!!"
+                        style="text-decoration:none; margin-right: 100px; margin-top: -10px;">
+                        Forgot password??</a>
                     <input type="button" id="EFORM" class="button" value="Login">
                 </form>
-                
-                <label class="signup-label" id="signup" data-bs-toggle="modal"
-                    data-bs-target="#modalStudentCreate" title="Click this to make an account!!!">Don't have an account? Signup</label>
+
+                <label class="signup-label" id="signup" data-bs-toggle="modal" data-bs-target="#modalEmployeeCreate"
+                    title="Click this to make an account!!!">Don't have an account? Signup</label>
                 <label class="signup-label" onclick="back()">Back</label>
             </div>
         </div>
     </div>
 
     @Html.Partial("PartialLogin/signupCreate")
-    @* @Html.Partial("PartialLogin/modalstudentRetrieve") *@
+    @Html.Partial("PartialLogin/signupEmployee")
 
     <script>
         function toggleStudentForms() {
@@ -164,9 +168,15 @@
     $(() => {
         getStudent();
         getEmployee();
+
         AddSelectDepartment();
+        AddSelectDepartmentEmployee();
+
         AddSelectPrabens();
+        SelectEmpProvince();
+
         address();
+        addressEmp();
         margin();
 
         var userType = sessionStorage.getItem('userType');
@@ -204,7 +214,7 @@
                 });
         }
 
-        
+
         function getEmployee() {
             $.ajax("../api/adminapi/getEmployee")
                 .done(function (result) {
@@ -223,14 +233,20 @@
 
 
 
-         $("#ForST").click(e => {
+        $("#ForST").click(e => {
             e.preventDefault()
 
-             forgotPasswordstudent();
-         })
+            forgotPasswordstudent();
+        })
+
+        $("#ForEmp").click(e => {
+            e.preventDefault()
+
+            forgotPasswordEmployee();
+        })
 
 
-       
+
 
 
 
@@ -290,7 +306,7 @@
 
 
         /////employee
-          $("#EFORM").click(e => {
+        $("#EFORM").click(e => {
             e.preventDefault()
 
 
@@ -398,27 +414,6 @@
                 if (!gmailAdd.includes(formInputs[4].value)) {
 
 
-                     emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
-
-
-                            var params = {
-                                sendername: "FRV COLLEGE",
-                                to: arrData.Gmailaddress,
-                                subject: "C: HEALTH",
-                                replyto: arrData.Gmailaddress,
-                                message: arrData.SpiCode,
-                            };
-
-                            var serviceID = "service_wt1byeb"; // Email Service ID
-                            var templateID = "template_w3eqpec"; // Email Template ID
-
-                            emailjs.send(serviceID, templateID, params)
-                                .then(res => {
-                                    alert("Email sent successfully!!")
-                                })
-                                .catch(
-
-                            );
 
 
                     /// pagkuha sa data instead value  ang text kuhaon
@@ -427,6 +422,8 @@
                     var muni = $('#muni option:selected').text();
                     var barang = $('#barang option:selected').text();
 
+
+                    arrData.Status = "Pending";
                     $.ajax
                         ({
                             url: "../api/adminapi/AddStudent",
@@ -457,8 +454,146 @@
                             displaySavedProgress();
 
 
-                           
-                            // displayStudentData();
+                            emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
+
+
+                            var params = {
+                                sendername: "FRV COLLEGE",
+                                to: arrData.Gmailaddress,
+                                subject: "C: HEALTH",
+                                replyto: arrData.Gmailaddress,
+                                message: arrData.SpiCode,
+                            };
+
+                            var serviceID = "service_wt1byeb"; // Email Service ID
+                            var templateID = "template_w3eqpec"; // Email Template ID
+
+                            emailjs.send(serviceID, templateID, params)
+                                .then(res => {
+                                    alert("Email sent successfully!!")
+                                })
+                                .catch(
+
+                            );
+
+
+                        });
+
+
+
+                } else {
+                    vol1();
+                }
+
+
+            }
+            else {
+                alertError();
+            }
+        });
+
+
+
+
+
+        $("#createEmployee").click((e) => {
+
+            console.log("yehey na click jyud ko");
+            // console.log(equipname);
+
+            var arrData = {}; //ayaw ni tan dug kani dre nga line
+            var formelements = $("#createEmployeeForm .form-group");
+
+
+
+            //getting the data from the form
+            var formInputs = $("#createEmployeeForm").serializeArray();
+            formInputs.forEach(function (item) {
+                arrData[item.name] = item.value;
+            });
+
+
+            //////// function random number
+            var random8DigitNumber = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
+            console.log(random8DigitNumber);
+
+
+            // Example usage:
+            var userDateInput = formInputs[3].value; // Replace with the user's input
+            var result = calculateYearsDifference(userDateInput);
+            console.log("mao nis siya ang result" + result); // This will either print the years difference or an error message
+
+
+
+
+            if (formInputs.length === formelements.length && formInputs[0].value !== '' && formInputs[3].value !== '') {
+                // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
+
+                if (!EmpgmailAdd.includes(formInputs[4].value)) {
+
+
+
+
+
+                    /// pagkuha sa data instead value  ang text kuhaon
+
+                    var prabens = $('#Emprabens option:selected').text();
+                    var muni = $('#Empmuni option:selected').text();
+                    var barang = $('#Empbarang option:selected').text();
+
+
+                    arrData.Status = "Pending";
+
+                    $.ajax
+                        ({
+                            url: "../api/adminapi/AddEmployee",
+                            type: "POST",
+                            data:
+                            {
+                                addEmployee: arrData,
+                                randompass: random8DigitNumber,
+                                age: result,
+                                province: prabens,
+                                municipal: muni,
+                                baranggay: barang,
+
+                                fullname: ` ${arrData.Firstname}  ${arrData.Middlename}  ${arrData.Lastname}`,
+
+
+                                address: `Purok ${arrData.AddressPurok}, ${barang}, ${muni}, ${prabens}`
+
+
+
+                            },
+                        })
+                        .done(function () {
+
+                            $("#createEmployeeForm")[0].reset();
+                            $("#modalEmployeeCreate").modal("toggle");
+
+                            displaySavedProgress();
+
+                            emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
+
+
+                            var params = {
+                                sendername: "FRV COLLEGE",
+                                to: arrData.Gmailaddress,
+                                subject: "C: HEALTH",
+                                replyto: arrData.Gmailaddress,
+                                message: arrData.EpiCode,
+                            };
+
+                            var serviceID = "service_wt1byeb"; // Email Service ID
+                            var templateID = "template_w3eqpec"; // Email Template ID
+
+                            emailjs.send(serviceID, templateID, params)
+                                .then(res => {
+                                    alert("Email sent successfully!!")
+                                })
+                                .catch(
+
+                            );
 
 
                         });
@@ -502,16 +637,14 @@
 
 
 
+
         function AddSelectDepartment() {
 
             $.ajax("../api/adminapi/getDepartment")
                 .done(function (result) {
 
-
-
                     var template = document.querySelector("template#departmentOptionTemplate");
                     var parent = document.querySelectorAll("#Department");
-
 
                     for (i = 0; i < parent.length; i++) {
                         result.forEach(function (item) {
@@ -523,12 +656,18 @@
                         });
                     }
 
+
+
+
+
                 });
         }
 
 
         const depSelect = document.querySelector("#Department");
         const courseSelect = document.querySelector("#Course");
+
+
 
         // Function to populate the result select with data
         function populateResultSelect(selectedValue) {
@@ -544,12 +683,14 @@
                     // Clear the existing options in the result select
                     courseSelect.innerHTML = "";
 
+
                     // Populate the result select with the filtered data
                     datos.forEach((item) => {
                         const option = document.createElement("option");
                         option.value = item.courseStrandYearId;
                         option.innerText = item.courseStrandYearName;
                         courseSelect.appendChild(option);
+
                     });
 
 
@@ -559,10 +700,73 @@
         // Initial population of the result select based on the default selected value
         populateResultSelect(depSelect.value);
 
+
         // Event listener to update the result select when the category select changes
         depSelect.addEventListener("change", function () {
             const selectedValue = this.value;
             populateResultSelect(selectedValue);
+        });
+
+
+
+
+
+        function AddSelectDepartmentEmployee() {
+
+            $.ajax("../api/adminapi/getDepartment")
+                .done(function (result) {
+
+                    var templateEmp = document.querySelector("template#EmpdepartmentOptionTemplates");
+                    var parentEmp = document.querySelectorAll("#EmpDepartment");
+
+                    for (i = 0; i < parentEmp.length; i++) {
+                        result.forEach(function (item) {
+                            var clonedEmp = templateEmp.content.cloneNode(true);
+                            clonedEmp.querySelector("option").value = item.departmentId;
+                            clonedEmp.querySelector("option").innerText = item.departmentName;
+
+                            parentEmp[i].prepend(clonedEmp);
+                        });
+                    }
+
+
+                });
+
+        }
+
+        const EmpdepSelect = document.querySelector("#EmpDepartment");
+        const EmpcourseSelect = document.querySelector("#EmpCourse");
+
+
+        function depSelectEmployee(selectedValue) {
+
+
+            $.ajax("../api/adminapi/getCourse")
+                .done(function (data) {
+
+
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.departmentId == selectedValue);
+
+                    // Clear the existing options in the result select
+                    EmpcourseSelect.innerHTML = "";
+
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.courseStrandYearId;
+                        option.innerText = item.courseStrandYearName;
+                        EmpcourseSelect.appendChild(option);
+                    });
+
+                });
+        }
+
+        depSelectEmployee(EmpdepSelect.value);
+
+        // Event listener to update the result select when the category select changes
+        EmpdepSelect.addEventListener("change", function () {
+            const selectedValue = this.value;
+            depSelectEmployee(selectedValue);
         });
 
 
@@ -587,6 +791,7 @@
                     var parent = document.querySelectorAll("#prabens");
 
 
+
                     for (i = 0; i < parent.length; i++) {
                         result.forEach(function (item) {
                             var cloned = template.content.cloneNode(true);
@@ -597,9 +802,11 @@
                         });
                     }
 
+
+
+
                 });
         }
-
 
         function address() {
 
@@ -607,8 +814,9 @@
             const munSelect = document.querySelector("#muni");
             const barSelect = document.querySelector("#barang");
 
+
             // Function to populate the result select with data
-         function populateResultSelects(selectedValues) {
+            function populateResultSelects(selectedValues) {
 
 
 
@@ -634,6 +842,7 @@
                             option.value = item.code;
                             option.innerText = item.name;
                             barSelect.appendChild(option);
+
                         });
 
 
@@ -652,115 +861,282 @@
             });
 
 
+
+
             const depSelect = document.querySelector("#prabens");
             const courseSelect = document.querySelector("#muni");
 
-            // Function to populate the result select with data
-        function populateResultSelect(selectedValue) {
 
 
-                fetch("../../js/municipality.js")
+
+
+            fetch("../../js/municipality.js")
+                .then(response => response.json())
+                .then(data => {
+
+
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.provinceCode == depSelect.value);
+
+                    // Clear the existing options in the result select
+                    courseSelect.innerHTML = "";
+
+
+                    // Populate the result select with the filtered data
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.code;
+                        option.innerText = item.name;
+                        courseSelect.appendChild(option);
+
+                    });
+
+
+                });
+
+
+
+
+        }
+
+
+        function SelectEmpProvince() {
+            fetch("../../js/provinceFinal.js")
+                .then(response => response.json())
+                .then(result => {
+
+                    var templateEmp = document.querySelector("template#EmprabensOptionTemplates");
+                    var parentEmp = document.querySelectorAll("#Emprabens");
+
+                    for (i = 0; i < parentEmp.length; i++) {
+                        result.forEach(function (item) {
+                            var cloned = templateEmp.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.code;
+                            cloned.querySelector("option").innerText = item.name;
+
+                            parentEmp[i].prepend(cloned);
+                        });
+                    }
+
+                })
+        }
+
+
+
+        function addressEmp() {
+
+            const EmpmunSelect = document.querySelector("#Empmuni");
+            const EmpbarSelect = document.querySelector("#Empbarang");
+
+            function selectMunicipal(selectedValues) {
+
+                fetch("../../js/baranggay.js")
                     .then(response => response.json())
                     .then(data => {
 
-
-                        // Filter the data based on the selected category
-                        const datos = data.filter(item => item.provinceCode == selectedValue);
+                        const datos = data.filter(item => item.municipalityCode == selectedValues || item.cityCode == selectedValues);
 
                         // Clear the existing options in the result select
-                        courseSelect.innerHTML = "";
 
-                        // Populate the result select with the filtered data
+                        EmpbarSelect.innerHTML = "";
                         datos.forEach((item) => {
                             const option = document.createElement("option");
                             option.value = item.code;
                             option.innerText = item.name;
-                            courseSelect.appendChild(option);
-                        });
 
+                            EmpbarSelect.appendChild(option);
+                        });
 
                     });
             }
 
 
-
-            // Initial population of the result select based on the default selected value
-            populateResultSelect(depSelect.value);
+            selectMunicipal(EmpmunSelect.value);
 
             // Event listener to update the result select when the category select changes
-            depSelect.addEventListener("change", function () {
-                const selectedValue = this.value;
-                populateResultSelect(selectedValue);
+            EmpmunSelect.addEventListener("change", function () {
+                const selectedValues = this.value;
+                selectMunicipal(selectedValues);
             });
 
+
+
+            const EmprovinceSelect = document.querySelector("#Emprabens");
+            const EmpmuniSelect = document.querySelector("#Empmuni");
+
+
+
+
+            fetch("../../js/municipality.js")
+                .then(response => response.json())
+                .then(data => {
+
+
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.provinceCode == EmprovinceSelect.value);
+
+                    // Clear the existing options in the result select
+
+                    EmpmuniSelect.innerHTML = "";
+
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.code;
+                        option.innerText = item.name;
+
+                        EmpmuniSelect.appendChild(option);
+                    });
+
+
+                });
+
+
+
+
+
+
+
         }
 
 
 
-    function forgotPasswordstudent() {
-        Swal.fire({
-            title: 'Do you want to recover your password?',
-            input: 'text',
-            inputAttributes: {
-                id: 'gmailPassReCo',
-                class: 'custom-input-class',
-                placeholder: 'Input your Gmail Account'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Confirm',
-        }).then((result) => {
-            if (result.isConfirmed) {
 
-            var gmail = $("#gmailPassReCo").val();
 
-        if (gmail.trim() !== "") {
 
-        if(gmailAdd.includes(gmail)){
+        function forgotPasswordstudent() {
+            Swal.fire({
+                title: 'Do you want to recover your password?',
+                input: 'text',
+                inputAttributes: {
+                    id: 'gmailPassReCo',
+                    class: 'custom-input-class',
+                    placeholder: 'Input your Gmail Account'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Confirm',
+            }).then((result) => {
+                if (result.isConfirmed) {
 
-            
-        var filterUserData =  StudentList.filter(user => user.gmailaddress == gmail);
-        console.log('filter',filterUserData)
+                    var gmail = $("#gmailPassReCo").val();
 
-        filterUserData.forEach(item =>{
-             
-         emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
-        
+                    if (gmail.trim() !== "") {
 
-        var params = {
-          sendername: "FRV COLLEGE",
-          to: gmail,
-          subject: "Recovery Password",
-          replyto: gmail,
-          message:  item.spiCode,
-        };
+                        if (gmailAdd.includes(gmail)) {
 
-        var serviceID = "service_wt1byeb"; // Email Service ID
-        var templateID = "template_w3eqpec"; // Email Template ID
 
-        emailjs.send(serviceID, templateID, params)
-        .then( res => {
-            alert("Email sent successfully!!")
-        })
-        .catch(
-     
-        ); 
+                            var filterUserData = StudentList.filter(user => user.gmailaddress == gmail);
+                            console.log('filter', filterUserData)
 
-        });
+                            filterUserData.forEach(item => {
 
-        }else{
-         errorFor();
+                                emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
+
+
+                                var params = {
+                                    sendername: "FRV COLLEGE",
+                                    to: gmail,
+                                    subject: "Recovery Password",
+                                    replyto: gmail,
+                                    message: item.spiCode,
+                                };
+
+                                var serviceID = "service_wt1byeb"; // Email Service ID
+                                var templateID = "template_w3eqpec"; // Email Template ID
+
+                                emailjs.send(serviceID, templateID, params)
+                                    .then(res => {
+                                        alert("Email sent successfully!!")
+                                    })
+                                    .catch(
+
+                                );
+
+                            });
+
+                        } else {
+                            errorFor();
+                        }
+
+                    } else {
+                        empty();
+                    }
+
+
+
+
+                }
+            });
         }
 
-}else{
-    empty();
-}
+
+        function forgotPasswordEmployee() {
+            Swal.fire({
+                title: 'Do you want to recover your password?',
+                input: 'text',
+                inputAttributes: {
+                    id: 'gmailPassEmp',
+                    class: 'custom-input-class',
+                    placeholder: 'Input your Gmail Account'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Confirm',
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var gmail = $("#gmailPassEmp").val();
+
+                    if (gmail.trim() !== "") {
+
+                        if (EmpgmailAdd.includes(gmail)) {
+
+
+                            var filterUserData = EmployeeList.filter(user => user.gmailaddress == gmail);
+                            console.log('filter', filterUserData)
+
+                            filterUserData.forEach(item => {
+
+                                emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
+
+
+                                var params = {
+                                    sendername: "FRV COLLEGE",
+                                    to: gmail,
+                                    subject: "Recovery Password",
+                                    replyto: gmail,
+                                    message: item.epiCode,
+                                };
+
+                                var serviceID = "service_wt1byeb"; // Email Service ID
+                                var templateID = "template_w3eqpec"; // Email Template ID
+
+                                emailjs.send(serviceID, templateID, params)
+                                    .then(res => {
+                                        alert("Email sent successfully!!")
+                                    })
+                                    .catch(
+
+                                );
+
+                            });
+
+                        } else {
+                            errorFor();
+                        }
+
+                    } else {
+                        empty();
+                    }
 
 
 
-               
-            }
-        });
-    }
+
+                }
+            });
+        }
+
+
+
+
 
 
 
@@ -786,7 +1162,7 @@
             });
         }
 
-           function errorFor() {
+        function errorFor() {
             Swal.fire({
                 icon: 'error',
                 title: 'Account not found',

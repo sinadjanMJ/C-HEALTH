@@ -471,6 +471,11 @@ namespace SEPHMS.Entities
                 entity.Property(e => e.Middlename)
                     .HasMaxLength(250)
                     .HasColumnName("middlename");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("status");
             });
 
             modelBuilder.Entity<Equipment>(entity =>
@@ -925,6 +930,11 @@ namespace SEPHMS.Entities
                 entity.Property(e => e.SpiCode)
                     .HasColumnType("int(11)")
                     .HasColumnName("SPI_CODE");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("status");
             });
 
             modelBuilder.Entity<Time>(entity =>

@@ -58,7 +58,7 @@
         new MultiSelectTag('physicians')  // id
 
 
-        function getUnits() {
+     function getUnits() {
             $.ajax("../api/adminapi/getNR")
                 .done(function (result) {
 
@@ -739,7 +739,7 @@
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
                 // if (formInputs[0].value !== '' && formInputs[1].value !== '' && formInputs[2].value !== '' && formInputs[3].value !== '' && formInputs[4].value !== '' && formInputs[5].value !== '' && formInputs[6].value !== '') {
 
-                if (formInputs[0].value != gmailaddress) {
+                if (formInputs[4].value != gmailaddress) {
 
 
                     /// pagkuha sa data instead value  ang text kuhaon
@@ -749,7 +749,7 @@
                     var barang = $('#barang option:selected').text();
 
 
-
+                    arrData.Status = "Approved";
 
                     $.ajax
                         ({
@@ -1502,7 +1502,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Inputted name is already in the data',
+                text: 'Inputted Gmail is already existed!!',
             })
         }
         function alertError() {

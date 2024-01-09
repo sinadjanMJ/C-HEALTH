@@ -42,6 +42,7 @@
 
         getStudent();
         displayStudentData();
+         gmailValidate();
 
 
         AddSelectDepartment();
@@ -606,6 +607,24 @@
 
 
 
+      
+
+    function gmailValidate(){
+
+          $.ajax("../api/adminapi/getStudent")
+                .done(function (result) {
+                    StudentList = result;
+   
+                  var gmailaddress = [];
+                    result.forEach(function (item) {
+                        gmailaddress.push(item.gmailaddress);
+
+                    });
+
+                    gmail = [... new Set(gmailaddress)];
+                    });
+
+    }
 
 
 
@@ -625,15 +644,15 @@
             $.ajax("../api/adminapi/getStudents")
                 .done(function (result) {
                     StudentList = result;
-    @* console.log(result); *@
+   
 
-                    var gmailaddress = [];
+                    @* var gmailaddress = [];
                     result.forEach(function (item) {
                         gmailaddress.push(item.gmailaddress);
 
                     });
 
-                    gmail = [... new Set(gmailaddress)];
+                    gmail = [... new Set(gmailaddress)]; *@
 
 
 
@@ -747,7 +766,8 @@
                     var prabens = $('#prabens option:selected').text();
                     var muni = $('#muni option:selected').text();
                     var barang = $('#barang option:selected').text();
-
+                    
+                    arrData.Status = "Approved";
 
 
 
@@ -1037,7 +1057,7 @@
 
 
             if (formInputs.length === formelements.length && formInputs[0].value !== '') {
-                if (formInputs[0].value != gmailaddress) {
+                if (formInputs[0].value != gmail) {
                     proceedUpdate(arrData, result);
 
                 } else {
@@ -1048,6 +1068,7 @@
                 alertError();
             }
         }
+
 
         function proceedUpdate(arrData, result) {
 

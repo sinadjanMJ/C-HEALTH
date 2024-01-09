@@ -22,5 +22,6 @@ namespace SEPHMS.Entities
         public string Fullname { get; set; }
         public int CourseStrandYearId { get; set; }
         public int DepartmentId { get; set; }
+        public string Status { get; set; }
     }
 }

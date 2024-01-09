@@ -855,16 +855,18 @@ namespace SEPHMS.Controllers
                    AddressMunicipality = s.AddressMunicipality,
                    AddressBarangay = s.AddressBarangay,
                    AddressPurok = s.AddressPurok,
+                   Status = s.Status,
 
                    CourseStrandYearId = c.CourseStrandYearId,
                    CourseStrandYearName = c.CourseStrandYearName
-                  
+                   
                 }
 
 
 
             ).ToList();
-            return Ok(result);
+            var approvedData = result.Where(x => x.Status == "Approved").ToList();
+            return Ok(approvedData);
            
         }
 
@@ -908,6 +910,7 @@ namespace SEPHMS.Controllers
                    AddressMunicipality = s.AddressMunicipality,
                    AddressBarangay = s.AddressBarangay,
                    AddressPurok = s.AddressPurok,
+                   Status = s.Status,
 
                    CourseStrandYearId = c.CourseStrandYearId,
                    CourseStrandYearName = c.CourseStrandYearName
@@ -917,7 +920,10 @@ namespace SEPHMS.Controllers
 
 
             ).ToList();
-            return Ok(result);
+
+            var approvedData = result.Where(x => x.Status == "Approved").ToList();
+
+            return Ok(approvedData);
            
         }
 
@@ -925,6 +931,10 @@ namespace SEPHMS.Controllers
 
          public IActionResult AddEmployee(Employeepersonalinformation addEmployee ,int randompass ,int age , string address, string province ,string municipal, string baranggay ,string fullname)
         {
+            if(addEmployee != null && randompass != null && randompass != null && age != null && address != null && province != null && municipal != null && baranggay != null && fullname != null){
+
+            
+          
              addEmployee.Age = age;
              addEmployee.EpiCode = randompass;
              addEmployee.Address = address;
@@ -932,10 +942,14 @@ namespace SEPHMS.Controllers
              addEmployee.AddressMunicipality = municipal;
              addEmployee.AddressBarangay = baranggay;
              addEmployee.Fullname = fullname;
+             
 
 
             _context.Employeepersonalinformations.Add(addEmployee);
             _context.SaveChanges();
+            }else{
+                Console.WriteLine("naay vlue nga empty");
+            }
 
             return Ok();
         }

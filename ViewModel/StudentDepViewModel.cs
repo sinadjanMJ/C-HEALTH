@@ -18,6 +18,8 @@ namespace SEPHMS.ViewModel
         public string AddressBarangay { get; set; }
         public string AddressPurok { get; set; }
         public string Address { get; set; }
+        public string Status { get; set; }
+        
 
         public string DepartmentName { get; set; }
         public int DepartmentId { get; set; }
