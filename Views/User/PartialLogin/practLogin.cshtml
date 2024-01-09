@@ -122,7 +122,7 @@
     </div>
 
     @Html.Partial("PartialLogin/signupCreate")
-    @Html.Partial("PartialLogin/modalstudentRetrieve")
+    @* @Html.Partial("PartialLogin/modalstudentRetrieve") *@
 
     <script>
         function toggleStudentForms() {
@@ -608,7 +608,7 @@
             const barSelect = document.querySelector("#barang");
 
             // Function to populate the result select with data
-            function populateResultSelects(selectedValues) {
+         function populateResultSelects(selectedValues) {
 
 
 
@@ -656,7 +656,7 @@
             const courseSelect = document.querySelector("#muni");
 
             // Function to populate the result select with data
-            function populateResultSelect(selectedValue) {
+        function populateResultSelect(selectedValue) {
 
 
                 fetch("../../js/municipality.js")
@@ -702,7 +702,7 @@
             title: 'Do you want to recover your password?',
             input: 'text',
             inputAttributes: {
-                id: 'myInputField',
+                id: 'gmailPassReCo',
                 class: 'custom-input-class',
                 placeholder: 'Input your Gmail Account'
             },
@@ -710,6 +710,53 @@
             confirmButtonText: 'Confirm',
         }).then((result) => {
             if (result.isConfirmed) {
+
+            var gmail = $("#gmailPassReCo").val();
+
+        if (gmail.trim() !== "") {
+
+        if(gmailAdd.includes(gmail)){
+
+            
+        var filterUserData =  StudentList.filter(user => user.gmailaddress == gmail);
+        console.log('filter',filterUserData)
+
+        filterUserData.forEach(item =>{
+             
+         emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
+        
+
+        var params = {
+          sendername: "FRV COLLEGE",
+          to: gmail,
+          subject: "Recovery Password",
+          replyto: gmail,
+          message:  item.spiCode,
+        };
+
+        var serviceID = "service_wt1byeb"; // Email Service ID
+        var templateID = "template_w3eqpec"; // Email Template ID
+
+        emailjs.send(serviceID, templateID, params)
+        .then( res => {
+            alert("Email sent successfully!!")
+        })
+        .catch(
+     
+        ); 
+
+        });
+
+        }else{
+         errorFor();
+        }
+
+}else{
+    empty();
+}
+
+
+
                
             }
         });
@@ -735,6 +782,15 @@
                 icon: 'error',
                 title: 'Account not found',
                 text: 'Username or password is invalid!',
+                confirmButtonText: 'OK'
+            });
+        }
+
+           function errorFor() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Account not found',
+                text: 'Gmail inputted is invalid!',
                 confirmButtonText: 'OK'
             });
         }
