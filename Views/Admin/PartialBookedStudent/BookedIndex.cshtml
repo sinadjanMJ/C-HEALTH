@@ -5,13 +5,33 @@
     }
 </script>
 
+<template id="dateOptionTemplate">
+    <option value=""></option>
+</template>
+
+<template id="timeOptionTemplate">
+    <option value=""></option>
+</template>
 
 
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label name="" class="control-label">Select Date</label>
+            <select name="Date" class="form-select" id="dateApp">
 
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label name="" class="control-label">Select Time</label>
+            <select name="Time" class="form-select" id="timeApp">
 
-
-
-
+            </select>
+        </div>
+    </div>
+</div>
 @Html.Partial("PartialBookedStudent/StudentBookTable")
 
 
@@ -19,6 +39,7 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/lib/emailjs/dist/email.min.js"></script>
 
 
 
@@ -27,6 +48,7 @@
     var StudentList;
     var AppointentList;
     var selectedStudentAppoint;
+    var DateAppData;
 
     $(document).ready(function () {
 
@@ -41,9 +63,9 @@
         }
 
 
-        displayStudentBook();
         getStudent();
         getAppointmentList();
+        selectDate();
 
         function getStudent() {
             $.ajax("../api/adminapi/getStudent")
@@ -52,49 +74,76 @@
                 })
         }
 
-           function getAppointmentList() {
+        function getAppointmentList() {
             $.ajax("../api/adminapi/getAppointmentList")
                 .done(function (result) {
                     AppointentList = result;
+
+                })
+
+            $.ajax("../api/adminapi/getAppointmentStudent")
+                .done(function (result) {
+                    DateAppData = result;
+
+                    console.log("dateappdata", DateAppData)
                 })
         }
 
-        function displayStudentBook() {
-            $('#StudentDataBook').DataTable().destroy();
-            if (!$.fn.DataTable.isDataTable('#StudentDataBook')) {
-                $('#StudentDataBook').DataTable({
-                    ajax: {
-                        url: '../api/adminapi/getAppointmentStudent', // API endpoint to retrieve department
-                        dataSrc: ''
-                    },
-                    columns:
-                        [
-
-                            { data: 'spiId' },
-                            { data: 'dateApp' },
-                            { data: 'timeApp' },
-                            { data: 'fullname' },
-                            { data: 'address' },
-                            { data: 'departmentName' },
-                            { data: 'courseStrandYearName' },
-
-                            {
-                                data: 'appointmentId',
-                                render: function (data, type, row) {
-                                    return btnStudentBook(data);
-                                }
-                            },
-                        ]
 
 
 
 
+        // Bind change event for date and time select boxes
+        $('#dateApp').on('change', function () {
+            const selectedValue = this.value;
+            var filteredData = DateAppData.filter(function (entry) {
+                return entry.dateApp === selectedValue;
+            });
+
+            console.log("filter", filteredData)
+            table.clear().draw();
+            populateTable(filteredData);
+
+           $('#timeApp').on('change', function () {
+            const selectedValue2 = this.value;
+             var filteredData2 = DateAppData.filter(function (entry) {
+                return entry.dateApp === selectedValue && entry.timeApp === selectedValue2;
+            });
+
+            console.log("filter", filteredData2)
+            table.clear().draw();
+            populateTable(filteredData2);
+
+           });
 
 
-                });
-            }
-            //  getCategory();
-        }
+        });
+
+
+        // DataTable initialization
+        var table = $('#StudentDataBook').DataTable({
+            columns: [
+                { data: 'spiId' },
+                { data: 'dateApp' },
+                { data: 'timeApp' },
+                { data: 'fullname' },
+                { data: 'address' },
+                { data: 'departmentName' },
+                { data: 'courseStrandYearName' },
+
+
+                {
+                    data: 'appointmentId',
+                    render: function (data, type, row) {
+                        return btnStudentBook(data);
+                    }
+                },
+                // Add other columns based on your data fields
+            ]
+        });
+
+
+
 
         function btnStudentBook(id) {
             return "<center><a class='btn btn-info bookApproved' style='color : #ffffff;'  data-appointmentId=" + id + ">&nbsp;&emsp;Approved&emsp;&nbsp;</a><br><br><a class='btn btn-warning bookSentMessage' data-appointmentId=" + id + "  style='color : #ffffff;'>Send Message</a></center>"
@@ -103,16 +152,24 @@
         }
 
 
+        // Function to populate the table with data
+        function populateTable(data) {
+            $.each(data, function (index, item) {
+                table.row.add(item).draw(false);
+            });
+        }
+
+
         $("tbody").delegate(".bookApproved", "click", function (e) {
             console.log("I was clicked");
             var i = e.target.closest("a").getAttribute("data-appointmentId");
             if (i != null) {
 
-            selectedStudentAppoint = AppointentList.find(element => element.appointmentId == i);
-            console.log("Appointment",selectedStudentAppoint);
+                selectedStudentAppoint = AppointentList.find(element => element.appointmentId == i);
+                console.log("Appointment", selectedStudentAppoint);
 
-           var selectedStudent = StudentList.find(element => element.spiId == selectedStudentAppoint.patientId);
-            console.log("selected",selectedStudent);
+                var selectedStudent = StudentList.find(element => element.spiId == selectedStudentAppoint.patientId);
+                console.log("selected", selectedStudent);
 
 
                 Swal.fire({
@@ -124,58 +181,109 @@
                     if (result.isConfirmed) {
 
 
-                    selectedStudent.status = "Approved";
+                        selectedStudent.status = "Approved";
 
-                     $.ajax
-                    ({
-                    url: "../api/adminapi/updateStudent",
-                    type: "POST",
-                    data:
-                    {
-                        upst: selectedStudent,
-                        age: selectedStudent.age,
-                        //  randompass: arrData.spiCode,
-                        fullname: ` ${selectedStudent.firstname}  ${selectedStudent.middlename}  ${selectedStudent.lastname}`,
+                        $.ajax
+                            ({
+                                url: "../api/adminapi/updateStudent",
+                                type: "POST",
+                                data:
+                                {
+                                    upst: selectedStudent,
+                                    age: selectedStudent.age,
+                                    //  randompass: arrData.spiCode,
+                                    fullname: ` ${selectedStudent.firstname}  ${selectedStudent.middlename}  ${selectedStudent.lastname}`,
 
-                        address: `Purok ${selectedStudent.addressPurok}, ${selectedStudent.addressBarangay}, ${selectedStudent.addressMunicipality}, ${selectedStudent.addressProvince}`
+                                    address: `Purok ${selectedStudent.addressPurok}, ${selectedStudent.addressBarangay}, ${selectedStudent.addressMunicipality}, ${selectedStudent.addressProvince}`
 
-                    },
+                                },
+                            })
+                            .done(function () {
+
+
+                            });
+
+
+                        selectedStudentAppoint.status = "Approved";
+                        console.log("Approved", selectedStudentAppoint);
+                        $.ajax
+                            ({
+                                url: "../api/adminapi/UpdateAppoint",
+                                type: "POST",
+                                data:
+                                {
+                                    appoint: selectedStudentAppoint,
+                                },
+                            })
+                            .done(function () {
+                                displayStudentBook();
+                                displaySavedProgress();
+                            });
+
+                    }
                 })
-                .done(function () {
-                    
-                   
-                });
+            }
+
+        });
+
+        $("tbody").delegate(".bookSentMessage", "click", function (e) {
+            console.log("I was clicked");
+            var i = e.target.closest("a").getAttribute("data-appointmentId");
+            if (i != null) {
+
+                selectedStudentAppoint = AppointentList.find(element => element.appointmentId == i);
+                console.log("SSA", selectedStudentAppoint);
+
+                var selectedStudent = StudentList.find(element => element.spiId == selectedStudentAppoint.patientId);
+                console.log("ST", selectedStudent);
 
 
-                 selectedStudentAppoint.status = "Approved";
-                 console.log("Approved",selectedStudentAppoint);
-                $.ajax
-                    ({
-                    url: "../api/adminapi/UpdateAppoint",
-                    type: "POST",
-                    data:
-                    {
-                        appoint: selectedStudentAppoint,
-                    },
-                })
-                .done(function () {
-                    displayStudentBook();
-                    displaySavedProgress();
-                });
-        
-        
+                Swal.fire({
+                    title: 'Better luck next time!!',
+                    confirmButtonText: 'Confirm',
+                    showCancelButton: true,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+
+                        selectedStudentAppoint.status = "Declined";
+                        console.log("Approved", selectedStudentAppoint);
+                        $.ajax
+                            ({
+                                url: "../api/adminapi/UpdateAppoint",
+                                type: "POST",
+                                data:
+                                {
+                                    appoint: selectedStudentAppoint,
+                                },
+                            })
+                            .done(function () {
+
+                                emailjs.init("4Djz2B1HMZ8LQD22Z"); // Account Public Key
 
 
+                                var params = {
+                                    sendername: "FRV COLLEGE",
+                                    to: selectedStudent.gmailaddress,
+                                    subject: "C: HEALTH Appoint Response",
+                                    replyto: "FRV CLINIC",
+                                    message: "Please be responsible next time and if you have an important matter please do reschedule your appointent",
+                                };
 
+                                var serviceID = "service_wt1byeb"; // Email Service ID
+                                var templateID = "template_w3eqpec"; // Email Template ID
 
+                                emailjs.send(serviceID, templateID, params)
+                                    .then(res => {
+                                        alert("Email sent successfully!!")
+                                    })
+                                    .catch(
 
+                                );
 
-
-
-
-
-
-
+                                populateTable();
+                                displaySavedProgress();
+                            });
 
                     }
                 })
@@ -186,43 +294,112 @@
 
 
 
+        function selectDate() {
+
+            $.ajax("../api/adminapi/getDate")
+                .done(function (result) {
+
+
+
+                    var template = document.querySelector("template#dateOptionTemplate");
+                    var parent = document.querySelectorAll("#dateApp");
+
+
+                    for (i = 0; i < parent.length; i++) {
+                        result.forEach(function (item) {
+                            var cloned = template.content.cloneNode(true);
+                            cloned.querySelector("option").value = item.avadate;
+                            cloned.querySelector("option").innerText = item.avadate;
+
+                            parent[i].prepend(cloned);
+                        });
+                    }
+
+                });
+        }
+
+
+
+        const dateSelect = document.querySelector("#dateApp");
+        const timeSelect = document.querySelector("#timeApp");
+
+        // Function to populate the result select with data
+        function populateResultSelect(selectedValue) {
+
+
+            $.ajax("../api/adminapi/getDateTime")
+                .done(function (data) {
+
+
+                    // Filter the data based on the selected category
+                    const datos = data.filter(item => item.avadate == selectedValue);
+
+                    // Clear the existing options in the result select
+                    timeSelect.innerHTML = "";
+
+                    // Populate the result select with the filtered data
+                    datos.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item.avatime;
+                        option.innerText = item.avatime;
+                        timeSelect.appendChild(option);
+                    });
+
+
+                });
+        }
+
+        // Initial population of the result select based on the default selected value
+        populateResultSelect(dateSelect.value);
+
+        // Event listener to update the result select when the category select changes
+        dateSelect.addEventListener("change", function () {
+            const selectedValue = this.value;
+            populateResultSelect(selectedValue);
+        });
 
 
 
 
 
-    function alertDeleteInfo() {
-        Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-        )
-    }
 
 
-    function vol1() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Inputted name is already in the data',
-        })
-    }
-    function alertError() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Input the necessary elements!',
-        })
-    }
 
-    function displaySavedProgress() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500
-        })
 
-    }
+
+
+        function alertDeleteInfo() {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+
+
+        function vol1() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Inputted name is already in the data',
+            })
+        }
+        function alertError() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Input the necessary elements!',
+            })
+        }
+
+        function displaySavedProgress() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+        }
     });//eend of the function
 </script>

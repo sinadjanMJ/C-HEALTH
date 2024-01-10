@@ -373,8 +373,7 @@
                             var cloned = template.content.cloneNode(true);
                             cloned.querySelector("option").value = item.dateId;
                             cloned.querySelector("option").innerText = item.avadate;
-    @* console.log(item.avadate) *@
-
+   
                                 parent[i].prepend(cloned);
                         });
                     }
@@ -476,6 +475,7 @@
 
                             { data: 'avadate' },
                             { data: 'avatime' },
+                            { data: 'timeSlot' },
                             {
                                 data: 'timeId',
                                 render: function (data, type, row) {

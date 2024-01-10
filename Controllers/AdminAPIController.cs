@@ -1426,10 +1426,10 @@ namespace SEPHMS.Controllers
 
 
             ).ToList();
-
+             var pending = result.Where(x => x.AppStatus == "Pending").ToList();
         
-
-            return Ok(result);
+        //  return Ok(result);
+           return Ok(pending);
            
         }
 
