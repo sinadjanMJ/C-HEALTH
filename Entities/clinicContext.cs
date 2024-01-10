@@ -137,9 +137,14 @@ namespace SEPHMS.Entities
                     .HasMaxLength(250)
                     .HasColumnName("dateApp");
 
-                entity.Property(e => e.StudentId)
+                entity.Property(e => e.PatientId)
                     .HasColumnType("int(11)")
-                    .HasColumnName("studentId");
+                    .HasColumnName("patientId");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("status");
 
                 entity.Property(e => e.TimeApp)
                     .IsRequired()

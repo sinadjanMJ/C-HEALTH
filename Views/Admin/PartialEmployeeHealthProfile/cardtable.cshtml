@@ -5,22 +5,45 @@
   </span>
 </div>
 
-<template id="card-container" >
-    <div class="card">
-        <div class="card-body datecard">
-            
-            <h5 class="card-title">Card title</h5>
 
-        </div>
+<template id="card-container">
+  <div class="card">
+    <div class="card-body datecard" title="Click this to view your health profile">
+      <img src="~/image/folder.png" alt="Folder Icon" class="folder-icon">
+      <h5 class="card-title">Folder Name</h5>
     </div>
+  </div>
 </template>
 <div class="parent"></div>
 
+
 <style>
    
-  .card{
-    margin-bottom: 20px;
+ .parent {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust the values as needed */
+    gap: 10px; /* Adjust the gap between cards as needed */
   }
+
+  .card {
+    width: 80%;
+    
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+   
+  }
+
+  .folder-icon {
+    width: 80px;
+    height: 80px;
+    
+  }
+
+  .card-title {
+    font-size: 15px;
+  }
+   
 
   .rounded{
      margin-bottom: 20px;

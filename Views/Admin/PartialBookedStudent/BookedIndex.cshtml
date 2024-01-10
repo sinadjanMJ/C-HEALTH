@@ -1,0 +1,228 @@
+<script>
+    // get the logged status  sessionStorage.getItem("Borrower") == "false" ||
+    if (sessionStorage.getItem("Admin/AdminBooked") == "false" || sessionStorage.getItem("Logged") === "false" || sessionStorage.getItem("Logged") == undefined || sessionStorage.getItem("Logged") == null) {
+        location.href = '/Page/SIGN'
+    }
+</script>
+
+
+
+
+
+
+
+
+@Html.Partial("PartialBookedStudent/StudentBookTable")
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+
+    var StudentList;
+    var AppointentList;
+    var selectedStudentAppoint;
+
+    $(document).ready(function () {
+
+        var userType = sessionStorage.getItem('userType');
+        if (userType === null) {
+            window.location.href = "/Page/SIGN";
+        }
+        else {
+            if (userType === "patient") {
+                window.location.href = "/User/StudentHealthProfile";
+            }
+        }
+
+
+        displayStudentBook();
+        getStudent();
+        getAppointmentList();
+
+        function getStudent() {
+            $.ajax("../api/adminapi/getStudent")
+                .done(function (result) {
+                    StudentList = result;
+                })
+        }
+
+           function getAppointmentList() {
+            $.ajax("../api/adminapi/getAppointmentList")
+                .done(function (result) {
+                    AppointentList = result;
+                })
+        }
+
+        function displayStudentBook() {
+            $('#StudentDataBook').DataTable().destroy();
+            if (!$.fn.DataTable.isDataTable('#StudentDataBook')) {
+                $('#StudentDataBook').DataTable({
+                    ajax: {
+                        url: '../api/adminapi/getAppointmentStudent', // API endpoint to retrieve department
+                        dataSrc: ''
+                    },
+                    columns:
+                        [
+
+                            { data: 'spiId' },
+                            { data: 'dateApp' },
+                            { data: 'timeApp' },
+                            { data: 'fullname' },
+                            { data: 'address' },
+                            { data: 'departmentName' },
+                            { data: 'courseStrandYearName' },
+
+                            {
+                                data: 'appointmentId',
+                                render: function (data, type, row) {
+                                    return btnStudentBook(data);
+                                }
+                            },
+                        ]
+
+
+
+
+
+
+                });
+            }
+            //  getCategory();
+        }
+
+        function btnStudentBook(id) {
+            return "<center><a class='btn btn-info bookApproved' style='color : #ffffff;'  data-appointmentId=" + id + ">&nbsp;&emsp;Approved&emsp;&nbsp;</a><br><br><a class='btn btn-warning bookSentMessage' data-appointmentId=" + id + "  style='color : #ffffff;'>Send Message</a></center>"
+            //sample <a class='btn btn-danger CategoryDelete' data-id=" + id + "  style='color : #ffffff;'>Delete</a>
+
+        }
+
+
+        $("tbody").delegate(".bookApproved", "click", function (e) {
+            console.log("I was clicked");
+            var i = e.target.closest("a").getAttribute("data-appointmentId");
+            if (i != null) {
+
+            selectedStudentAppoint = AppointentList.find(element => element.appointmentId == i);
+            console.log("Appointment",selectedStudentAppoint);
+
+           var selectedStudent = StudentList.find(element => element.spiId == selectedStudentAppoint.patientId);
+            console.log("selected",selectedStudent);
+
+
+                Swal.fire({
+                    title: 'Confirm this if this student is attending!!',
+                    confirmButtonText: 'Confirm',
+                    showCancelButton: true,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+
+
+                    selectedStudent.status = "Approved";
+
+                     $.ajax
+                    ({
+                    url: "../api/adminapi/updateStudent",
+                    type: "POST",
+                    data:
+                    {
+                        upst: selectedStudent,
+                        age: selectedStudent.age,
+                        //  randompass: arrData.spiCode,
+                        fullname: ` ${selectedStudent.firstname}  ${selectedStudent.middlename}  ${selectedStudent.lastname}`,
+
+                        address: `Purok ${selectedStudent.addressPurok}, ${selectedStudent.addressBarangay}, ${selectedStudent.addressMunicipality}, ${selectedStudent.addressProvince}`
+
+                    },
+                })
+                .done(function () {
+                    
+                   
+                });
+
+
+                 selectedStudentAppoint.status = "Approved";
+                 console.log("Approved",selectedStudentAppoint);
+                $.ajax
+                    ({
+                    url: "../api/adminapi/UpdateAppoint",
+                    type: "POST",
+                    data:
+                    {
+                        appoint: selectedStudentAppoint,
+                    },
+                })
+                .done(function () {
+                    displayStudentBook();
+                    displaySavedProgress();
+                });
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                })
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+    function alertDeleteInfo() {
+        Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+        )
+    }
+
+
+    function vol1() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Inputted name is already in the data',
+        })
+    }
+    function alertError() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Input the necessary elements!',
+        })
+    }
+
+    function displaySavedProgress() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+    }
+    });//eend of the function
+</script>

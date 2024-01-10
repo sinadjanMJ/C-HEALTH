@@ -8,6 +8,7 @@ namespace SEPHMS.Entities
         public int AppointmentId { get; set; }
         public string DateApp { get; set; }
         public string TimeApp { get; set; }
-        public int StudentId { get; set; }
+        public int PatientId { get; set; }
+        public string Status { get; set; }
     }
 }

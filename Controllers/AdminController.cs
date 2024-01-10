@@ -28,6 +28,10 @@ namespace SEPHMS.Controllers
             return View("PartialCategory/CategoryIndex");
         }
 
+        public ActionResult AdminBookedStudent(){
+            return View("PartialBookedStudent/BookedIndex");
+        }
+
         public ActionResult AdminEquipment(){
             return View("PartialEquipment/EquipmentIndex");
         }

@@ -40,8 +40,9 @@
                     </li>
 
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Home">Logout</a>
+                   <li class="nav-item">
+                        @* <a class="nav-link" asp-area="" asp-controller="User" asp-action="Home">Logout</a> *@
+                        <a class="nav-link btnLogout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -50,11 +51,11 @@
     <section class="s1">
         <div class="container">
             <div class="schedule">
-                    
-                    <center>
+
+                <center>
                     <button type="button" data-toggle="modal" data-target="#confirmModal"
                         class="btn btn-primary btn-width m-2">Appoint schedule now!!</button>
-                    </center>
+                </center>
 
 
 
@@ -101,17 +102,20 @@
         getTime();
 
         var userType = sessionStorage.getItem('userType');
-        if(userType === null)
-        {
+        if (userType === null) {
             window.location.href = "/User/practLogin";
         }
-        else
-        {
-            if(userType === "admin")
-            {
+        else {
+            if (userType === "admin") {
                 window.location.href = "/Admin/AdminCategory";
             }
         }
+
+         $(".btnLogout").click((e) => {
+            sessionStorage.clear();
+            localStorage.clear();
+            window.location.href = "/User/Home";
+        });
 
 
         function margin() {
@@ -120,23 +124,33 @@
             $(".container-fluid").removeClass();
         }
 
-        function getUserID()
-        {
+        function getUserID() {
             var retrievedArray = JSON.parse(localStorage.getItem('userData'));
+
             retrievedArray.forEach(function (item) {
-                userId = item.spiId;
+                if (item.spiId == null || item.spiId == undefined) {
+                    console.log("employee siya")
+                    if (item.epiId == null || item.epiId == undefined) {
+                        console.log("student siya")
+                    } else {
+                        userId = item.epiId;
+                    }
+                } else {
+                    userId = item.spiId;
+                }
+
+
             });
         }
 
 
-        function getAppointmentList()
-        {
+        function getAppointmentList() {
             //getting the appointment list first.
             $.ajax("../api/adminapi/getAppointmentList")
-            .done(function(result){
-                appointmentList = result;
-                console.log("Appointment List : ", appointmentList);
-            });
+                .done(function (result) {
+                    appointmentList = result;
+                    console.log("Appointment List : ", appointmentList);
+                });
         }
 
 
@@ -156,15 +170,14 @@
                         if (obj.avadate !== undefined) {
 
                             //Check if the appointment list has the data of student id inside the Date
-                            const matchingAppointments = appointmentList.filter(appointment => 
-                                appointment.dateApp === obj.avadate && appointment.studentId === userId
+                            const matchingAppointments = appointmentList.filter(appointment =>
+                                appointment.dateApp === obj.avadate && appointment.patientId === userId
                             );
 
                             console.log(matchingAppointments.length);
 
                             //If there is no student id within that date then push the value
-                            if(matchingAppointments.length <= 0)
-                            {
+                            if (matchingAppointments.length <= 0) {
                                 // Push the value to the new array
                                 allowedDates.push(obj.avadate);
                             }
@@ -215,22 +228,21 @@
 
                         console.log("Date time list : ", getDateTimeList);
                         getDateTimeList.forEach(obj => {
-                        // Check if the avadate property exists and is equal to the selected date
-                        if (obj.avadate !== undefined && obj.avadate === selectedDate) {
+                            // Check if the avadate property exists and is equal to the selected date
+                            if (obj.avadate !== undefined && obj.avadate === selectedDate) {
 
-                            //count the number of appointments based on the avadate and selecteddate
-                            const matchingAppointments = appointmentList.filter(appointment => 
-                                appointment.dateApp === selectedDate && appointment.timeApp === obj.avatime
-                            );
+                                //count the number of appointments based on the avadate and selecteddate
+                                const matchingAppointments = appointmentList.filter(appointment =>
+                                    appointment.dateApp === selectedDate && appointment.timeApp === obj.avatime
+                                );
 
-                            //if the number of appointments are less than the time slot then push the time.
-                            if(matchingAppointments.length < obj.timeSlot)
-                            {
-                                // Push the avatime value to the array
-                                avatimeArray.push(obj.avatime);
+                                //if the number of appointments are less than the time slot then push the time.
+                                if (matchingAppointments.length < obj.timeSlot) {
+                                    // Push the avatime value to the array
+                                    avatimeArray.push(obj.avatime);
+                                }
                             }
-                        }
-                    });
+                        });
 
                         console.log('Avatime Array for Selected Date:', avatimeArray);
 
@@ -285,9 +297,12 @@
 
                         DateApp: DateValue,
                         TimeApp: selectedValue,
-                        StudentId: userId,
+                        PatientId: userId,
+                        Status: "Pending",
 
                     };
+
+                    console.log(appData)
 
 
 
@@ -295,20 +310,20 @@
                     //  console.log("yes im clicked");
 
 
-                    $.ajax
+                  $.ajax
                         ({
-                            url: "../api/adminapi/AddAppointSchedule",
-                            type: "POST",
-                            data:
-                            {
-                                appoint: appData
-                            },
+                        url: "../api/adminapi/AddAppointSchedule",
+                        type: "POST",
+                        data:
+                        {
+                        appoint: appData
+                        },
                         })
                         .done(function () {
 
 
-                            displaySavedProgress();
-                            window.location.reload();
+                        displaySavedProgress();
+                        window.location.reload();
 
 
 
@@ -329,7 +344,9 @@
                 $('#back').attr('data-toggle', 'modal').attr('data-target', '#confirmModal');
             });
 
+          
 
+      
 
 
 

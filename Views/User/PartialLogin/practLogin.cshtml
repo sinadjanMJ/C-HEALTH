@@ -200,7 +200,7 @@
 
 
         function getStudent() {
-            $.ajax("../api/adminapi/getStudents")
+            $.ajax("../api/adminapi/getStudent")
                 .done(function (result) {
 
                     StudentList = result;
@@ -284,11 +284,11 @@
                         var filterUserData = (gmail, pass) => StudentList.filter(user => user.gmailaddress == gmail && user.spiCode == pass);
 
                         var filteredUserData = filterUserData(gmail, pass);
+                        localStorage.setItem('userData', JSON.stringify(filteredUserData));
 
                         sessionStorage.setItem("Logged", true)
                         sessionStorage.setItem('userType', 'patient');
-                        localStorage.setItem('userData', JSON.stringify(filteredUserData));
-
+                        
                         location.href = '/User/StudentHealthProfile';
 
 

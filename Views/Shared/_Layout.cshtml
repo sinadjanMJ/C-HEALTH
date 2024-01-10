@@ -203,13 +203,33 @@
             <li class="header-menu">
               <span>Appointment</span>
             </li>
-            <li>
+             <li class="sidebar-dropdown">
+              <a href="#">
+                <i class="fas fa-book"></i>
+                <span>Booked</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                    <a asp-area="" asp-controller="Admin" asp-action="AdminBookedStudent">Student
+                    </a>
+                  </li>
+                  <li>
+                    <a asp-area="" asp-controller="Admin" asp-action="AdminBookedStudent">Employee
+                    </a>
+                  </li>
+
+
+                </ul>
+              </div>
+            </li>
+            @* <li>
               <a href="#">
                 <i class="fa fa-book"></i>
                 <span>Booked</span>
-                @* <span class="badge badge-pill badge-primary">Beta</span> *@
+               
               </a>
-            </li>
+            </li> *@
 
             <li>
 
@@ -219,7 +239,7 @@
               </a>
             </li>
 
-            <li class="header-menu">
+            @* <li class="header-menu">
               <span>Back Up</span>
             </li>
 
@@ -228,7 +248,7 @@
                 <i class="fa fa-folder"></i>
                 <span>Back Up Files</span>
               </a>
-            </li>
+            </li> *@
 
           </ul>
         </div>

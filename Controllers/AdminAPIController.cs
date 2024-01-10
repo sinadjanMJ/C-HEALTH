@@ -1061,7 +1061,7 @@ namespace SEPHMS.Controllers
         }
 
 
-             public IActionResult updateStudent(Studentpersonalinformation upst, int age , string address ,string fullname)
+         public IActionResult updateStudent(Studentpersonalinformation upst, int age , string address ,string fullname)
         {
             try
             {
@@ -1366,6 +1366,90 @@ namespace SEPHMS.Controllers
 
             return Ok(res);
         }
+     
+
+
+        
+          public ActionResult<List<appointStudentViewModel>> getAppointmentStudent(){
+
+             var result = (
+                from s in _context.Studentpersonalinformations
+                join a in _context.Appointments
+                on s.SpiId equals a.PatientId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+                
+                join d in _context.Departments
+                on s.DepartmentId equals d.DepartmentId // naka base siya table if int ba or sting kung int mag tostring ka
+               
+                join c in _context.Coursestrandyears
+                on s.CourseStrandYearId equals c.CourseStrandYearId
+
+
+
+                select new appointStudentViewModel
+                {
+
+                AppointmentId = a.AppointmentId,
+                DateApp = a.DateApp,
+                TimeApp = a.TimeApp,
+                AppStatus = a.Status,
+
+                SpiId  = s.SpiId,
+                Firstname  = s.Firstname,
+                Lastname = s.Lastname,
+                Middlename = s.Middlename,
+                Birthdate = s.Birthdate,
+                Gmailaddress = s.Gmailaddress,
+                AddressProvince = s.AddressProvince,
+                Age = s.Age,
+                SpiCode = s.SpiCode,
+                Gender = s.Gender,
+                AddressMunicipality = s.AddressMunicipality,
+                AddressBarangay = s.AddressBarangay,
+                AddressPurok = s.AddressPurok,
+               
+               
+                Address = s.Address,
+                Fullname = s.Fullname,
+                Status = s.Status,
+
+               
+                CourseStrandYearId = c.CourseStrandYearId,
+                CourseStrandYearName = c.CourseStrandYearName,
+
+                DepartmentId = d.DepartmentId,
+                DepartmentName = d.DepartmentName
+
+                  
+                }
+
+
+
+            ).ToList();
+
+        
+
+            return Ok(result);
+           
+        }
+
+         public IActionResult UpdateAppoint(Appointment appoint)
+        {
+            try
+            {
+             _context.Appointments.Update(appoint);
+             _context.SaveChanges();
+
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        
+            return Ok();
+        }
+
 
         
      
