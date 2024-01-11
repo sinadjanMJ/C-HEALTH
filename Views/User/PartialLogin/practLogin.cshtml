@@ -5,16 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRV COLLEGE USER</title>
+
+
     <style>
-        /* Add your custom styles here */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+      
+       
+        .head{
+
+            padding: 10px;
+            color: #fff;
         }
 
         .container {
+            margin-top: 20px;
+
+        }
+
+
+        .containers{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,12 +37,15 @@
             background-color: #fff;
             padding: 20px;
         }
+        .heads{
+          margin-bottom: 20px;
+        }
 
         header {
             text-align: center;
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 20px;
+           
         }
 
         .form button,
@@ -76,11 +87,50 @@
 </head>
 
 <body>
-    <div class="container">
+    <header class="head" style="background: linear-gradient(to right, #16222a, #3a6073);">
+        <div class="container">
+            <h1>View and explore more</h1>
+        </div>
+    </header>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="ViewMed">Available Medicine</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" 
+                        asp-action="Home">Home</a>
+                    </li>
+                  
+                  
+                     <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User"
+                         asp-action="practLogin">View Health Profile</a>
+                    </li>
+
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="containers">
         <div class="form-container">
             <!-- Combined Form -->
             <div class="form" id="combinedForm">
-                <header>Choose User</header>
+                <header class="heads">Choose User</header>
                 <form action="#" id="chooseUserForm">
                     <button class="btn btn-success" onclick="toggleStudentForms()">STUDENT</button>
                     <button class="btn btn-success" onclick="toggleEmployeeForms()">EMPLOYEE</button>
@@ -199,13 +249,13 @@
             $(".container-fluid").removeClass();
         }
 
-       
+
         function getLocal() {
             $.ajax("../api/adminapi/getStudents")
                 .done(function (result) {
 
                     LocalList = result;
-        });
+                });
 
         }
 
@@ -298,7 +348,7 @@
 
                         sessionStorage.setItem("Logged", true)
                         sessionStorage.setItem('userType', 'patient');
-                        
+
                         location.href = '/User/StudentHealthProfile';
 
 

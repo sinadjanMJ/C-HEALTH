@@ -9,6 +9,8 @@
 @Html.Partial("PartialPhysician/PhysicianUpdate")
 
 
+
+
 @* gamit kaayu ni siya para maka pa display og value sa select option *@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
@@ -150,7 +152,7 @@
 
 
         function btnAddPhysicianData(id) {
-            return "<center><a class='btn btn-info physicianUpdate' data-physicianId=" + id + " style='color : #ffffff;'>Update</a> &nbsp; <a class='btn btn-danger physicianDelete' data-physicianId=" + id + " style='color : #ffffff;'>Delete</a></center>"
+            return "<center><a class='btn btn-info physicianUpdate' data-physicianId=" + id + " style='color : #ffffff; '>Update</a> &nbsp; <a class='btn btn-danger physicianDelete' data-physicianId=" + id + " style='color : #ffffff;'>Delete</a></center>"
         }
 
 
@@ -313,33 +315,6 @@
                     alertDeleteInfo();
                 });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         function alertDeleteInfo() {
             Swal.fire(
