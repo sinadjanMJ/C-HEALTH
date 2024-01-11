@@ -16,7 +16,7 @@
 
 <body>
 
-    <header style=" background-color: #6c7b88;">
+    <header style="background: linear-gradient(to right, #16222a, #3a6073);">
         <div class="container">
             <h1>View Health Profile</h1>
         </div>
@@ -33,9 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="userProfile">Profile</a>
-                    </li>
+                    
 
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="User" asp-action="Appoint">Appoint Schedule</a>
@@ -55,7 +53,7 @@
     <section class="s1">
         <div class="container">
             <div class="schedule">
-
+              @Html.Partial("PartialViewHealthProfileAndSchedule/Profile")
                 @Html.Partial("PartialViewHealthProfileAndSchedule/cardtable")
 
                 <center>
@@ -129,8 +127,15 @@
                     //   sampleValueHIId = 9;
 
                     var retrievedArray = JSON.parse(localStorage.getItem('userData'));
+
                     retrievedArray.forEach(function (item) {
                         sampleValueHIId = item.spiId;
+                    
+                    $("#Username").html(item.fullname);
+                    $("#Usergmail").html(item.gmailaddress);
+                    $("#UserProgam").html(item.courseStrandYearName);
+
+
                     });
 
                     dateComp = result.filter(function (item) {

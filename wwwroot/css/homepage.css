@@ -46,7 +46,15 @@
         margin-bottom: 10px;
     }
 
+    
+      .profile-header-img {
+          margin-top: 10px; /* Adjust margin for smaller screens */
+       
+         
+      }
 
+   
+  
 
 
 
@@ -66,6 +74,28 @@
 
     
 
+  
+    
+    .profile-header {
+      text-align: center;
+  }
+
+  .profile-header .profile-header-img,
+  .profile-header-img+.profile-header-info {
+      margin-left: 0;
+      float: none;
+      text-align: center;
+  }
+
+  .profile-header .profile-header-tab {
+      padding: 0;
+  }
+
+  .profile-header .profile-header-tab>li {
+      display: block;
+      width: 100%;
+      margin: 0;
+  }
 
 
    
@@ -107,6 +137,9 @@
   height: 300px;
   /* Adjust the height as needed */
   object-fit: cover;
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
   /* Maintain aspect ratio and cover the container */
 }
 

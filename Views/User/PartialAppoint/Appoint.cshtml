@@ -12,7 +12,7 @@
 
 <body>
 
-    <header style=" background-color: rgb(80, 86, 97);">
+    <header style="  background: linear-gradient(to right, #16222a, #3a6073);">
         <div class="container">
             <h1>Appointment Scheduler</h1>
         </div>
@@ -29,10 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="userProfile">Profile</a>
-                    </li>
-
+                   
 
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="User" asp-action="studenthealthprofile">Health
@@ -52,13 +49,8 @@
         <div class="container">
             <div class="schedule">
 
-                <center>
-                    <button type="button" data-toggle="modal" data-target="#confirmModal"
-                        class="btn btn-primary btn-width m-2">Appoint schedule now!!</button>
-                </center>
 
-
-
+                @Html.Partial("PartialAppoint/ProfileAppoint")            
                 @Html.Partial("PartialAppoint/displayschedule")
                 @Html.Partial("PartialAppoint/modalAppoint")
                 @Html.Partial("PartialAppoint/modalPreview")
@@ -93,13 +85,16 @@
     var userId;
     var appointmentList = {};
 
+    
+
 
     $(document).ready(function () {
+        getDates();
+        getTime();
         margin();
         getUserID();
         getAppointmentList();
-        getDates();
-        getTime();
+     
 
         var userType = sessionStorage.getItem('userType');
         if (userType === null) {
@@ -126,17 +121,25 @@
 
         function getUserID() {
             var retrievedArray = JSON.parse(localStorage.getItem('userData'));
-
+       
             retrievedArray.forEach(function (item) {
                 if (item.spiId == null || item.spiId == undefined) {
+
                     console.log("employee siya")
                     if (item.epiId == null || item.epiId == undefined) {
                         console.log("student siya")
                     } else {
                         userId = item.epiId;
+                   $("#Username").html(item.fullname);
+                    $("#Usergmail").html(item.gmailaddress);
+                     $("#UserProgam").html(item.courseStrandYearName);
                     }
                 } else {
                     userId = item.spiId;
+
+                    $("#Username").html(item.fullname);
+                    $("#Usergmail").html(item.gmailaddress);
+                     $("#UserProgam").html(item.courseStrandYearName);
                 }
 
 
@@ -150,6 +153,8 @@
                 .done(function (result) {
                     appointmentList = result;
                     console.log("Appointment List : ", appointmentList);
+                    
+                    getDates();
                 });
         }
 
@@ -161,11 +166,11 @@
 
                     var allowedDates = [];
 
-
-
+                 
+                
                     result.forEach(obj => {
-
-                        //  console.log('obj',obj.avadate);
+  
+                        @* //  console.log('obj',obj.avadate);
                         // Check if the avadate property exists in the current object
                         if (obj.avadate !== undefined) {
 
@@ -174,16 +179,20 @@
                                 appointment.dateApp === obj.avadate && appointment.patientId === userId
                             );
 
-                            console.log(matchingAppointments.length);
+                            console.log("matching",matchingAppointments);
 
                             //If there is no student id within that date then push the value
                             if (matchingAppointments.length <= 0) {
                                 // Push the value to the new array
-                                allowedDates.push(obj.avadate);
+                               
                             }
 
-                        }
-                    });
+                        } *@
+
+                          allowedDates.push(obj.avadate);
+
+                        
+                    }); 
 
                     var arrayWithoutDuplicates = [...new Set(allowedDates)];
                     console.log('dupli', arrayWithoutDuplicates);
@@ -233,11 +242,11 @@
 
                                 //count the number of appointments based on the avadate and selecteddate
                                 const matchingAppointments = appointmentList.filter(appointment =>
-                                    appointment.dateApp === selectedDate && appointment.timeApp === obj.avatime
+                                    appointment.dateApp === selectedDate && appointment.timeApp === obj.avatime && appointment.patientId === userId
                                 );
 
                                 //if the number of appointments are less than the time slot then push the time.
-                                if (matchingAppointments.length < obj.timeSlot) {
+                                if (matchingAppointments.length < obj.timeSlot && matchingAppointments.length <= 0) {
                                     // Push the avatime value to the array
                                     avatimeArray.push(obj.avatime);
                                 }

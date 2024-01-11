@@ -134,6 +134,7 @@
 
 
       } else {
+      if(gmailAdd.includes(gmail)){
         $.ajax({
           url: "/api/adminapi/userloginAdmin",
           method: "POST",
@@ -153,16 +154,21 @@
 
             sessionStorage.setItem('adminData', JSON.stringify(filteredUserData));
 
-
+              displaySavedProgress();
               location.href = '/Admin/AdminCategory';
-
-
+               
+         
           },
 
           error: err => {
-            error();
+          gmailvalidation();
           }
         })
+
+        }else{
+         error();
+            
+        }
 
       }
 
@@ -269,8 +275,26 @@
       });
     }
 
+     function gmailvalidation() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Incorrect Password and Email',
+        text: 'Email and Password is invalid!',
+        confirmButtonText: 'OK'
+      });
+    }
 
 
+     function displaySavedProgress() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Welcome',
+            text: 'Successfully Login',
+            showConfirmButton: false,
+            timer: 3500
+        })
+
+    }
 
 
 

@@ -1,0 +1,54 @@
+<div class="header">
+    <center>
+        <div class="profile-header-img">
+            <img src="~/image/profile2.jpg" alt="">
+        </div>
+    </center>
+    <div class="inside">
+        <h4 class="m-t-10 m-b-5" id="Username">Sinadjan Michael Jay</h4>
+        <p class="m-b-10" id="Usergmail">sinadjanmichaeljay@gmail.com</p>
+        <p class="m-b-10" id="UserProgam" style="margin-top: -20px;">BSIT-4A</p>
+        <h5 class="m-t-10 m-b-5" id="welcome">Welcome</h5>
+
+        <button type="button" data-toggle="modal" data-target="#confirmModal"
+            class="btn btn-primary btn-width m-2">Appoint schedule now!!</button>
+
+    </div>
+</div>
+
+<style>
+    .header {
+        background: linear-gradient(to right, #16222a, #3a6073);
+        color: white;
+        overflow: hidden;
+        /* Prevent content overflow */
+    }
+
+    .inside {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        /* Center text within .inside */
+    }
+
+    .profile-header-img {
+        float: none;
+        /* Clear float */
+        display: inline-block;
+        /* Display inline for centering */
+        /* Center horizontally with auto margins */
+        margin-top: 10px;
+    @*margin-left:480px;*@width: 100px;
+        height: 100px;
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+        border-radius: 70px;
+        background: #fff;
+
+    }
+
+    .profile-header-img img {
+        max-width: 100%;
+    }
+</style>

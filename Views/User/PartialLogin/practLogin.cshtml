@@ -159,6 +159,7 @@
 <script>
     var gmailAdd;
     var StudentList = {};
+    var LocalList = {};
     var selectedStudent;
 
     var EmpgmailAdd;
@@ -167,6 +168,7 @@
 
     $(() => {
         getStudent();
+        getLocal();
         getEmployee();
 
         AddSelectDepartment();
@@ -197,7 +199,15 @@
             $(".container-fluid").removeClass();
         }
 
+       
+        function getLocal() {
+            $.ajax("../api/adminapi/getStudents")
+                .done(function (result) {
 
+                    LocalList = result;
+        });
+
+        }
 
         function getStudent() {
             $.ajax("../api/adminapi/getStudent")
@@ -281,7 +291,7 @@
                         //   console.log(StudentList);
                         //  console.log("result",filteredUserData)
 
-                        var filterUserData = (gmail, pass) => StudentList.filter(user => user.gmailaddress == gmail && user.spiCode == pass);
+                        var filterUserData = (gmail, pass) => LocalList.filter(user => user.gmailaddress == gmail && user.spiCode == pass);
 
                         var filteredUserData = filterUserData(gmail, pass);
                         localStorage.setItem('userData', JSON.stringify(filteredUserData));
